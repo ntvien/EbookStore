@@ -1,0 +1,51 @@
+nav.navbar.navbar-default.custom-header{
+  background-color:rgb(219,241,232);
+}
+
+a.navbar-brand.navbar-link{
+  border-radius:27px;
+}
+
+a{
+  border-radius:27px;
+}
+
+span.badge{
+  border-radius:27px;
+}
+
+input{
+  margin-top:10px;
+  width:80%;
+  height:50px;
+}
+
+button.btn.btn-default{
+  width:100px;
+  height:50px;
+}
+
+div.col-md-5.col-md-offset-0.search{
+}
+
+div.col-md-7.inputsearch{
+  text-align:left;
+}
+
+button.btn.btn-default.glyphicon.glyphicon-search{
+  margin-top:-7px;
+}
+
+div.row.carousel{
+  margin-top:10px;
+}
+
+button.btn.btn-default.dropdown-toggle{
+  height:43px;
+  width:313px;
+}
+
+div.row{
+  margin-top:10px;
+}
+

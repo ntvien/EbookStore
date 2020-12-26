@@ -1,0 +1,61 @@
+{{#section 'js'}}
+<script type="text/javascript">
+    var validate = function () {
+        if ($('#user').val().length === 0) {
+            alert('Vui lòng nhập tên đăng nhập');
+            return false;
+        }
+        if ($('#pass').val().length == 0) {
+            alert('Bạn chưa nhập mật khẩu');
+            return false;
+        }
+        return true;
+    }
+</script> 
+{{/section}}
+<div class="login" data-spm-anchor-id="a2o4n.login_signup.0.i0.7cc0705bl5JFpQ">
+    <div class="login-title">
+        <h3>Chào mừng đến với Book Store Online. Đăng nhập ngay!</h3>
+        <div class="login-other">
+                <span>Thành viên mới?
+                    <a href="/account/signup">Đăng kí</a> tại đây</span>
+        </div>
+    </div>
+    <div>
+
+
+        <form action="" method="POST" role="form" onsubmit="return validate();">
+            {{#if showError}}
+                <div class="alert alert-danger" style="margin-left: 350px;width:600px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Đăng nhập thất bại!</strong> {{errorMsg}}
+                </div>
+            {{/if}}
+            <div class="mod-login">
+
+
+                <div class="mod-login-col1" style="margin-left: 200px">
+
+                    <div class="mod-input mod-login-input-email mod-input-email">
+                        <label>Tên đăng nhập</label>
+                        <input type="text" placeholder="Vui lòng nhập tên đăng nhập của bạn" data-meta="Field" name="username" id="user">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-input-password mod-login-input-password mod-input-password">
+                        <label>Mật khẩu</label>
+                        <input type="password" placeholder="Vui lòng nhập mật khẩu của bạn" data-meta="Field" name="pass" id="pass">
+                        <b></b>
+                        <span></span>
+                        
+                    </div>
+                    
+                </div>
+                    <div class="form-row subscribe-outer" style="width: 18%;margin-left: 330px">
+                            <button type="submit" class="button-default ygradient1" >ĐĂNG NHẬP</button>
+                    </div>
+
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+<div class="container sp">
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Xin chào {{name}}</h4>
+            <div>
+                <a href="update">Sửa đổi thông tin</a>
+            </div>
+            <div>
+                <a href="../cart">Giỏ hàng</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Thông tin cá nhân</h5>
+                    <h5>{{name}}</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5>Sổ địa chỉ</h5>
+                    <h5>{{name}}</h5>
+                    <span>{{diachi}}</span>
+                    <h5>{{sdt}} </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Đơn hàng gần đây</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="table-responsive">
+                                <table class="table" id="tableDH">
+                                    <thead>
+                                        <tr class="green">
+                                            <td>Mã đơn hàng</td>
+                                            <td>Ngày đặt hàng</td>
+                                            <td>Tổng tiền</td>
+                                            <td>Chi tiết</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {{#each donHang}}
+                                        <tr>
+                                            <td>{{idThanhToan}}</td>
+                                            <td>{{dateFormat ngayDatHang "DD/MM/YYYY, h:mm:ss a"}}</td>
+                                            <td>{{number_format tongGia}}đ </td>
+                                            <td>
+                                                <a href="order?id={{idThanhToan}}">Xem </a>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+
+                                    </tbody>
+                                    
+                                </table>
+                                <a href="/">
+                                        <button class="btn btn-success" type="button">Trang chủ</button>
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{{#section 'js'}}
+<script src="/phantrang/jquery.min.js"></script>
+<script src="/phantrang/bootstrap.min.js"></script>
+<script src="/phantrang/jquery.dataTables.min.js"></script>
+<script src="/phantrang/dataTables.bootstrap.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+
+<script>
+    $(function () {
+        $('#tableDH').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': true,
+            'language': {
+                "lengthMenu": "Hiển thị _MENU_ dòng",
+                "info": "Đang hiển thị _START_ tới _END_ tổng số _TOTAL_ kết quả",
+                "paginate": {
+                    "first": "Trang đầu",
+                    "last": "Trang cuối",
+                    "next": "Tiếp",
+                    "previous": "Trước"
+                }
+            }
+        });
+    });
+    $(function () {
+        //Date picker
+        $('#datepicker').datepicker({
+            autoclose: true
+        });
+    });
+    //Initialize Select2 Elements
+    $('.select2').select2();
+</script> {{/section}}

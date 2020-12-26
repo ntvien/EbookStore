@@ -1,0 +1,299 @@
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Nhà sách </title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="">
+    <meta name="keywords" content="nhà sách , đọc sách online, mua sách trực tuyến">
+    <meta property="og:site_name" content="">
+    <meta property="og:image" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Bên Kia Đồi">
+    <meta property="fb:app_id" content="650349931697034">
+    <link type="image/x-icon" rel="shortcut icon" href="">
+    <link rel="image_src" href="">
+    <link href="http://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic&amp;subset=latin,vietnamese" rel="stylesheet"
+        type="text/css">
+
+    <link rel="stylesheet" id="styles-css" href="/CSS/style.css" type="text/css" media="all">
+
+    <link rel="stylesheet" id="styles-css" href="/CSS/style.min.css" type="text/css" media="all">
+    <link rel="stylesheet" id="styles-css" href="/CSS/mystyle.css" type="text/css" media="all">
+    <link rel="stylesheet" id="styles-css" href="/CSS/bootstrap.css" type="text/css" media="all">
+    <link rel="stylesheet" id="styles-css" href="/CSS/owl.theme.css" type="text/css" media="all"> {{{_sections.css}}}
+    <link rel="stylesheet" href="/CSS/swiper.min.css">
+    <link rel="stylesheet" href="/CSS/vn.css">
+    <script type="text/javascript" src="/js/jquery2.js"></script>
+
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/swiper.min.js"></script>
+
+    <script type="text/javascript" src="/js/vn.js"></script>
+
+    <link rel="stylesheet" id="font-awesome-css" href="/CSS/font-awesome.min.css" type="text/css" media="all">
+    <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript">
+
+    </script>
+
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="">
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="">
+    <link rel="prev" title="Ta Ba Lô Trên Đất Á" href="">
+    <meta name="generator" content="WordPress 3.9.8">
+    <link rel="canonical" href="./Bên Kia Đồi_files/Bên Kia Đồi.html">
+    <link rel="shortlink" href="">
+    <link rel="stylesheet" href="/assets/css/dk.css" type="text/css">
+    <link rel="stylesheet" href="/assets/css/dk2.css" type="text/css">
+</head>
+
+<body class="home blog" cz-shortcut-listen="true">
+
+    <div class="cachep-rip-header">
+
+        <div class="header">
+
+            <div class="header-form">
+                <div class="header-form-container clearfloat">
+                    <a href="/" class="logo fl">
+                        <img src="/image/logo_2.png"STYLE="width: 62px;height: 60px;margin-left: -5px;margin-top: -17px;margin-right: 10px">
+                    </a>
+
+
+
+                    <div class="form-search fl">
+                        <form action="/tim-voi-key" method="get">
+                            <div class="form-search-wrap">
+                                <div class="dropdown-container">
+                                    <div class="dropdown-button" id="dropdown-button" style="color: #0a568c;width: 15%">
+                                        <select name="selectDanhMuc" style="color: #0a568c;font-size: 14px;font-weight: bold;width: 108%;text-align:left;  border:1px solid #fff;z-index:1000;padding:5px 0;left:-0.2px;height: 40px;top:100%;  text-align:right;position:absolute;">
+                                            <option name="idDanhMuc" id="idDanhMuc1" value="1">
+                                                <span>Tất cả</span>
+                                            </option>
+                                            <option name="idDanhMuc" id="idDanhMuc2" value="2">Tựa đề</option>
+                                            <option name="idDanhMuc" id="idDanhMuc3" value="3">Tác giả</option>
+                                            <option name="idDanhMuc" id="idDanhMuc4" value="4">Nhà SX</option>
+                                        </select>
+
+                                    </div>
+                                    <input type="text" name="keyword" id="keyword" autocomplete="off" placeholder=" Tìm sách theo tựa đề, tác giả hay nhà sản xuất...">
+                                    <button type="submit">
+                                        <span style="color: #0a568c;font-size: 14px;">Tìm kiếm</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="header-link fr" >
+                        <a href="" class="header-link-list fl">
+                            <img style="margin-left: -170px" src="/image/order.png" class="h-icon fl" title="Kiểm tra trạng thái Đơn hàng của bạn">
+                            <span style="margin-left: -140px"class="fl">Theo dõi
+                                <br>đơn hàng </span>
+                        </a>
+
+                        <div class="header-link-list fl">
+                            {{#if layoutVM.isLogged}}
+                            <form id="frmLogout" method="post" action="/account/logout"></form>
+                            <img src="/image/user.png" class="h-icon fl"> 
+                                {{#if layoutVM.Authorized}}
+                                <span class="fl">
+                                    <a href="/staff/task">Xin chào: {{layoutVM.curUser.FName}} {{layoutVM.curUser.LName}}</a>
+                                    <br>
+                                    <li>
+                                        <a id="lnkLogout" href="javascript:;">
+                                            <small>Logout</small>
+                                        </a>
+                                    </li>
+
+                                </span>
+                                {{else}}
+                                <span class="fl">
+                                    <a href="/account/profile">Xin chào: {{layoutVM.curUser.FName}} {{layoutVM.curUser.LName}}</a>
+                                    <br>
+                                    <li>
+                                        <a id="lnkLogout" href="javascript:;">
+                                            <small>Logout</small>
+                                        </a>
+                                    </li>
+
+                                </span>
+                                {{/if}}
+                        </div>
+                        {{#if layoutVM.Authorized}} {{else}}
+                        <div class="header-link fr">
+                            <div class="cart fl">
+                                <a href="/cart" target="_blank">
+                                    <img src="/image/cart.png" class="h-icon">
+                                    <span>Giỏ hàng</span>
+                                    <span class="cart-q">{{layoutVM.totalCart}}</span>
+                                </a>
+                            </div>
+                        </div>
+                        {{/if}} {{else}}
+                        <span style="margin-left: -70px"class="fl">Đăng nhập
+                            <br>
+                            <small>Tài khoản</small>
+                        </span>
+
+                        <div class="h-box clearfloat">
+                            <div class="h-arrow-up fl">
+                                <span></span>
+                            </div>
+                            <div class="h-box-wrap fl">
+                                <a href="/account/login?retUrl={{url}}" class="h-box-li h-box-l1 userShow1" title="Đăng nhập">Đăng nhập</a>
+                                <a href="/staff/login?retUrl={{url}}" class="h-box-li h-box-l1 userShow1" title="Đăng nhập nhân viên">Nhân viên đăng nhập</a>
+                                <a href="/account/signup" class="h-box-li h-box-l1 userShow2" title="Tạo tài khoản mới">Tạo tài khoản</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-link fr">
+                        <div class="cart fl">
+                            <a href="/cart" target="_blank">
+                                <img src="/image/cart.png" class="h-icon">
+                                <span>Giỏ hàng</span>
+                                <span class="cart-q">{{layoutVM.totalCart}}</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    {{/if}}
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="main-nav" style="margin-left: 58px;height: 6%;width: 120%">
+            <div class="main-container clearfloat" style="width: 100%">
+                <!--Main navigation-->
+                <div class="main-nav-wrap comNav fl">
+                    <span class="clearfloat">
+                        <img src="/image/menu.png" class="nav-icon fl">
+                        <span class="nav-long fl">DANH MỤC SẢN PHẨM</span>
+                        <span class="nav-short fl">DANH MỤC</span>
+                    </span>
+                    <ul class="main-nav-cont">
+                        <li class="main-nav-list">
+                            <a href="/tim-kiem" target="_blank">
+                                <span class="nav-icon-li"></span>
+                                <span>Theo Thể Loại</span>
+                                <div class="nav-arrow-sub">
+                                    <div></div>
+                                </div>
+                            </a>
+                            <!--http://127.0.0.1:3000/tim-kiem/theo-loai/?id=1-->
+                            <div class="nav-sub">
+                                <ul class="clearfloat">
+                                    <li class="nav-sub-li fl">
+                                        <a href="/tim-kiem">
+                                            <b>Thể loại</b>
+                                        </a>
+                                        {{#each layoutVM.categories}}
+                                        <a href="/tim-kiem/theo-loai/?id={{idLoai}}">{{tenLoai}}</a>
+                                        {{/each}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="main-nav-list">
+                            <a href="/tim-kiem" target="_blank">
+                                <span class="nav-icon-li"></span>
+                                <span>Theo Nhà Xuất Bản</span>
+                                <div class="nav-arrow-sub">
+                                    <div></div>
+                                </div>
+                            </a>
+                            <div class="nav-sub">
+                                <ul class="clearfloat">
+                                    <li class="nav-sub-li fl">
+                                        <a href="/tim-kiem">
+                                            <b>Nhà Xuất Bản</b>
+                                        </a>
+                                        {{#each layoutVM.nxb}}
+                                        <a href="/tim-kiem/theo-NhaSX/?id={{idNhaSX}}">{{tenNhaSX}}</a>
+                                        {{/each}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--The product you saw-->
+                <!--<div class="history fl">-->
+                <!--<img src="image/arrow1.png" class="nav-icon-h">-->
+                <!--<span>Sản phẩm bạn đã xem</span>-->
+                <!--<div><span class="n-arrow-up"></span></div>-->
+                <!--</div>-->
+                <!--30 days return-->
+                <a href="#" class="return fl" style="margin-left: 45px">
+                    <img src="/image/return.png" class="nav-icon-s">
+                    <span>30 ngày đổi trả dễ dàng</span>
+                </a>
+                <!--genuine product-->
+                <a href="#" class="genuine fl" style="margin-left: 110px">
+                    <img src="/image/genuine.png" class="nav-icon-s">
+                    <span>Tất cả sản phẩm 100% chính hãng</span>
+
+                </a>
+                <!--custom support-->
+                <a href="#" class="support fl" style="margin-left: 110px">
+                    <img src="/image/tel.png" class="nav-icon-s">
+                    <span>Hỗ trợ khách hàng</span>
+                </a>
+            </div>
+        </div>
+        <!--content of history-->
+        <div class="history-cont-wrap">
+            <div class="history-cont">
+                <p>Bạn chưa xem sản phẩm nào.</p>
+                <p>Hãy tiếp tục khám phá, các sản phẩm bạn đã xem sẽ hiển thị ở đây!</p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div>
+
+        {{{body}}}
+
+    </div>
+    <div class="footer-outer clearfix">
+        <div class="footer-inner container">
+            <div class="footer-line"></div>
+            <div class="footer-intro">
+                <div class="intro-description">
+                </div>
+            </div>
+            <div class="footer-subscribe">
+                <label for="subscribe_email">
+                    <b>Đăng ký nhận bản tin </b> - Không bỏ lỡ nhưng ưu đãi và sản phẩm mới nhất</label>
+                <div class="form-row subscribe-outer">
+                    <form method="post" action="/email" name="mc-embedded-subscribe-form" target="_blank">
+                        <button type="submit" class="button-default ygradient1" name="subscribe">Đăng ký</button>
+                        <input id="subscribe_email" class="input-default" type="email" name="email" value="" placeholder="Địa chỉ Email">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#lnkLogout').on('click', function () {
+            $('#frmLogout').submit();
+        });
+    </script> {{{_sections.js}}}
+</body>
+
+</html>

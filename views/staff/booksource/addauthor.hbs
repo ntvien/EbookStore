@@ -1,0 +1,119 @@
+ {{#section 'js'}}
+<script type="text/javascript">
+    var validate = function () {
+        if ($('#ssn').val().length === 0){
+            alert('Vui lòng nhập mã định danh cho tác giả');
+            return false;
+        }
+        if ($('#lname').val().length === 0){
+            alert('Vui lòng nhập đầy đủ họ và tên');
+            return false;
+        }
+        if ($('#mname').val().length === 0) {
+            alert('Vui lòng nhập đầy đủ họ và tên');
+            return false;
+        }
+        if ($('#fname').val().length === 0) {
+            alert('Vui lòng nhập đầy đủ họ và tên');
+            return false;
+        }
+        if ($('#addr').val().length ===0){
+            alert('Vui lòng nhập địa chỉ liên lạc');
+            return false;
+        }
+        if ($('#phone').val().length ===0){
+            alert('Vui lòng nhập số điện thoại liên lạc');
+            return false;
+        }
+        if ($('#mail').val().length ===0){
+            alert('Vui lòng nhập email');
+            return false;
+        }
+        return true;
+    }
+</script> 
+
+{{/section}} 
+{{#if showError}}
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Error!</strong> {{errorMsg}}
+</div>
+{{/if}} {{#if Success}}
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Success!</strong> {{Msg}}
+</div>
+{{/if}}
+
+
+<div class="login">
+        <form action="" method="POST" role="form" onsubmit="return validate();">
+            <div class="mod-login">
+                <div class="mod-login-col1" style="width: 350px;">
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>SSN</label>
+                        <input id="ssn" maxlength="10" type="text" placeholder="Mã định danh" data-meta="Field" name="ssn">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>First name</label>
+                        <input id="fname" type="text" placeholder="Tên" data-meta="Field" name="fname">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Midle name</label>
+                        <input id="miname" type="text" placeholder="Tên lót" data-meta="Field" name="mname">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Last name</label>
+                        <input id="lname" type="text" placeholder="Họ" data-meta="Field" name="lname">
+                        <b></b>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="mod-login-col2" style="width: 350px;">
+                    <div>
+                        <label >Sex</label>
+                        <td>
+                        <input type="radio" id='M' data-meta="Field" name="sex" value='M' style="height:15px; width:15px; vertical-align: middle;">
+                        <label for='M'>Nam</label>
+                        <input type="radio" id='F' data-meta="Field" name="sex" value='F' style="height:15px; width:15px; vertical-align: middle;">
+                        <label for='F'>Nữ</label>
+                        </td>
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Địa chỉ</label>
+                        <input id="addr" type="text" placeholder="Địa chỉ" data-meta="Field" name="address">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Số điện thoại</label>
+                        <input id="phone" maxlength="15" type="number" placeholder="Số điện thoại" name="phone">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Email</label>
+                        <input id="mail" type="email" placeholder="Email" name="email"data-meta="Field">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    
+                </div>
+                <div class="form-row subscribe-outer" style="width: 18%;margin-left: 100px">
+                    <button type="submit" class="button-default ygradient1 ">Cập nhật tác giả</button>
+                </div>
+                
+            </div>
+        </form>
+<a href="bsource" class="btn btn-info" role="button">Hoàn Thành</a>
+</div>
+

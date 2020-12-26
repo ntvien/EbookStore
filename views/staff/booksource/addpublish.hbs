@@ -1,0 +1,89 @@
+ {{#section 'js'}}
+<script type="text/javascript">
+    var validate = function () {
+        
+        if ($('#name').val().length === 0){
+            alert('Vui lòng nhập đầy đủ tên kho');
+            return false;
+        }
+        if ($('#addr').val().length ===0){
+            alert('Vui lòng nhập địa chỉ liên lạc');
+            return false;
+        }
+        if ($('#phone').val().length ===0){
+            alert('Vui lòng nhập số điện thoại liên lạc');
+            return false;
+        }
+        if ($('#mail').val().length ===0){
+            alert('Vui lòng nhập email');
+            return false;
+        }
+        if ($('#code').val().length ===0){
+            alert('Vui lòng nhập email');
+            return false;
+        }
+        return true;
+    }
+</script> 
+
+{{/section}} 
+{{#if showError}}
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Error!</strong> {{errorMsg}}
+</div>
+{{/if}} {{#if Success}}
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Success!</strong> {{Msg}}
+</div>
+{{/if}}
+
+
+<div class="login">
+        <form action="" method="POST" role="form" onsubmit="return validate();">
+            <div class="mod-login">
+                <div class="mod-login-col1" style="width: 350px;">
+                    
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Name</label>
+                        <input id="name" type="text" placeholder="Nhập tên nhà xuất bản" data-meta="Field" name="name">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Publisher Code</label>
+                        <input id="code" maxlength=20 type="text" placeholder="Nhập code nhà xuất bản" data-meta="Field" name="code">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Address</label>
+                        <input id="addr" type="text" placeholder="Nhập địa chỉ nhà xuất bản" data-meta="Field" name="address">
+                        <b></b>
+                        <span></span>
+                    </div>
+                
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Number phone</label>
+                        <input id="phone" maxlength="15" type="number" placeholder="Số điện thoại" name="phone">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Email</label>
+                        <input id="mail" type="email" placeholder="Email" name="email"data-meta="Field">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    
+                </div>
+                <div class="form-row subscribe-outer" style="width: 18%;margin-left: 100px">
+                    <button type="submit" class="button-default ygradient1 ">Cập nhật nhà xuất bản</button>
+                </div>
+                
+            </div>
+        </form>
+<a href="bsource" class="btn btn-info" role="button">Hoàn Thành</a>
+</div>
+

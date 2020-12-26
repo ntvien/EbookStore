@@ -1,0 +1,38 @@
+a{
+  color:#7292c2 !important;
+}
+
+span{
+  color:#dedede;
+  font-weight:100;
+}
+
+img#logo{
+  -ms-transform:scale(0.5,0.5);
+  -webkit-transform:scale(0.5,0.5);
+  transform:scale(0.5,0.5);
+}
+
+header{
+  padding-left:25px;
+  padding-right:25px;
+  padding-top:7px;
+  padding-bottom:7px;
+  border-bottom-color:#F7F7F7;
+  border-bottom-style:solid;
+  border-bottom-width:thin;
+  line-height:60px;
+  min-height:60px;
+}
+
+*{
+  -webkit-border-radius:0 0 0 0;
+  border-radius:0 0 0 0;
+  font-family:'Open Sans';
+  color:#406286 !important;
+}
+
+.header-nav{
+  padding-top:8px;
+}
+

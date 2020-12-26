@@ -1,0 +1,122 @@
+<div class="container sp">
+    <a class="btn btn-info" href="book/add" role="button" style="margin-left: 900px">
+        Thêm sản phẩm mới
+    </a>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="example1" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mã sách</th>
+                            <th>Tên sách</th>
+                            <th>Tác giả</th>
+                            <th>Nhà xuất bản</th>
+                            <th>Tên loại</th>
+                            <th>Giá bán</th>
+                            <th>Số lượng</th>
+                            <th>Sửa</th>
+                            <th>Xóa</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each Book}}
+
+                        <tr>
+                            <td>{{idSach}} </td>
+                            <td>{{ten_sach}} </td>
+                            <td>{{tac_gia}}</td>
+                            <td>{{tenNhaSX}}</td>
+                            <td>{{tenLoai}}</td>
+                            <td>{{giaBan}} </td>
+                            <td>{{soLuong}}</td>
+                            <td>
+                                <a class="btn" href="/manager/sanpham/edit?id={{idSach}}" role="button" style="background-color: gold">
+                                    Sửa
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn" href="/manager/sanpham/delete?id={{idSach}}" role="button" style="background-color: salmon">
+                                    Xóa
+                                </a>
+                            </td>
+                        </tr>
+
+                        {{/each}}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!--<button class="btn btn-info" href="/SP/add"type="button">Thêm </button>-->
+
+
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Bạn có chắc chắn muốn xóa thông tin sách này khỏi danh sách không?</h3>
+            </div>
+
+            <div class="">
+                <button style="margin-left:400px;margin-top: 20px" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                <form action="" method="POST" role="form" style="margin-left:500px;margin-top: -34px;margin-bottom: 18px">
+                    <input type="hidden" id="" name="idSach" value="{{idSach}}">
+                    <button type="submit" class="btn btn-danger">
+                        Okay
+                    </button>
+                </form>
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>-->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery 3 -->
+
+
+
+{{#section 'js'}}
+<script src="/phantrang/jquery.min.js"></script>
+<script src="/phantrang/bootstrap.min.js"></script>
+<script src="/phantrang/jquery.dataTables.min.js"></script>
+<script src="/phantrang/dataTables.bootstrap.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': true,
+            'language': {
+                "lengthMenu": "Hiển thị _MENU_ dòng",
+                "info": "Đang hiển thị _START_ tới _END_ tổng số _TOTAL_ kết quả",
+                "paginate": {
+                    "first": "Trang đầu",
+                    "last": "Trang cuối",
+                    "next": "Tiếp",
+                    "previous": "Trước"
+                }
+            }
+        });
+    });
+    $(function () {
+        //Date picker
+        $('#datepicker').datepicker({
+            autoclose: true
+        });
+    });
+    //Initialize Select2 Elements
+    $('.select2').select2();
+</script> {{/section}}

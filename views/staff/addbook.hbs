@@ -1,0 +1,140 @@
+ {{#section 'js'}}
+<script type="text/javascript">
+
+    var validate = function () {
+        if ($('#tensach').val().length === 0) {
+            alert('Vui lòng nhập tên sách');
+            return false;
+        }
+        if ($('#giaban').val().length === 0) {
+            alert('Vui Lòng nhập giá sách');
+            return false;
+        }
+        if ($('#tacgia').val().length === 0) {
+            alert('Vui lòng nhập tên tác giả');
+            return false;
+        }
+        if ($('#soluong').val().length === 0) {
+            alert('Vui lòng nhập số lượng sách');
+            return false;
+        }
+        if ($('#nhaxuatban').val() === '0') {
+            alert('Vui lòng chọn nhà xuất bản');
+            return false;
+        }
+        if ($('#loaisach').val() === '0') {
+            alert('Vui lòng chọn thể loại sách');
+            return false;
+        }
+
+        if ($('#file').val().length === 0) {
+            alert('Vui lòng chọn hình ảnh hiển thị');
+            return false;
+        }
+        if ($('#mota').val().length === 0) {
+            alert('Vui lòng viết mô tả cho sách');
+            return false;
+        }
+        return true;
+    }
+</script> {{/section}} {{#if showMsg}}
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Success!</strong> {{Msg}}
+</div>
+{{/if}} {{#if ErrMsg}}
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Error!</strong> {{Msg}}
+</div>
+{{/if}}
+
+<div class="login">
+    <div class="login-title" style="margin-left: 520px">
+
+        <h3 style="color: #0f8edd">Thêm mới sản phẩm</h3>
+
+    </div>
+    <div>
+        <form action="" method="POST" enctype="multipart/form-data" role="form" onsubmit="return validate();">
+            <div class="mod-login">
+                <div class="mod-login-col1" style="width: 350px;">
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Tên sách</label>
+                        <input type="text" placeholder="Nhập tên sách" data-meta="Field" name="ten_sach" id="tensach">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Tác giả</label>
+                        <input type="text" placeholder="Nhập tên tác giả" data-meta="Field" name="tac_gia" id="tacgia">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Nhà xuất bản</label>
+                        <select name="idNhaSX" class="form-control" style="border: 1px solid #5bb7c3;border-radius: 36px;font-size: 14px;height: 40px;"
+                            id="nhaxuatban">
+                            <option value="0">Chọn nhà xuất bản</option>
+                            {{#each nxb}}
+                            <option value="{{idNhaSX}}">{{tenNhaSX}}</option>
+                            {{/each}}
+                        </select>
+                        <span></span>
+
+                    </div>
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Chọn ảnh hiển thị</label>
+
+                        <input type="file" name="fileS" id="file">
+                    </div>
+                </div>
+                <div class="mod-login-col2" style="width: 350px;">
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Giá sách</label>
+                        <input type="number" placeholder="Nhập giá sách" data-meta="Field" name="giaBan" id="giaban">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Số lượng</label>
+                        <input type="number" placeholder="Nhập giá sách" data-meta="Field" name="sl" id="soluong">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Loại sách</label>
+                        <select name="idLoai" class="form-control" style="border: 1px solid #5bb7c3;border-radius: 16px;font-size: 14px;height: 40px;"
+                            id="loaisach">
+                            <option value="0">Chọn loại sách</option>
+                            {{#each loai}}
+                            <option value="{{idLoai}}">{{tenLoai}}</option>
+                            {{/each}}
+                        </select>
+                        <span></span>
+                    </div>
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Mô tả</label>
+                        <input type="text" placeholder="Nhập mô tả sách" data-meta="Field" name="moTa" id="mota">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="form-row subscribe-outer" style="width: 18%;margin-left: 300px;margin-top: -40px">
+                <button type="submit" class="button-default ygradient1 ">Thêm mới</button>
+                <a href="./">
+                    <button type="button" class="button-default ygradient1 ">Quay lại</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

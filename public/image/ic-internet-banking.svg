@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="54px" height="33px" viewBox="0 0 54 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 41.1 (35376) - http://www.bohemiancoding.com/sketch -->
+    <title>A8E62A4C-50EC-47E2-8E6D-FEEFB74720E7</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="54" height="33" rx="4"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="54" height="33" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="footer" transform="translate(-997.000000, -107.000000)">
+            <g id="support-connect-appdownload">
+                <g>
+                    <g id="Group-24">
+                        <g id="ic_internet-banking" transform="translate(997.000000, 107.000000)">
+                            <use id="Rectangle-14-Copy-6" stroke="#E4E4E4" mask="url(#mask-2)" stroke-width="2" fill="#F3F3F3" xlink:href="#path-1"></use>
+                            <rect id="Rectangle-14" fill="#D4D4D4" x="1" y="6" width="52" height="4"></rect>
+                            <text id="INTERNET-BANKING-Copy-3" font-family=".SFNSText, .SF NS Text" font-size="8.5" font-weight="normal" line-spacing="8.5" fill="#333333">
+                                <tspan x="4.72875977" y="18.8483887">INTERNET </tspan>
+                                <tspan x="6.32666016" y="27.3483887">BANKING</tspan>
+                            </text>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

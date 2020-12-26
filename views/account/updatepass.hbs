@@ -1,0 +1,79 @@
+ {{#section 'js'}}
+<script type="text/javascript">
+
+    var validate = function () {
+        if ($('#mkcu').val().length === 0) {
+            alert('Vui lòng nhập mật khẩu cũ');
+            return false;
+        }
+        if ($('#mkcu').val().length < 6) {
+            alert('Mật khẩu cũ ít nhất 6 kí tự');
+            return false;
+        }
+        if ($('#mkmoi1').val().length < 6) {
+            alert('Mật khẩu mới ít nhất 6 kí tự');
+            return false;
+        }
+        if ($('#mkmoi1').val() !== $('#mkmoi2').val()) {
+            alert('2 mật khẩu mới không trùng nhau');
+            return false;
+        }
+
+        return true;
+    }
+
+</script> {{/section}}
+
+<div class="login" data-spm-anchor-id="a2o4n.login_signup.0.i0.7cc0705bl5JFpQ">
+    <div class="login-title">
+        <h3>Đổi mật khẩu</h3>
+    </div>
+    <div>
+        {{#if showError}}
+        <div class="alert alert-danger" style="margin-left: 350px;width:600px;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Lỗi!</strong> {{errorMsg}}
+        </div>
+        {{/if}} {{#if showMsg}}
+        <div class="alert alert-success" style="margin-left: 350px;width:600px;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Thành công!</strong> {{Msg}}
+        </div>
+        {{/if}}
+        <form action="" method="POST" role="form" onsubmit="return validate();">
+
+            <div class="mod-login">
+
+
+                <div class="mod-login-col1" style="margin-left: 200px">
+
+                    <div class="mod-input mod-login-input-email mod-input-email">
+                        <label>Mật khẩu cũ</label>
+                        <input type="password" placeholder="Vui lòng nhập tên đăng nhập của bạn" data-meta="Field" id="mkcu" name="mkcu">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-input-password mod-login-input-password mod-input-password">
+                        <label>Mật khẩu mới</label>
+                        <input type="password" placeholder="Vui lòng nhập mật khẩu của bạn" data-meta="Field" name="mkmoi1" id="mkmoi1">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+                    <div class="mod-input mod-input-password mod-login-input-password mod-input-password">
+                        <label>Nhập lại mật khẩu mới</label>
+                        <input type="password" placeholder="Vui lòng nhập mật khẩu của bạn" data-meta="Field" name="mkmoi2" id="mkmoi2">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+
+                </div>
+                <div class="form-row subscribe-outer" style="width: 18%;margin-left: 330px">
+                    <button type="submit" class="button-default ygradient1">ĐỔI MẬT KHẨU</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

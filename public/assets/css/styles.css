@@ -1,0 +1,14 @@
+div.wrapper{
+  font-size:14px;
+  text-align:center;
+}
+
+div.ad.container{
+  padding-left:0px !important;
+  padding-right:0px !important;
+}
+
+.container{
+  width:97%;
+}
+
