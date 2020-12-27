@@ -1,37 +1,37 @@
-<div class="container">
-    <div class="row">
-            <div>
-                <a href="addkho">cập nhật thông tin kho</a>
-            </div>
-    </div>
-    <a href="task" class="btn btn-info" role="button">Hoàn Thành</a>
+{{#if showError}}
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Error!</strong> {{errorMsg}}
+</div>
+{{/if}}
 
-    <div class="box-body">
+<div class="container">
+<div class="box-body">
         <div class="row">
             <div class="col-md-12">
                 <table id="example1" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Mã kho</th>
-                            <th>Tên kho</th>
-                            <th>Địa chỉ</th>
+                            <th>Tên </th>
+                            <th>Tên Lót</th>
+                            <th>Họ</th>
                             <th>Số điện thoại</th>
+                            <th>Mã kho làm việc</th>
                             <th>Email</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each kho}}
 
                         <tr>
-                            <td>{{StorageID}} </td>
-                            <td>{{Name}}  </td>
-                            <td>{{Address}}</td>
+                            <td>{{FName}}</td>
+                            <td>{{MName}}</td>
+                            <td>{{LName}}  </td>
                             <td>{{PhoneNumber}}</td>
+                            <td>{{SID}}</td>
                             <td>{{Email}} </td>
                         </tr>
 
-                        {{/each}}
                     </tbody>
                    
                 </table>
@@ -39,6 +39,4 @@
         </div>
 
     </div>
-
-
-</div>
+    </div>

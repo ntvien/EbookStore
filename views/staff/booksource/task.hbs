@@ -7,5 +7,77 @@
                 <a href="publish">cập nhật thông tin nhà xuất bản</a>
             </div>
     </div>
+    <div>
     <a href="task" class="btn btn-info" role="button">Hoàn Thành</a>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="example1" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mã tác giả</th>
+                            <th>Tên tác giả</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Giới tính</th>
+                            <th>Email</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each Book}}
+
+                        <tr>
+                            <td>{{SSN}} </td>
+                            <td>{{FName}} {{MName}} {{LName}}  </td>
+                            <td>{{Address}}</td>
+                            <td>{{PhoneNumber}}</td>
+                            <td>{{SEX}}</td>
+                            <td>{{Email}} </td>
+                        </tr>
+
+                        {{/each}}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+<div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="example1" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mã nhà xuất bản</th>
+                            <th>Tên nhà xuất bản</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each pub}}
+
+                        <tr>
+                            <td>{{Code}} </td>
+                            <td>{{Name}}  </td>
+                            <td>{{Address}}</td>
+                            <td>{{PhoneNumber}}</td>
+                            <td>{{Email}} </td>
+                        </tr>
+
+                        {{/each}}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+
+    </div>
+
 </div>

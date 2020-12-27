@@ -36,6 +36,29 @@ router.post('/login', (req, res) =>{
             
 });
 });
+
+//cập nhật thông tin cá nhân
+router.get('/profile',(req,res)=>{
+    if (req.session.isLogged){
+        var vm={
+            FName :req.session.account.FName,
+            MName  :req.session.account.MName     ,
+            LName   :req.session.account.LName    ,
+            PhoneNumber: req.session.account.PhoneNumber,
+            SID     :   req.session.account.SID,
+            Email   : req.session.account.Email    
+        }
+res.render('./staff/mstaff/update',vm)
+    }
+    else {
+        var vm={
+            showError:true,
+            errorMsg:"Bạn chưa đăng nhập"
+        }
+        res.render('./staff/listtask',vm)
+    }
+});
+
 router.get('/task',(req,res)=>{
 res.render('./staff/listtask')
 });
@@ -125,7 +148,6 @@ else {
 
 })
 
-
 // Tạo sách
 const publisher = (callback) =>{
     db.query(`select * from publisher`,function(error,value){
@@ -139,7 +161,12 @@ const author = (callback) =>{
         callback(error, value)
     });
 }
-
+const kho=(callback)=>{
+    db.query(`select * from bookstorage`,function(error,value){
+        //console.log(value);
+        callback(error, value)
+    });
+}
 router.get('/book/add',(req,res)=>{
     publisher((error, value) => {
         var vm={
@@ -270,7 +297,12 @@ router.post('/book/addauthor',(req,res)=>{
 
 // Quản lý kho
 router.get('/kho',(req,res)=>{
-    res.render('./staff/kho/sstaff')
+    kho((error,value)=>{
+        var vm={
+            kho:value
+        }
+        res.render('./staff/kho/sstaff',vm)
+    })
     });
 router.get('/addkho',(req,res)=>{
     res.render('./staff/kho/addkho')
@@ -315,9 +347,18 @@ router.get('/manstaff',(req,res)=>{
 // cập nhật thông tin nhà xuất bản và tác giả ---------
 
 router.get('/bsource',(req,res)=>{
-    res.render('./staff/booksource/task')
+    publisher ((err,val)=>{
+        author((error,value)=>{
+            var vm={
+                Book:value,
+                pub:val
+            }
+        res.render('./staff/booksource/task',vm)
+        });
+    })
+    
     });
-router.get('/author',(req,res)=>{
+router.get('/author',(req,res)=>{   
     res.render('./staff/booksource/addauthor')
 });
 //Thêm tác giả
