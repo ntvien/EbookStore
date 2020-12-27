@@ -285,3 +285,48 @@ begin
 end $$
 delimiter ;
 #call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
+
+insert into publisher value ('London', 159753, 'London, England', '456456456', 'londonpub@gmail.com');
+insert into book value (123,'http://img.timeinc.net/time/2007/harry_potter/hp_books/sorce_stone.jpg', null, 200000, 'Harry Potter and the Philosopher\s stone', 'London', 2000,2);
+insert into book value (124,'https://prodimage.images-bn.com/pimages/9780545582926_p0_v2_s550x406.jpg', null, 200000, 'Harry Potter and the Chamber of Secrets', 'London', 2001,1);
+insert into book value (125,'https://www.nxbtre.com.vn/Images/Book/nxbtre_full_06462018_034636.jpg', null, 200000, 'Harry Potter and the Prisoner of Azkaban', 'London', 2002,1);
+insert into author value (123456789, 'J', 'K', 'Rowling', 'London, England', '123123123', 'F', 'jkrowling@gmail.com');
+insert into writtenby value (123456789,123);
+insert into writtenby value (123456789,124);
+insert into writtenby value (123456789,125);
+insert into sstored value (123,0,1123456789,100);
+insert into sstored value (124,0,1123456789,235);
+insert into sstored value (125,0,1123456789,142);
+drop procedure if exists showcart;
+DELIMITER //
+CREATE PROCEDURE showCart (cusID int(11))
+BEGIN
+	SELECT Name as BookName, Cost, Image FROM CART JOIN BOOK ON BOOKID = ISBN WHERE CUSTOMERID = CUSID;
+END //
+DELIMITER ;
+DROP PROCEDURE if exists SEARCHBYISBN;
+DELIMITER //
+CREATE PROCEDURE searchbyISBN (ISB decimal(15,0))
+BEGIN
+	SELECT B.ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time,
+		P.Code as PubCode, P.Address as PubAddress, P.PhoneNumber as PubPhone, P.email as PubEmail,
+        (select concat_ws(" ", A.fname, A.mname, A.lname)) as AuthName,
+        SSN, A.address as AuthAdress, A.phonenumber as AuthPhone, A.sex as AuthSex, A.email as AuthEmail,
+        StorageID, StaffID, amount as Amount
+    FROM BOOK B
+						JOIN PUBLISHER P ON P.NAME = PUBNAME
+                        JOIN WRITTENBY ON BOOKISBN = B.ISBN
+                        JOIN AUTHOR A ON AUTHORSSN = SSN
+                        JOIN SSTORED S ON S.ISBN = B.ISBN 
+	WHERE B.ISBN = ISB;
+END //
+DELIMITER ;
+DROP PROCEDURE if exists LOADNXB;
+DELIMITER //
+CREATE PROCEDURE loadNXB (pname varchar(50), isb decimal(15,0))
+BEGIN
+	SELECT ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time  
+    FROM BOOK B JOIN PUBLISHER P ON P.NAME = PUBNAME
+	WHERE ISBN != ISB AND PNAME = P.NAME;
+END //
+DELIMITER ;
