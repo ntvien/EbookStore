@@ -13,10 +13,8 @@ var session = require('express-session');
 //var MySQLStore = require('express-mysql-session')(session);
 var accountController=require('./routes/LoginRoutes');
 var cartcontroler=require('./routes/cartRouter');
-var staffcontroler=require('./routes/staffrouter');
-var productController = require('./routes/productRouter');
+var cartcontroler=require('./routes/staffrouter')
 var handleLayoutMDW = require('./middle-wares/handleLayout');
-var db= require('./select');
 var app = express();
 app.use(session({
 	secret: 'secret',
@@ -46,34 +44,18 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(handleLayoutMDW);
 app.get('/', (req, res) => {
-    var sql = `select B.ISBN, Image, Cost, B.Name as BookName, \
-    (select concat_ws(" ", A.fname, A.mname, A.lname)) as AuthName \
-    from Book B join writtenby on bookisbn = B.ISBN join author A on authorssn = ssn order by isbn desc limit ${10} offset ${0}`;
-    db.query(sql, function(error, value) {
-    if (error) {
-        var vm = {
-            showError: true,
-            errorMsg: 'Không có sách để hiển thị'
-        };
-        res.render('index', vm);
-    } else {
-        console.log(value)
-        Promise.all([value]).then(([newB]) => {
-            req.session.reUrl = "/"
-            var vm = {
-                newBook: newB,
-                url:"/"
-            };
-            // console.log('aaa');
-            // console.log(vm);
-            res.render('index', vm);
-        });
-    }
+
+    // Promise.all([p1, p2, p3]).then(([newB, bestS, Views]) => {
+    //     req.session.reUrl = "/"
+        // var vm = {
+        //     newBook: newB,
+        //     bestSaleBook: bestS,
+        //     byViews: Views,
+        //     url:"/"
+        // };
+        res.render('index');
+    // });
 });
-    
-// });
-});
-app.use('/sample_product', productController);
 
 app.use('/account', accountController);
 app.use('/cart',cartcontroler);
@@ -110,5 +92,3 @@ app.use('/staff',cartcontroler);
 // });
 
 app.listen(3001);
-
-// database
