@@ -50,7 +50,7 @@ begin
     if (checkid!=spass)or checkid is null then
         SIGNAL SQLSTATE '45001'
 			SET MESSAGE_TEXT = 'Mat khau khong hop le';
-    else select FName,MName,LName,stype,SID from staff where s_ssn=ID;
+    else select FName,MName,LName,stype,SID,PhoneNumber,Email from staff where s_ssn=ID;
     end if ;
 
 end |
@@ -65,6 +65,7 @@ select * from paperbook;
 select * from ebook;
 select * from sstored;
 select amount+1 from inbook;
+select * from staff;
 
 # select * from publisher;
 #insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta
@@ -167,6 +168,9 @@ delimiter ;
 select * from sstored;
 select * from inbook;
 select * from book;
+select * from publisher;
+select * from bookstorage;
+select * from staff;
 #     Summary varchar(500)   null,
 #     Cost    decimal(10, 2) null,
 #     Name    varchar(100)   not null,
@@ -453,7 +457,7 @@ insert into staff
 end |
 delimiter ;
 select * from bookstorage;
-call add_staff('2020251201','Hà','Thu','Nguyễn','a@gmail.com','0123445566',1,1,'123456')
+-- call add_staff('2020251201','Hà','Thu','Nguyễn','a@gmail.com','0123445566',1,1,'123456')
 select * from staff;
 drop procedure if exists show_publish;
 delimiter |
