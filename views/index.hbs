@@ -109,22 +109,24 @@
                                 {{#each newBook}}
                                 <div class="item">
                                     <li class="item-outer" style="height: 280px;">
-                                        <a class="item-thumb" href="sample_product/?id={{idSach}}" rel="nofollow">
-                                            <img style="width:140px; height:180px" src="{{hinhAnh}}" class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
-                                            <span class="item-percent-bubble">-10%</span>
+                                        <a class="item-thumb" href="sample_product/?id={{ISBN}}" rel="nofollow">
+                                            <img style="width:140px; height:180px" src="{{Image}}" class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
+                                            {{!-- <span class="item-percent-bubble">-10%</span> --}}
                                         </a>
                                         <div class="item-meta-outer"style="width: 140px;margin-left: -5px;margin-top: 3px">
                                             <h3 class="item-title"style="font-size: 13.5px">
-                                                <a href="sample_product/?id={{idSach}}">{{ten_sach}}</a>
+                                                <a href="sample_product/?id={{ISBN}}">{{BookName}}</a>
                                             </h3 >
-                                            <em class="item-author"style="font-size: 12px">{{tac_gia}}</em>
+                                            <em class="item-author"style="font-size: 12px">{{AuthName}}</em>
                                             <p class="item-price">
-                                                <b>{{number_format giaBan}}
+                                                <center>
+                                                    <b>{{number_format Cost}}
+                                                        <u>đ</u>
+                                                    </b>
+                                                </center>
+                                                {{!-- <small>{{divide giaBan 0.9}}
                                                     <u>đ</u>
-                                                </b>
-                                                <small>{{divide giaBan 0.9}}
-                                                    <u>đ</u>
-                                                </small>
+                                                </small> --}}
                                             </p>
                                         </div>
 
@@ -132,7 +134,7 @@
                                     <div>
                                         <form method="post" action="/cart/add">
                                             <input id="sl" class="hidden" name="sl" value="1">
-                                            <input id="idSach" name="idSach" type="hidden" value="{{idSach}}">
+                                            <input id="idSach" name="idSach" type="hidden" value="{{ISBN}}">
                                             <input type="text" class="hidden" name="url" value="/">
 
                                             <button class="next-btn next-btn-primary next-btn-large" style="width: 110%;font-size: 13px;padding: 0;margin-left: -5px">Thêm vào giỏ hàng</button>
@@ -151,7 +153,7 @@
 
 
 
-            <div class="content-block-inner home-block home-content-slider grid12"style="margin-top: 20px">
+            {{!-- <div class="content-block-inner home-block home-content-slider grid12"style="margin-top: 20px">
                 <div class="content-block clearfix mt20 mb0 single-related-post">
                     <div class="content-block-inner home-block category-content-slider">
                         <div class="block-inner-bar block-inner-tab-outer clearfix">
@@ -289,7 +291,7 @@
 
 
 
-            </div>
+            </div> --}}
 
         </div>
     </div>

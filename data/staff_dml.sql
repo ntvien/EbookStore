@@ -67,7 +67,7 @@ select * from sstored;
 select amount+1 from inbook;
 
 # select * from publisher;
-#insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta
+#insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta'
 use ebookstore_01;
 drop procedure if exists check_book_exit;
 delimiter |
