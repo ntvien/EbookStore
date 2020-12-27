@@ -77,7 +77,6 @@ CREATE TABLE Publisher(
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (Name)
 );
-USE EBookStore_01;
 drop table if exists Staff;
 CREATE TABLE Staff(
 	ID char(10),
@@ -221,8 +220,9 @@ CREATE table Cart(
 );
 ALTER TABLE Book ADD PubName VARCHAR(100) NOT NULL;
 ALTER TABLE Book ADD CONSTRAINT FK_PubName FOREIGN KEY (PubName) REFERENCES Publisher(Name)ON DELETE CASCADE  ON UPDATE CASCADE;
-
-ALTER TABLE Book ADD Year YEAR;
+ALTER TABLE Book drop Year ;
+ALTER TABLE Book drop Time;
+ALTER TABLE Book ADD Year int;
 ALTER TABLE Book ADD Time INT;
 
 ALTER TABLE Transaction ADD PaymentID INT NOT NULL;
@@ -253,3 +253,4 @@ alter table staff drop stype;
 alter table staff add stype int;
 alter table publisher drop Email;
 alter table publisher add Email varchar(100);
+alter table book drop Image;

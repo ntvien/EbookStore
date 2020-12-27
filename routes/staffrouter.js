@@ -1,5 +1,8 @@
 var express = require('express');
 var db=require('../select');
+const upload = require('../middle-wares/uploadMiddleware');
+const Resize = require('../Resize');
+const path = require('path');
 //const { route } = require('./LoginRoutes');
 var router = express.Router();
 router.get('/login', (req, res) => {
@@ -41,16 +44,229 @@ res.render('./staff/listtask')
 router.get('/book',(req,res)=>{
     res.render('./staff/sp/book')
     });
-router.get('/book/add',(req,res)=>{
+router.post('/book',(req,res)=>{
+    if (check_sesion(req.session.Authorized)){
+        db.query(`call check_book_exit(${req.body.ma})`,function(error,value){
+            console.log(value);
+            if (error){
+                var vm={
+                    showError: true,
+                    errorMsg: error.sqlMessage
+                };
+                res.render('./staff/sp/book',vm)
+            }
+            else if (JSON.stringify(value[0])==='[]')res.redirect('/staff/book/add');
+            else {
+                res.redirect(`/staff/book/update?id=${req.body.ma}`);
+            }
+        })        
+        }
+        else {
+            var vm={
+                showError: true,
+                errorMsg: "Bạn phải đăng nhập với tư cách nhân viên"
+            };
+            res.render('./staff/sp/book',vm)
+        }
+        
+});
+
+// update thông tin sách 
+router.get('/book/update',(req,res)=>{
+    publisher((error, value) => {
+        db.query(`select * from book where ISBN=${req.query.id}`,function(error,nvalue){
+            //console.log(nvalue[0].Summary)
+            var vm={
+                nxb: value,
+                sum:nvalue[0].Summary,
+                cost: nvalue[0].Cost,
+                name:nvalue[0].Name,
+                pub:nvalue[0].PubName,
+                year:nvalue[0].Year,
+                time:nvalue[0].Time,
+                isbn:req.query.id
+
+            };
+            //console.log(vm.nxb)
+            res.render('./staff/sp/update',vm)
+        })
+        
+    })  
+})
+router.post('/book/update',(req,res)=>{
+    //console.log(req);
+    if (check_sesion(req.session.Authorized)){
+if (req.body.type===1){
+db.query(`call update_in('${req.session.account.SID}',${req.body.sl},${req.query.id})`,function(error,value){
+    if (error){
+        console.log(error);
+        res.send({test:error.sqlMessage})}
+    else {
+        res.send({test:"Thành công"})
+    }
+});
+}
+else if(req.body.type==2){
+db.query(`call update_info(${req.query.id},\
+    '${req.body.sum}',\
+    ${req.body.cost},\
+    '${req.body.name}','${req.body.pub}',${req.body.year},${req.body.times})`,function(error,value){
+        if (error){
+            console.log(error);
+            res.send({test:error.sqlMessage})}
+        else {
+            res.send({test:"Thành công"})
+        }
+    })
+}}
+else {
+    res.send({test:"Chỉ có nhân viên mới được thự hiện tác vụ này"})
+}
+
+})
+
+
+// Tạo sách
+const publisher = (callback) =>{
     db.query(`select * from publisher`,function(error,value){
+        //console.log(value);
+        callback(error, value)
+    });
+}
+const author = (callback) =>{
+    db.query(`select * from author`,function(error,value){
+        //console.log(value);
+        callback(error, value)
+    });
+}
+
+router.get('/book/add',(req,res)=>{
+    publisher((error, value) => {
         var vm={
             nxb: value
-        }
+        };
         console.log(vm.nxb)
         res.render('./staff/sp/add',vm)
-    })
+    })  
     
     });
+
+router.post('/book/add',upload.single('file'),async function (req, res){
+if (check_sesion(req.session.Authorized)){
+let eaddr=null;
+if (req.body.idLoai==1)eaddr=req.body.addrsave;
+var sql=`call import_book('${req.body.ma}',\
+'${req.body.moTa}','${req.body.giaBan}','${req.body.name}',\
+'${req.body.idNhaSX}','${req.body.year}','${req.body.time}',${eaddr},'${req.session.user}','${req.body.sl}')`;
+db.query(sql, async function(error,value){
+if (error){
+    publisher((err, pvalue) => {
+    var vm={
+        showError: true,
+        errorMsg:error.sqlMessage,
+        nxb: pvalue
+    };
+    console.log(error)
+res.render('./staff/sp/add',vm);
+return;
+});
+}
+else{
+const imagePath = path.join(__dirname, '../public/image');
+    // call class Resize
+const fileUpload = new Resize(imagePath,`${req.body.ma}`+'.jpg');
+//console.log(req.file)
+if (!req.file) {
+        res.status(401).json({error: 'Please provide an image'});
+    return ;
+    }
+const filename = await fileUpload.save(req.file.buffer);
+//return res.status(200).json({ name: filename });//
+publisher((err, pvalue) => {
+    var vm={
+        Success: true,
+        Msg: "Thêm kho thành công",
+        nxb: pvalue
+    };
+    res.redirect(`/staff/book/addauthor?id=${req.body.ma}`)
+});
+}});
+}
+else {
+    var vm={
+        showError: true,
+        errorMsg: "Bạn phải đăng nhập với tư cách nhân viên"
+    };
+    res.render('./staff/sp/add',vm)
+}
+});
+// cập nhật tác giả
+router.get('/book/addauthor',(req,res)=>{
+author((error,value)=>{
+    var vm={
+        ISBN: req.query.id,
+        author: value
+    }
+    res.render('./staff/sp/addauthor',vm)
+})
+});
+router.post('/book/addauthor',(req,res)=>{
+    console.log(req.body)
+    if (check_sesion(req.session.Authorized)){
+    if (req.body.type===1){
+        db.query(`call writeby(${req.body.isbn},'${req.body.SSN}')`,function(error,value){
+            if (error){
+                console.log(error);
+                res.send({test:error.sqlMessage})}
+            else {
+                res.send({test:"Thành công"})
+            }
+        })
+    }
+    else if(req.body.type==2){
+        var sql=`call add_author('${req.body.ssn}','${req.body.fname}','${req.body.mname}','${req.body.lname}',\
+            '${req.body.address}','${req.body.email}','${req.body.phone}','${req.body.sex}')`;
+            db.query(sql,function(error,value){
+                if (error){
+                    console.log(error);
+                    res.send({test:error.sqlMessage})}
+                else {
+                    db.query(`call writeby(${req.body.isbn},'${req.body.ssn}')`,function(error,value){
+                        if (error){
+                            console.log(error);
+                            res.send({test:error.sqlMessage})}
+                        else {
+                            res.send({test:"Thành công"})
+                        }
+                    });
+                }
+            });
+        }
+        else if (req.body.type==3){
+            db.query(`insert into field value(${req.body.isbn},'${req.body.field}')`,function(error,value){
+                if (error){
+                    console.log(error);
+                    res.send({test:error.sqlMessage})}
+                else {
+                    res.send({test:"Thành công"})
+                }
+            })
+        }
+        else if (req.body.type==4){
+            db.query(`insert into keyword value(${req.body.isbn},'${req.body.key}')`,function(error,value){
+                if (error){
+                    console.log(error);
+                    res.send({test:error.sqlMessage})}
+                else {
+                    res.send({test:"Thành công"})
+                }
+            })
+        }
+    }
+    else{
+        res.send({test:"Bạn phải đăng nhập với tư cách nhân viên"})
+    }
+});
 
 // Quản lý kho
 router.get('/kho',(req,res)=>{
