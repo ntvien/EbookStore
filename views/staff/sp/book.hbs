@@ -1,7 +1,35 @@
+{{#section 'js'}}
+<script type="text/javascript">
+function validate(){
+    if ($('#ma').val().length===0){
+        alert('Vui lòng nhập khóa sách bạn muốn thêm hoặc chỉnh sủa');
+            return false
+    }
+    return true;
+}
+</script>
+{{/section}}
+{{#if showError}}
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Error!</strong> {{errorMsg}}
+</div>
+{{/if}}
 <div class="container sp">
-    <a class="btn btn-info" href="book/add" role="button" style="margin-left: 900px">
-        Thêm sản phẩm mới
-    </a>
+    <div>
+    <form method="POST"  role="form" onsubmit="return validate();">
+            <div class="mod-login">
+    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label style="font-size: 14px">Mã ISBN</label>
+                    <input type="number" placeholder="Nhập mã sách" data-meta="Field" name="ma" id="ma">
+                        <b></b>
+                        <span></span>
+                    </div>
+    <div class="form-row subscribe-outer" style="width: 18%;margin-left: 300px;margin-top: -40px">
+        <button type="submit" class="button-default ygradient1 ">Cập nhật sản phẩm</button>
+    </div>
+    </form>
+    </div>
     <div class="box-body">
         <div class="row">
             <div class="col-md-12">

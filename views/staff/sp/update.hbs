@@ -1,0 +1,193 @@
+{{#section 'js'}}
+<script type="text/javascript">
+
+    var validate = function () {
+        if ($('#name').val().length === 0) {
+            alert('Vui lòng nhập tên sách');
+            return false;
+        }
+        if ($('#giaban').val().length === 0) {
+            alert('Vui Lòng nhập giá sách');
+            return false;
+        }
+        if ($('#nhaxuatban').val() === '0') {
+            alert('Vui lòng chọn nhà xuất bản');
+            return false;
+        }
+        if ($('#mota').val().length === 0) {
+            alert('Vui lòng viết mô tả cho sách');
+            return false;
+        }
+        return true;
+    }
+    function validate1(){
+        if ($('#sl').val() === 0)return false;
+        return true;
+    }
+    function yearFunction() {
+  var d = new Date();
+  return d.getFullYear();
+}
+$(document).ready(function(){
+    $("#bsl").click(function(){
+        if (!validate1())return;
+        var a={type:1,sl:$('#sl').val()}
+        //console.log(a)
+        $.ajax({
+            method: "POST",
+           url:'/staff/book/update?id={{isbn}}',
+            data: JSON.stringify(a),
+            dataType: 'json',
+            processData: false,
+           contentType: "application/json; charset=utf-8",
+           success: function(data){
+           alert(data.test);
+            }
+            });
+    });
+    $("#binf").click(function(){
+        if (!validate())return;
+        var a={type:2,name:$('#name').val(),
+            cost:$('#giaban').val(),
+            pub: $('#nhaxuatban').val(),
+            sum:$('#mota').val(),
+            year:$('#year').val(),
+            times:$('#times').val()}
+        $.ajax({
+            method: "POST",
+            url:'/staff/book/update?id={{isbn}}',
+            data: JSON.stringify(a),
+            dataType: 'json',
+            processData: false,
+           contentType: "application/json; charset=utf-8",
+           success: function(data){
+           alert(data.test);
+            }
+            });
+    });
+})
+</script> 
+{{/section}}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="form-row subscribe-outer" style="width: 18%;margin-left: 50px;margin-top: 10px">
+                <button type="button" class="button-default ygradient1 " data-toggle="modal" data-target="#sleModal">Nhập hàng vào kho-cập nhật số lượng</button>
+        </div>
+        <div class="form-row" style="width: 18%;margin-left: 50px;margin-top: 10px">
+                <button type="button" class="button-default ygradient1 " data-toggle="modal" data-target="#exampleModal">cập nhật thông tin</button>
+                </div>
+    </div>
+
+    <div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin cho sách {{name}} mã {{isbn}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mod-login">
+                <div class="mod-login-col1" style="width: 350px;">
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Tên Sách</label>
+                        <input type="text" value="{{name}}" placeholder="{{name}}" data-meta="Field" name="name" id="name">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Năm xuất bản</label>
+                        <input type="number" min='0'  onkeyup="if(this.value<0){this.value= 0} else if (this.value>yearFunction()) {this.value=yearFunction()}" value={{year}} placeholder={{year}} data-meta="Field" name="year" id="year">
+                        <label style="font-size: 14px">Lần xuất bản</label>
+                        <input type="number" min='0'  onkeyup="if(this.value<=0){this.value= 1}" value={{time}} placeholder={{time}} data-meta="Field" name="time" id="times">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Nhà xuất bản</label>
+                        <select name="idNhaSX" class="form-control" style="border: 1px solid #5bb7c3;border-radius: 36px;font-size: 14px;height: 40px;"
+                            id="nhaxuatban" value="{{pub}}">
+                            <option value="{{pub}}">{{pub}}</option>
+                            {{#each nxb}}
+                            <option value="{{Name}}">{{Name}}</option>
+                            {{/each}}
+                        </select>
+                        <span></span>
+
+                    </div>
+                </div>
+                <div class="mod-login-col2" style="width: 350px;">
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Giá sách</label>
+                        <input type="number" placeholder={{cost}} value={{cost}} data-meta="Field" name="giaBan" id="giaban">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+                    
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Mô tả</label>
+                        <input type="text" placeholder={{sum}} data-meta="Field" name="moTa" id="mota" value="{{sum}}">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" id="binf">Send message</button>
+      </div>
+    </div>
+  </div>
+ </div> {{!--Kết thúc modal --}}
+ </div>
+
+  <div>
+<div class="modal fade" id="sleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nhập sách {{name}} mã {{isbn}} vào kho</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mod-login">
+                <div class="mod-login-col1" style="width: 350px;">
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Số lượng sách</label>
+                        <input type="number" min='0' onkeyup="if(this.value<0){this.value= 0}" placeholder="Nhập số lượng sách được nhập" data-meta="Field" name="sl" id="sl">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" id="bsl">Send data</button>
+      </div>
+    </div>
+  </div>
+ </div> {{!--Kết thúc modal --}}
+ </div>
+   <div>
+    
+</div>
