@@ -7,24 +7,24 @@ module.exports = (req, res, next) => {
     if (req.session.cart === undefined) {
         req.session.cart = [];
     }
-    let type=-1;
-    if (req.session.Authorized){
-        type=req.session.account.stype;
+    let type = -1;
+    if (req.session.Authorized) {
+        type = req.session.account.stype;
     }
     res.locals.layoutVM = {
         categories: '',
         suppliers: '',
         isLogged: req.session.isLogged,
         curUser: req.session.account,
-        usename:req.session.user,
-        totalCart: 1,
-        categories:'',
-        nxb:'',
-        Authorized:req.session.Authorized,
-        reUrl:'req.session.reUrl',
-        type:type
+        usename: req.session.user,
+        totalCart: req.session.cart.length,
+        categories: '',
+        nxb: '',
+        Authorized: req.session.Authorized,
+        reUrl: 'req.session.reUrl',
+        type: type
     };
-    
+
     next();
 
     // var p1 = categoryRepo.loadAll();
@@ -44,7 +44,7 @@ module.exports = (req, res, next) => {
     //         Authorized:req.session.Authorized,
     //         reUrl:req.session.reUrl
     //     };
-        
+
     //     next();
     // });
 };

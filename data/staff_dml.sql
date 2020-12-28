@@ -9,7 +9,6 @@ use ebookstore_01;
 # INSERT INTO Publisher VALUE ('Audioworks', '1543', 'Canada', 'crown@gmail.com', '(212) 7822200');
 # INSERT INTO Publisher VALUE ('Random House', '1145', 'Germany', 'chuster@gmail.com', '(020) 7316 1550');
 # INSERT INTO Publisher VALUE ('Scribner', '9000', 'ThaiLan', 'ph@gmail.com', '(203) 454223');
-INSERT INTO BookStorage VALUE (0, 'Center', 'USA', 'pn@gmail.com', '0956632156');
 # INSERT INTO BookStorage VALUE (201, 'Gia Lai', 'Phuong Nam', 'pn@gmail.com', '0956632156');
 # INSERT INTO BookStorage VALUE (202, 'Ha Noi', 'Hoan Kiem', 'hk@gmail.com', '026623431');
 # INSERT INTO BookStorage VALUE (203, 'Ho Chi Minh', 'Phuong Nam', 'wde@gmail.com', '095661156');
@@ -29,7 +28,13 @@ INSERT INTO BookStorage VALUE (0, 'Center', 'USA', 'pn@gmail.com', '0956632156')
 # INSERT INTO Staff VALUE (7, 'Tran', 'Van', 'G', 'ava@gmail.com', 0956133334, 207);
 # INSERT INTO Staff VALUE (8, 'Dao', 'Thi', 'H', 'stb@gmail.com', 032121111, 208);
 # INSERT INTO Staff VALUE (9, 'Nguyen', 'Van', 'I', 'sdga@gmail.com', 0956136665, 209);
+
 INSERT INTO Staff VALUE ("1223456789", 'Le', 'Thi', 'J', '0325325252', 0,2333,'sdfb@gmail.com',0);
+
+
+INSERT INTO BookStorage VALUE (0, 'Center', 'USA', 'pn@gmail.com', '0956632156');
+INSERT INTO Staff VALUE ("1223456789", 'Le', 'Thi', 'J','sdfb@gmail.com', 0325325252, 0,2333,0);
+
 select * from staff;
 # select * from author;
 # select * from writtenby;
@@ -71,11 +76,15 @@ select amount+1 from inbook;
 select * from staff;
 
 # select * from publisher;
-#insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta
+
+#insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta'
 
 ###########################################################
 # kiểm tra xem sách đã tồn tại hay chưa
 
+
+=======
+#insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta'
 
 use ebookstore_01;
 drop procedure if exists check_book_exit;

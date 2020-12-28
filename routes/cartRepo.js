@@ -10,26 +10,26 @@ exports.add = (cart, item) => {
     }
     cart.push(item);
 };
-exports.remove=(cart, idSach) => {
+exports.remove = (cart, idSach) => {
     for (i = cart.length - 1; i >= 0; i--) {
-        if (cart[i].idSach===idSach){
-            cart.splice(i,1);
+        if (cart[i].idSach === idSach) {
+            cart.splice(i, 1);
             return;
         }
     }
 };
-exports.updateSL=(cart,idSach,sl)=>{
+exports.updateSL = (cart, idSach, sl) => {
     for (i = cart.length - 1; i >= 0; i--) {
-        if (cart[i].idSach===idSach){
-            cart[i].sl=sl;
+        if (cart[i].idSach === idSach) {
+            cart[i].sl = sl;
             return;
         }
     }
 };
-exports.getTotal = function (cart) {
+exports.getTotal = function(cart) {
     var total = 0;
     for (var i = 0; i < cart.length; i++) {
-        total += (cart[i].giaBan*cart[i].sl);
+        total += (cart[i].giaBan * cart[i].sl);
     }
     return total;
 }
