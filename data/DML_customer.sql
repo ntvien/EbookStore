@@ -1,4 +1,26 @@
 use ebookstore_01;
+INSERT INTO Payment VALUE (1);
+INSERT INTO Payment VALUE (2);
+INSERT INTO Payment VALUE (3);
+INSERT INTO Payment VALUE (4);
+INSERT INTO Payment VALUE (5);
+INSERT INTO Payment VALUE (6);
+INSERT INTO Payment VALUE (7);
+INSERT INTO Payment VALUE (8);
+INSERT INTO Payment VALUE (9);
+INSERT INTO Payment VALUE (10);
+
+INSERT INTO CardPayment VALUE (1);
+INSERT INTO CardPayment VALUE (2);
+INSERT INTO CardPayment VALUE (3);
+INSERT INTO CardPayment VALUE (4);
+INSERT INTO CardPayment VALUE (5);
+
+INSERT INTO Transfer VALUE (6, 123969340, 'DongAbank', 'Quan 3');
+INSERT INTO Transfer VALUE (7, 123632323, 'OCB', 'Quan 6');
+INSERT INTO Transfer VALUE (8, 123463666, 'TPBank', 'Quan 11');
+INSERT INTO Transfer VALUE (9, 126666666, 'DongAbank', 'Quan 12');
+INSERT INTO Transfer VALUE (10, 123613123, 'DongAbank', 'Quan 7');
 # CREATE TABLE Customer(
 # 	ID INT,
 # 	FName VARCHAR(20) NOT NULL,
@@ -21,7 +43,7 @@ begin
         where NickName=user_name and Password=pass_cus;
 end |
 select * from customer;
-#call check_pass('linhcute','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225');
+-- call check_pass('linhcute','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225');
 
 
 
@@ -48,7 +70,7 @@ if max is null then
 end $$
 DELIMITER  ;
 -- delete from customer;
--- #call createaccout('Nhat','Nhat','Nguyen','linhcute01','ahihi','980501','M','00222222211','Tp.HCM');
+-- call createaccout('Nhat','Nhat','Nguyen','linhcute01','ahihi','980501','M','00222222211','Tp.HCM');
 select * from customer;
 # CREATE TABLE CreditCard(
 # 	CustomerID INT NOT NULL,
@@ -76,7 +98,7 @@ Begin
     select id,ncode,fname,MName,lname,nbankName,branch,nenddate,idpay from customer where id =nid;
 end $$
 DELIMITER  ;
-#call createaccCard(1,'12345678900','obc','ly thuong kiet','221230',1);
+call createaccCard(1,'12345678900','obc','ly thuong kiet','221230',1);
 select * from creditcard;
 -- update information
 drop procedure if exists update_info_cus;
@@ -202,7 +224,7 @@ BEGIN
 END;
 DELIMITER ;
 
--- #call xem_sach_thang  (112);
+-- CALL xem_sach_thang  (112);
 drop procedure if exists xem_sach_thang;
 DELIMITER |
 CREATE PROCEDURE xem_giaodich_thang(
@@ -215,7 +237,7 @@ BEGIN
 END;
 DELIMITER ;
 
--- #call xem_giaodich_thang (112);
+-- CALL xem_giaodich_thang (112);
 -- (ii.12). Xem danh sách tác giả của cùng một thể loại.
 drop procedure if exists xem_tacgia_cungtheloai;
 DELIMITER |
@@ -284,4 +306,4 @@ begin
         where ID=cID;
 end $$
 delimiter ;
-#call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
+call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");

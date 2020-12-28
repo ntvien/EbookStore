@@ -1,17 +1,16 @@
 var express = require('express');
-var db=require('../select');
+var db = require('../select');
 var cartRepo = require('./cartRepo');
 //const { route } = require('./LoginRoutes');
 var router = express.Router();
 
-router.get('/',(req,res)=>{
-    if (req.session.account){
+router.get('/', (req, res) => {
+    if (req.session.account) {
         var sql = `select * from customer where id = '${req.session.account.ID}'`;
         db.query(sql, function(err, value) {
-            if (err){
+            if (err) {
                 throw err;
-            }
-            else{
+            } else {
                 console.log(value[0])
                 var vm = {
                     items: req.session.cart,
@@ -19,18 +18,17 @@ router.get('/',(req,res)=>{
                     isEmpty: req.session.cart.length === 0,
                     diaChi: value[0].Address,
                     SDT: value[0].PhoneNumber,
-                    url:"/cart"
+                    url: "/cart"
                 };
                 res.render('cart/cart', vm);
             }
         });
-    }
-    else {
+    } else {
         var vm = {
             items: req.session.cart,
             total: cartRepo.getTotal(req.session.cart),
             isEmpty: req.session.cart.length === 0,
-            url:"/cart"
+            url: "/cart"
         };
         res.render('cart/cart', vm);
     }
@@ -41,11 +39,9 @@ router.post('/add', (req, res) => {
     console.log(req.body.idSach);
     var sql = `call searchbyISBN('${req.body.idSach}')`;
     db.query(sql, function(err, value) {
-        if (err){
+        if (err) {
             throw err;
-        }
-        else
-        {
+        } else {
             var item = {
                 idSach: req.body.idSach,
                 ten_sach: value[0][0].BookName,
@@ -58,7 +54,7 @@ router.post('/add', (req, res) => {
             res.redirect(req.session.reUrl);
         }
     });
-    
+
 });
 
 router.post('/sl', (req, res) => {
@@ -72,19 +68,19 @@ router.post('/tt', (req, res) => {
         var d = new Date();
         // var date = new Date().getTime();
 
-        var  dd=d.getDate();
-        var  yyyy=d.getFullYear();
-        var  h=d.getHours();
-        var  m=d.getMinutes();
-        var  mm=d.getMonth();
-        var  s=d.getSeconds();
+        var dd = d.getDate();
+        var yyyy = d.getFullYear();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var mm = d.getMonth();
+        var s = d.getSeconds();
         var cart = req.session.cart;
         if (cart.length === 0) {
             vm = {
                 items: req.session.cart,
                 total: cartRepo.getTotal(req.session.cart),
                 isEmpty: req.session.cart.length === 0,
-                url:"/cart",
+                url: "/cart",
                 ErrMsg: true,
                 Msg: "Không có sản phẩm trong giỏ hàng"
             }
@@ -115,7 +111,7 @@ router.post('/tt', (req, res) => {
                 });
                 if (i == 0) {
                     accountRepo.getCus(req.session.user.idNguoiSuDung).then(use => {
-                        payRepo.addPayment(idGioHang, use[0].idKhachHang, use[0].diaChi, yyyy+ '-' + mm +'-'+dd+' '+h+':'+m+':'+s, use[0].soDT).then(value => {
+                        payRepo.addPayment(idGioHang, use[0].idKhachHang, use[0].diaChi, yyyy + '-' + mm + '-' + dd + ' ' + h + ':' + m + ':' + s, use[0].soDT).then(value => {
                             req.session.cart = [];
                             res.redirect('/account/profile');
                         });
@@ -124,7 +120,7 @@ router.post('/tt', (req, res) => {
                 }
             }
         });
-    }else{
+    } else {
         res.redirect('/account/login?retUrl=/cart');
     }
 });
