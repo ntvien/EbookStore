@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
     var validate = function () {
-        if ($('#tensach').val().length === 0) {
+        if ($('#name').val().length === 0) {
             alert('Vui lòng nhập tên sách');
             return false;
         }
@@ -11,7 +11,7 @@
             alert('Vui Lòng nhập giá sách');
             return false;
         }
-        if ($('#tacgia').val().length === 0) {
+        if ($('#ma').val().length === 0) {
             alert('Vui lòng nhập tên tác giả');
             return false;
         }
@@ -42,16 +42,19 @@
         }
         return true;
     }
-    
-</script> {{/section}} {{#if showMsg}}
+    function yearFunction() {
+  var d = new Date();
+  return d.getFullYear();
+}
+</script> {{/section}} {{#if Success}}
 <div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <strong>Success!</strong> {{Msg}}
 </div>
-{{/if}} {{#if ErrMsg}}
+{{/if}} {{#if showError}}
 <div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Error!</strong> {{Msg}}
+    <strong>Error!</strong> {{errorMsg}}
 </div>
 {{/if}}
 
@@ -62,22 +65,33 @@
 
     </div>
     <div>
-        <form action="" method="POST" enctype="multipart/form-data" role="form" onsubmit="return validate();">
+        <form method="POST"  enctype="multipart/form-data" role="form" onsubmit="return validate();">
             <div class="mod-login">
                 <div class="mod-login-col1" style="width: 350px;">
-                    <div class="mod-input">
-                        <label style="font-size: 14px">Tên sách</label>
-                        <input type="text" placeholder="Nhập tên sách" data-meta="Field" name="ten_sach" id="tensach">
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label style="font-size: 14px">Mã ISBN</label>
+                    <input type="number" placeholder="Nhập mã sách" data-meta="Field" name="ma" id="ma">
                         <b></b>
                         <span></span>
                     </div>
                     <div class="mod-input">
-                        <label style="font-size: 14px">Tác giả</label>
-                        <input type="text" placeholder="Nhập tên tác giả" data-meta="Field" name="tac_gia" id="tacgia">
+                        <label style="font-size: 14px">Tên Sách</label>
+                        <input type="text" placeholder="Nhập tên sách" data-meta="Field" name="name" id="name">
                         <b></b>
                         <span></span>
 
                     </div>
+
+                    <div class="mod-input">
+                        <label style="font-size: 14px">Năm xuất bản</label>
+                        <input type="number" min='0'  onkeyup="if(this.value<0){this.value= 0} else if (this.value>yearFunction()) {this.value=yearFunction()}" placeholder="Nhập tên sách" data-meta="Field" name="year" id="year">
+                        <label style="font-size: 14px">Lần xuất bản</label>
+                        <input type="number" min='0'  onkeyup="if(this.value<0){this.value= 0}"  placeholder="Lần xuất bản" data-meta="Field" name="time" id="times">
+                        <b></b>
+                        <span></span>
+
+                    </div>
+
                     <div class="mod-input">
                         <label style="font-size: 14px">Nhà xuất bản</label>
                         <select name="idNhaSX" class="form-control" style="border: 1px solid #5bb7c3;border-radius: 36px;font-size: 14px;height: 40px;"
@@ -93,7 +107,7 @@
                     <div class="mod-input">
                         <label style="font-size: 14px">Chọn ảnh hiển thị</label>
 
-                        <input type="file" name="fileS" id="file">
+                        <input type="file" name="file" id="file">
                     </div>
                 </div>
                 <div class="mod-login-col2" style="width: 350px;">
@@ -118,7 +132,7 @@
                             id="loaisach">
                             <option value="0">Chọn loại sách</option>
                             {{!-- {{#each loai}} --}}
-                            <option value=0>Sách bản in</option>
+                            <option value=2>Sách bản in</option>
                             <option value=1>Sách điện tử</option>
                             {{!-- {{/each}} --}}
                         </select>

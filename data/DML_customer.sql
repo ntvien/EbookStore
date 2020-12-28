@@ -1,4 +1,26 @@
 use ebookstore_01;
+INSERT INTO Payment VALUE (1);
+INSERT INTO Payment VALUE (2);
+INSERT INTO Payment VALUE (3);
+INSERT INTO Payment VALUE (4);
+INSERT INTO Payment VALUE (5);
+INSERT INTO Payment VALUE (6);
+INSERT INTO Payment VALUE (7);
+INSERT INTO Payment VALUE (8);
+INSERT INTO Payment VALUE (9);
+INSERT INTO Payment VALUE (10);
+
+INSERT INTO CardPayment VALUE (1);
+INSERT INTO CardPayment VALUE (2);
+INSERT INTO CardPayment VALUE (3);
+INSERT INTO CardPayment VALUE (4);
+INSERT INTO CardPayment VALUE (5);
+
+INSERT INTO Transfer VALUE (6, 123969340, 'DongAbank', 'Quan 3');
+INSERT INTO Transfer VALUE (7, 123632323, 'OCB', 'Quan 6');
+INSERT INTO Transfer VALUE (8, 123463666, 'TPBank', 'Quan 11');
+INSERT INTO Transfer VALUE (9, 126666666, 'DongAbank', 'Quan 12');
+INSERT INTO Transfer VALUE (10, 123613123, 'DongAbank', 'Quan 7');
 # CREATE TABLE Customer(
 # 	ID INT,
 # 	FName VARCHAR(20) NOT NULL,
@@ -21,7 +43,7 @@ begin
         where NickName=user_name and Password=pass_cus;
 end |
 select * from customer;
-#call check_pass('linhcute','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225');
+-- call check_pass('linhcute','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225');
 
 
 
@@ -48,7 +70,7 @@ if max is null then
 end $$
 DELIMITER  ;
 -- delete from customer;
--- #call createaccout('Nhat','Nhat','Nguyen','linhcute01','ahihi','980501','M','00222222211','Tp.HCM');
+-- call createaccout('Nhat','Nhat','Nguyen','linhcute01','ahihi','980501','M','00222222211','Tp.HCM');
 select * from customer;
 # CREATE TABLE CreditCard(
 # 	CustomerID INT NOT NULL,
@@ -76,7 +98,7 @@ Begin
     select id,ncode,fname,MName,lname,nbankName,branch,nenddate,idpay from customer where id =nid;
 end $$
 DELIMITER  ;
-#call createaccCard(1,'12345678900','obc','ly thuong kiet','221230',1);
+call createaccCard(1,'12345678900','obc','ly thuong kiet','221230',1);
 select * from creditcard;
 -- update information
 drop procedure if exists update_info_cus;
@@ -202,7 +224,7 @@ BEGIN
 END;
 DELIMITER ;
 
--- #call xem_sach_thang  (112);
+-- CALL xem_sach_thang  (112);
 drop procedure if exists xem_sach_thang;
 DELIMITER |
 CREATE PROCEDURE xem_giaodich_thang(
@@ -215,7 +237,7 @@ BEGIN
 END;
 DELIMITER ;
 
--- #call xem_giaodich_thang (112);
+-- CALL xem_giaodich_thang (112);
 -- (ii.12). Xem danh sách tác giả của cùng một thể loại.
 drop procedure if exists xem_tacgia_cungtheloai;
 DELIMITER |
@@ -284,55 +306,4 @@ begin
         where ID=cID;
 end $$
 delimiter ;
-#call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
-
-insert into publisher value ('London', 159753, 'London, England', '456456456', 'londonpub@gmail.com');
-insert into book value (999888777666555,'999888777666555', null, 200000, 'Harry Potter and the Philosopher stone', 'London', 2000,2);
-insert into book value (999888777666554,'999888777666554', null, 200000, 'Harry Potter and the Chamber of Secrets', 'London', 2001,1);
-insert into book value (999888777666553,'999888777666553', null, 200000, 'Harry Potter and the Prisoner of Azkaban', 'London', 2002,1);
-insert into author value (123456789, 'J', 'K', 'Rowling', 'London, England', '123123123', 'F', 'jkrowling@gmail.com');
-insert into writtenby value (123456789,999888777666555);
-insert into writtenby value (123456789,999888777666554);
-insert into writtenby value (123456789,999888777666553);
-insert into sstored value (999888777666555,0,1123456789,100);
-insert into sstored value (999888777666554,0,1123456789,235);
-insert into sstored value (999888777666553,0,1123456789,142);
-
-drop procedure if exists showcart;
-DELIMITER //
-CREATE PROCEDURE showCart (cusID int(11))
-BEGIN
-	SELECT Name as BookName, Cost, Image FROM CART JOIN BOOK ON BOOKID = ISBN WHERE CUSTOMERID = CUSID;
-END //
-
-DELIMITER ;
-
-
-DROP PROCEDURE if exists SEARCHBYISBN;
-
-DELIMITER //
-CREATE PROCEDURE searchbyISBN (ISB decimal(15,0))
-BEGIN
-	SELECT B.ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time,
-		P.Code as PubCode, P.Address as PubAddress, P.PhoneNumber as PubPhone, P.email as PubEmail,
-        (select concat_ws(" ", A.fname, A.mname, A.lname)) as AuthName,
-        SSN, A.address as AuthAdress, A.phonenumber as AuthPhone, A.sex as AuthSex, A.email as AuthEmail,
-        StorageID, StaffID, amount as Amount
-    FROM BOOK B
-						JOIN PUBLISHER P ON P.NAME = PUBNAME
-                        JOIN WRITTENBY ON BOOKISBN = B.ISBN
-                        JOIN AUTHOR A ON AUTHORSSN = SSN
-                        JOIN SSTORED S ON S.ISBN = B.ISBN 
-	WHERE B.ISBN = ISB;
-END //
-DELIMITER ;
-
-DROP PROCEDURE if exists LOADNXB;
-DELIMITER //
-CREATE PROCEDURE loadNXB (pname varchar(50), isb decimal(15,0))
-BEGIN
-	SELECT ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time  
-    FROM BOOK B JOIN PUBLISHER P ON P.NAME = PUBNAME
-	WHERE ISBN != ISB AND PNAME = P.NAME;
-END //
-DELIMITER ;
+call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
