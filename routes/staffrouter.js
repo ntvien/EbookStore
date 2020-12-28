@@ -162,7 +162,9 @@ const author = (callback) =>{
     });
 }
 const kho=(callback)=>{
-    db.query(`select * from bookstorage`,function(error,value){
+    db.query(`select bookstorage.StorageID,Address,Name,Email,PhoneNumber,sum(amount) as total
+    from bookstorage left join sstored s on bookstorage.StorageID = s.StorageID
+    group by (bookstorage.StorageID)`,function(error,value){
         //console.log(value);
         callback(error, value)
     });
@@ -494,8 +496,107 @@ router.post('/addstaff',(req,res)=>{
     }
 });
 
+//quản lý đơn hàng
+const Inbook=(callback)=>{
+    db.query(`select * from Inbook`,function(error,value){
+        callback(error,value);
+    });
+}
+const Outbook=(callback)=>{
+    db.query(`select * from outbook`,function(error,value){
+        callback(error,value);
+    });
+}
+const waitpay =(callback)=>{
+    db.query(`select * from transaction join customer c on c.ID = transaction.CustomerID Where FLAG=0`,function(error,value){
+        callback(error,value);
+    })
+}
+const waitout =(callback)=>{
+    db.query(`select * from transaction join customer c on c.ID = transaction.CustomerID Where FLAG=1`,function(error,value){
+        callback(error,value);
+    })
+}
+const out =(callback)=>{
+    db.query(`select * from transaction join customer c on c.ID = transaction.CustomerID Where FLAG=2`,function(error,value){
+        callback(error,value);
+    })
+}
+router.get('/donhang',(req,res)=>{
+    if (check_sesion(req.session.Authorized)){
+    Inbook((error,value)=>{
+        Outbook((error,value1)=>{
+            db.query(`select * from transaction join customer c on c.ID = transaction.CustomerID Where FLAG=1 and sid=${req.session.account.SID}`
+            ,function(error,value3){
+                //console.log(value)
+                waitpay((error,value2)=>{
+                    out((error,value4)=>{
+                        var vm={
+                            nhap:value,
+                            xuat:value1,
+                            donhang:value2,
+                            donhang1:value3,
+                            donhang2:value4
+                        }
+                        res.render('./staff/donhang/donhang',vm)
+
+                    })
+                })
+                
+            })    
+        })      
+    })}
+    else {
+        var vm={
+            showError: true,
+            errorMsg: "Bạn phải đăng nhập với tư cách nhân viên"
+        };
+        res.render('./staff/listtask',vm)
+    }
+})
+// Chuyển trạng thái cho đơn hàng
+router.post('/donhang',(req,res)=>{
+    if (check_sesion(req.session.Authorized)){
+    var date=convert(req.body.date)
+    db.query(`call update_trangthai(${req.body.idcus},${req.body.isbn},'${date}',${req.session.account.SID})`,(error,value)=>{
+        if (error){
+            console.log(error)
+            res.redirect('/staff/donhang')
+        }
+        else {
+        res.redirect('/staff/donhang')
+        }
+    })}
+    else {
+        var vm={
+            showError: true,
+            errorMsg: "Bạn phải đăng nhập với tư cách nhân viên"
+        };
+        res.render('./staff/listtask',vm)
+    }
+})
+
 function check_sesion(sesion){
     if(sesion) return true;
     return false;
 }
+function convert(str) {
+    var mnths = {
+        Jan: "01",
+        Feb: "02",
+        Mar: "03",
+        Apr: "04",
+        May: "05",
+        Jun: "06",
+        Jul: "07",
+        Aug: "08",
+        Sep: "09",
+        Oct: "10",
+        Nov: "11",
+        Dec: "12"
+      },
+      date = str.split(" ");
+  
+    return [date[3], mnths[date[1]], date[2]].join("-")+' '+date[4];
+  }
 module.exports = router;

@@ -1,0 +1,312 @@
+<div class="container sp">
+    <div class="form-row subscribe-outer" style="width: 18%;margin-left: 100px,">
+                    <button type="submit" class="button-default ygradient1 " data-toggle="modal" data-target="#nhap">Nhập kho</button>
+                    <button type="button" class="button-default ygradient1 " data-toggle="modal" data-target="#xuat">Xuất kho</button>
+                </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Đơn hàng chờ xác nhận</h3>
+        </div>
+        <div class="panel-body">
+            <span> </span>
+            <div class="table-responsive">
+                <table class="table" id="tableDH">
+                    <thead>
+                        <tr style="font-size: 80%;">
+                            <th><a>Tên khách hàng</a></th>
+                            <th><a>Mã sách</a></th>
+                            <th><a>Thời gian thanh toán</a></th>
+                            <th><a>Số lượng</a></th>
+                            <th><a>Địa chỉ</a></th>
+                            <th><a>Số điện thoại</a></th>
+                            <th><a>Loại giao dịch</a></th>
+                            <th>Tình trạng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each donhang}}
+
+                        <tr class="green" style="font-size:80%;">
+                            <td>{{FName}} {{MName}} {{LName}} </td>
+                            <td>{{ISBN}} </td>
+                            <td>{{tDateTime}}</td>
+                            <td>{{amount}} </td>
+                            <td>{{Address}} </td>
+                            <td>{{PhoneNumber}} </td>
+                            {{#if model}}
+                            <td>Mua </td>
+                            {{else}}
+                            <td>Thuê </td>
+                            {{/if}}
+                            <form action="" method="POST">
+                                <td>
+                                    <input type="text" class="hidden" name="idcus" value={{CustomerID}}>
+                                    <input type="text" class="hidden" name="isbn" value={{ISBN}}>
+                                    <input type="text" class="hidden" name="date" value='{{tDateTime}}'>
+                                    <button class="btn btn-info" value="ahihi"type="submit">Nhận đơn</button>
+                                </td>
+                            </form>
+
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Đơn hàng chờ xuất kho</h3>
+        </div>
+        <div class="panel-body">
+            <span> </span>
+            <div class="table-responsive">
+                <table class="table" id="tableDH">
+                    <thead>
+                        <tr style="font-size: 80%;">
+                            <th><a>Tên khách hàng</a></th>
+                            <th><a>Mã sách</a></th>
+                            <th><a>Thời gian thanh toán</a></th>
+                            <th><a>Số lượng</a></th>
+                            <th><a>Địa chỉ</a></th>
+                            <th><a>Số điện thoại</a></th>
+                            <th><a>Loại giao dịch</a></th>
+                            <th>Tình trạng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each donhang1}}
+
+                        <tr class="green" style="font-size:80%;">
+                            <td>{{FName}} {{MName}} {{LName}} </td>
+                            <td>{{ISBN}} </td>
+                            <td>{{tDateTime}}</td>
+                            <td>{{amount}} </td>
+                            <td>{{Address}} </td>
+                            <td>{{PhoneNumber}} </td>
+                            {{#if model}}
+                            <td>Mua </td>
+                            {{else}}
+                            <td>Thuê </td>
+                            {{/if}}
+                            <form action="" method="POST">
+                                <td>
+                                    <input type="text" class="hidden" name="idcus" value={{CustomerID}}>
+                                    <input type="text" class="hidden" name="isbn" value={{ISBN}}>
+                                    <input type="text" class="hidden" name="date" value='{{tDateTime}}'>
+                                    <button class="btn btn-info" value="ahihi"type="submit">Xuất Kho</button>
+                                </td>
+                            </form>
+
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Đơn hàng đã xuất kho</h3>
+        </div>
+        <div class="panel-body">
+            <span> </span>
+            <div class="table-responsive">
+                <table class="table" id="tableDH">
+                    <thead>
+                        <tr style="font-size: 80%;">
+                            <th><a>Tên khách hàng</a></th>
+                            <th><a>Mã sách</a></th>
+                            <th><a>Thời gian thanh toán</a></th>
+                            <th><a>Số lượng</a></th>
+                            <th><a>Địa chỉ</a></th>
+                            <th><a>Số điện thoại</a></th>
+                            <th><a>Loại giao dịch</a></th>
+                            <th>Tình trạng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each donhang2}}
+
+                        <tr class="green" style="font-size:80%;">
+                            <td>{{FName}} {{MName}} {{LName}} </td>
+                            <td>{{ISBN}} </td>
+                            <td>{{tDateTime}}</td>
+                            <td>{{amount}} </td>
+                            <td>{{Address}} </td>
+                            <td>{{PhoneNumber}} </td>
+                            {{#if model}}
+                            <td>Mua </td>
+                            {{else}}
+                            <td>Thuê </td>
+                            {{/if}}
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <a href="task">
+        <button class="btn btn-success" type="button">Quay lại</button>
+    </a>
+
+
+<div>
+    <div class="modal fade" id="nhap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Danh sách nhập sách vào kho</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Quản lý đơn hàng nhập sách</h3>
+        </div>
+        <div class="panel-body">
+            <span> </span>
+            <div class="table-responsive">
+                <table class="table" id="tableDH">
+                    <thead>
+                        <tr>
+                            <th><a>Mã sách</a></th>
+                            <th><a>Mã kho</a></th>
+                            <th><a>Thời gian</a></th>
+                            <th><a>Số lượng</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each nhap}}
+
+                        <tr class="green">
+                            <td>{{ISBN}} </td>
+                            <td>{{StorageID }} </td>
+                            <td>{{import}}</td>
+                            <td>{{amount}} </td>
+                        </tr>
+                         {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" id="bnhap">Send message</button>
+      </div>
+    </div>
+  </div>
+ </div> {{!--Kết thúc modal --}}
+ </div>
+
+ <div>
+    <div class="modal fade" id="xuat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Danh sách xuất sách</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Quản lý đơn hàng đã xuất kho</h3>
+        </div>
+        <div class="panel-body">
+            <span> </span>
+            <div class="table-responsive">
+                <table class="table" id="tableDH">
+                    <thead>
+                        <tr>
+                            <th><a>Mã sách</a></th>
+                            <th><a>Mã kho</a></th>
+                            <th><a>Thời gian</a></th>
+                            <th><a>Số lượng</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each xuat}}
+
+                        <tr class="green">
+                            <td>{{ISBN}} </td>
+                            <td>{{StorageID }} </td>
+                            <td>{{Otime}}</td>
+                            <td>{{amount}} </td>
+                        </tr>
+                         {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" id="bnhap">Send message</button>
+      </div>
+    </div>
+  </div>
+ </div> {{!--Kết thúc modal --}}
+ </div>
+
+</div>
+{{#section 'js'}}
+<script src="/phantrang/jquery.min.js"></script>
+<script src="/phantrang/bootstrap.min.js"></script>
+<script src="/phantrang/jquery.dataTables.min.js"></script>
+<script src="/phantrang/dataTables.bootstrap.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+
+<script>
+    //Handlebars.registerHelper('check',function(value){
+
+   //})
+    $(function () {
+        $('#tableDH').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': true,
+            'language': {
+                "lengthMenu": "Hiển thị _MENU_ dòng",
+                "info": "Đang hiển thị _START_ tới _END_ tổng số _TOTAL_ kết quả",
+                "paginate": {
+                    "first": "Trang đầu",
+                    "last": "Trang cuối",
+                    "next": "Tiếp",
+                    "previous": "Trước"
+                }
+            }
+        });
+    });
+    $(function () {
+        //Date picker
+        $('#datepicker').datepicker({
+            autoclose: true
+        });
+    });
+    //Initialize Select2 Elements
+    $('.select2').select2();
+</script> {{/section}}
