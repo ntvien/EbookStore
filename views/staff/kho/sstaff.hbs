@@ -1,11 +1,46 @@
 <div class="container">
     <div class="row">
             <div>
-                <a href="author">cập nhật thông tin tác giả</a>
-            </div>
-            <div>
                 <a href="addkho">cập nhật thông tin kho</a>
             </div>
     </div>
     <a href="task" class="btn btn-info" role="button">Hoàn Thành</a>
+
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="example1" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mã kho</th>
+                            <th>Tên kho</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Tổng số sách trong kho</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each kho}}
+
+                        <tr>
+                            <td>{{StorageID}} </td>
+                            <td>{{Name}}  </td>
+                            <td>{{Address}}</td>
+                            <td>{{PhoneNumber}}</td>
+                            <td>{{Email}} </td>
+                            <td>{{total}} </td>
+                        </tr>
+
+                        {{/each}}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
 </div>

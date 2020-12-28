@@ -29,9 +29,12 @@ use ebookstore_01;
 # INSERT INTO Staff VALUE (8, 'Dao', 'Thi', 'H', 'stb@gmail.com', 032121111, 208);
 # INSERT INTO Staff VALUE (9, 'Nguyen', 'Van', 'I', 'sdga@gmail.com', 0956136665, 209);
 
+INSERT INTO Staff VALUE ("1223456789", 'Le', 'Thi', 'J', '0325325252', 0,2333,'sdfb@gmail.com',0);
+
 
 INSERT INTO BookStorage VALUE (0, 'Center', 'USA', 'pn@gmail.com', '0956632156');
 INSERT INTO Staff VALUE ("1223456789", 'Le', 'Thi', 'J','sdfb@gmail.com', 0325325252, 0,2333,0);
+
 select * from staff;
 # select * from author;
 # select * from writtenby;
@@ -43,6 +46,9 @@ delete from book;
 select * from author;
 -- Insert ten tac gia
 select * from staff;
+#######################################################
+# Kiểm tra mật khẩu cho nhân viên
+
 drop procedure if exists check_pass_staff;
 delimiter |
 create procedure check_pass_staff(s_ssn varchar(10),spass varchar(500))
@@ -52,7 +58,7 @@ begin
     if (checkid!=spass)or checkid is null then
         SIGNAL SQLSTATE '45001'
 			SET MESSAGE_TEXT = 'Mat khau khong hop le';
-    else select FName,MName,LName,stype,SID from staff where s_ssn=ID;
+    else select FName,MName,LName,stype,SID,PhoneNumber,Email from staff where s_ssn=ID;
     end if ;
 
 end |
@@ -67,9 +73,19 @@ select * from paperbook;
 select * from ebook;
 select * from sstored;
 select amount+1 from inbook;
+select * from staff;
 
 # select * from publisher;
+
 #insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta'
+
+###########################################################
+# kiểm tra xem sách đã tồn tại hay chưa
+
+
+=======
+#insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta'
+
 use ebookstore_01;
 drop procedure if exists check_book_exit;
 delimiter |
@@ -97,6 +113,10 @@ drop procedure if exists import_book;
 #         foreign key (PubName) references publisher (Name)
 #             on update cascade on delete cascade
 # );
+#####################################################################
+# Thêm sách vào hệ thống
+
+
 DELIMITER //
 CREATE PROCEDURE import_book(isb decimal(15,0),sum varchar(500),
 ccost decimal(10,2),
@@ -139,7 +159,7 @@ DELIMITER ;
 # select * from paperbook;
 #2 Cập nhật thông tin về sách khi sách được xuất kho
 
-
+##########################################################################
 # thên tác giả cho sách
 drop procedure if exists writeby;
 delimiter |
@@ -151,6 +171,9 @@ end |
 delimiter ;
 select * from writtenby;
 select * from field;
+
+#########################################
+# cập nhật thông tin bảng nhập xuất kho
 drop procedure if exists update_in;
 delimiter |
 create procedure update_in(nsid int,namount int,nisbn decimal(15))
@@ -169,12 +192,17 @@ delimiter ;
 select * from sstored;
 select * from inbook;
 select * from book;
+select * from publisher;
+select * from bookstorage;
+select * from staff;
 #     Summary varchar(500)   null,
 #     Cost    decimal(10, 2) null,
 #     Name    varchar(100)   not null,
 #     PubName varchar(100)   not null,
 #     Year    int            null,
 #     Time    int            null,
+#############################################################
+# cập nhật thông tin sách
 drop procedure if exists update_info;
 delimiter |
 create procedure update_info(
@@ -375,6 +403,9 @@ select * from book;
 # END //
 
 -- call view_trans_by_card_in_day(CURRENT_DATE);
+
+#########################################################
+# Thêm tác giả vào hệ thống
 DROP PROCEDURE if exists add_author;
 delimiter |
 create procedure add_author(
@@ -411,6 +442,11 @@ select * from author;
 #     Email       varchar(100) null,
 #     PhoneNumber varchar(15)  null
 # );
+
+################################################
+# Thêm kho vào hệ thống
+
+
 drop procedure if exists add_BookStorage;
 delimiter |
 create procedure add_BookStorage(sname varchar(20),sadd varchar(100),mail varchar(100),phone varchar(15))
@@ -438,6 +474,9 @@ delimiter ;
 #     spassword   varchar(500) not null,
 #     Email       varchar(100) null,# );
 -- drop table staff;
+###########################
+# Thêm nhân viên cho sách
+
 drop procedure if exists add_staff;
 delimiter |
 create procedure add_staff(nid varchar(10),
@@ -455,7 +494,7 @@ insert into staff
 end |
 delimiter ;
 select * from bookstorage;
-call add_staff('2020251201','Hà','Thu','Nguyễn','a@gmail.com','0123445566',1,1,'123456')
+-- call add_staff('2020251201','Hà','Thu','Nguyễn','a@gmail.com','0123445566',1,1,'123456')
 select * from staff;
 drop procedure if exists show_publish;
 delimiter |
@@ -464,6 +503,10 @@ begin
     select StorageID,Name,Address from bookstorage;
 end |
 delimiter ;
+
+####################################################
+# cập nhật nhà xuất bản
+
 drop procedure if exists add_publish;
 # create table publisher
 # (
@@ -485,5 +528,49 @@ begin
     value (nname,ncode,naddr,phone,nmail);
 end |
 delimiter ;
+use ebookstore_01;
 select * from bookstorage;
 select * from publisher;
+select bookstorage.StorageID,Address,Name,Email,PhoneNumber,sum(amount) as total
+from bookstorage left join  sstored s on bookstorage.StorageID = s.StorageID
+group by (bookstorage.StorageID);
+select * from staff;
+select * from inbook;
+select * from inbook where '2020-12-27' like date (import);
+select * from transaction join customer c on c.ID = transaction.CustomerID Where FLAG=0;
+
+########################################################
+# Cập nhật trạng thái giao dịch
+
+
+drop procedure if exists update_trangthai;
+delimiter |
+create procedure update_trangthai(
+idcus int, nisbn decimal(15),ndate datetime,nsid int)
+begin
+    declare fl int default 0;
+    declare sl int default 0;
+    declare slstore int default 0;
+    select FLAG into fl from transaction where tDateTime=ndate and CustomerID=idcus and nisbn=ISBN;
+    select amount into sl from transaction where tDateTime=ndate and CustomerID=idcus and nisbn=ISBN;
+    if (fl=0) then
+        update transaction set FLAG=1,sid=nsid where tDateTime=ndate and CustomerID=idcus and nisbn=ISBN;
+    else
+        if (fl=1) then
+            select amount into slstore from sstored where nisbn=ISBN and nsid=StorageID;
+            if (slstore<sl) then
+                SIGNAL SQLSTATE '45003'
+			    SET MESSAGE_TEXT = 'Kho không đủ số lượng để xuất hóa đơn này';
+            else
+                insert into outbook value(nisbn,nsid,CURRENT_TIME(),sl);
+                update sstored set amount=amount-sl  where nisbn=ISBN and nsid=StorageID;
+                update transaction set FLAG=2 where tDateTime=ndate and CustomerID=idcus and nisbn=ISBN;
+            end if ;
+
+            end if ;
+
+        end if ;
+end |
+delimiter ;
+select * from sstored;
+select * from transaction;

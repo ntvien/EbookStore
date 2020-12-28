@@ -71,6 +71,7 @@ end $$
 DELIMITER  ;
 -- delete from customer;
 -- call createaccout('Nhat','Nhat','Nguyen','linhcute01','ahihi','980501','M','00222222211','Tp.HCM');
+use ebookstore_01;
 select * from customer;
 # CREATE TABLE CreditCard(
 # 	CustomerID INT NOT NULL,
@@ -142,15 +143,12 @@ DELIMITER |
 CREATE PROCEDURE capnhat_giaodich(
 	Trans_CustomerID INT,
 	Trans_ISBN decimal(15,0),
-	Trans_DateTime DATE,
 	Trans_PaymentID INT,
-	Btype varchar(4),
-	t decimal(1,0),
-	a int,PayID int,nmodel varchar(4)
+	a int,nmodel varchar(4)
 )
 BEGIN
 	insert into Transaction
-	value (Trans_CustomerID,Trans_ISBN,Trans_DateTime,t,a,PayID,CURRENT_TIMESTAMP(),nmodel);
+	value (Trans_CustomerID,Trans_ISBN,CURRENT_TIMESTAMP(),0,a,Trans_PaymentID,nmodel,null);
 END;
 DELIMITER ;
 select CURRENT_TIMESTAMP();
@@ -290,7 +288,9 @@ create trigger insert_cus
 delimiter ;
 select * from customer;
 use ebookstore_01;
-delete from customer;
+#delete from customer;
+################################################
+# Kiểm tra mật khẩu cho khách hàng
 drop procedure if exists update_pass;
 delimiter $$
 create procedure update_pass(cID int,oldpass varchar(500), newpass varchar(500))
@@ -306,6 +306,9 @@ begin
         where ID=cID;
 end $$
 delimiter ;
+
+#call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
+=======
 -- call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
 
 insert into publisher value ('London', 159753, 'London, England', '456456456', 'londonpub@gmail.com');
@@ -363,3 +366,4 @@ DELIMITER ;
 insert into keyword values (999888777666555, 'philosopher'),(999888777666555, 'harry potter'),(999888777666555, 'voldemort'),(999888777666555, 'dumbledore'),
 (999888777666555, 'hermione'),(999888777666555, 'ron'),(999888777666554, 'harry potter'),(999888777666555, 'chamber'), (999888777666554, 'chamber of secrets'),
 (999888777666554, 'voldemort'),(999888777666553, 'harry potter'),(999888777666553, 'voldemort'), (999888777666553, 'azkaban'),(999888777666553, 'prisoner');
+

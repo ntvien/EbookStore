@@ -55,10 +55,11 @@
 {{/if}}
 
 
-<div class="login">
+<div class="login" >
         <form action="" method="POST" role="form" onsubmit="return validate();">
-            <div class="mod-login">
-                <div class="mod-login-col1" style="width: 350px;">
+            <div class="mod-login" >
+                <div class"row">
+                <div class="mod-login-col1" style="width: 300px;">
                     <div class="mod-input mod-login-input-name mod-input-name">
                         <label>SSN</label>
                         <input id="ssn" maxlength="10" type="text" placeholder="Mã định danh" data-meta="Field" name="ssn">
@@ -90,7 +91,7 @@
                         <span></span>
                     </div>
                 </div>
-                <div class="mod-login-col2" style="width: 350px;">
+                <div class="mod-login-col2" style="width: 400px;">
                      <div >
                         <label >Type of staff</label>
                         {{#if layoutVM.type}}
@@ -137,7 +138,7 @@
                 <div class="form-row subscribe-outer" style="width: 18%;margin-left: 100px">
                     <button type="submit" class="button-default ygradient1 ">Thêm nhân viên</button>
                 </div>
-                
+                </div>
             </div>
         </form>
 <a href="managestaff" class="btn btn-info" role="button">Hoàn Thành</a>

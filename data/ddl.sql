@@ -254,3 +254,31 @@ alter table staff add stype int;
 alter table publisher drop Email;
 alter table publisher add Email varchar(100);
 alter table book drop Image;
+use EBookStore_01;
+alter table transaction drop model;
+alter table transaction add model int; #=0 mua =1 thuê
+alter table transaction add sid int; #kho nhận xuất sách
+select * from Customer;
+select * from book;
+select * from Payment;
+select * from Transaction;
+# insert into transaction
+# value (3,
+#     123456789000000,
+#     CURRENT_TIMESTAMP(),
+#     0,35,
+#     1,1,null);
+# insert into transaction
+# value (3,
+#     123456789000000,
+#     CURRENT_TIMESTAMP(),
+#     0,20,
+#     1,1,null);
+# insert into transaction
+# value (3,
+#     123456789000004,
+#     CURRENT_TIMESTAMP(),
+#     0,23,
+#     1,1,null);
+
+
