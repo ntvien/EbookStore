@@ -306,19 +306,19 @@ begin
         where ID=cID;
 end $$
 delimiter ;
-call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
+-- call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
 
 insert into publisher value ('London', 159753, 'London, England', '456456456', 'londonpub@gmail.com');
-insert into book value (999888777666555,'999888777666555.jpg', null, 200000, 'Harry Potter and the Philosophers stone', 'London', 2000,2);
-insert into book value (999888777666554,'999888777666554.jpg', null, 200000, 'Harry Potter and the Chamber of Secrets', 'London', 2001,1);
-insert into book value (999888777666553,'999888777666553.jpg', null, 200000, 'Harry Potter and the Prisoner of Azkaban', 'London', 2002,1);
+insert into book value (999888777666555, null, 200000, 'Harry Potter and the Philosophers stone', 'London', 2000,2);
+insert into book value (999888777666554, null, 200000, 'Harry Potter and the Chamber of Secrets', 'London', 2001,1);
+insert into book value (999888777666553, null, 200000, 'Harry Potter and the Prisoner of Azkaban', 'London', 2002,1);
 insert into author value (123456789, 'J', 'K', 'Rowling', 'London, England', '123123123', 'F', 'jkrowling@gmail.com');
 insert into writtenby value (123456789,999888777666555);
 insert into writtenby value (123456789,999888777666554);
 insert into writtenby value (123456789,999888777666553);
-insert into sstored value (999888777666555,0,1123456789,100);
-insert into sstored value (999888777666554,0,1123456789,235);
-insert into sstored value (999888777666553,0,1123456789,142);
+insert into sstored value (999888777666555,0,1223456789,100);
+insert into sstored value (999888777666554,0,1223456789,235);
+insert into sstored value (999888777666553,0,1223456789,142);
 
 drop procedure if exists showcart;
 DELIMITER //
@@ -358,3 +358,8 @@ BEGIN
 	WHERE ISBN != ISB AND PNAME = P.NAME;
 END //
 DELIMITER ;
+
+
+insert into keyword values (999888777666555, 'philosopher'),(999888777666555, 'harry potter'),(999888777666555, 'voldemort'),(999888777666555, 'dumbledore'),
+(999888777666555, 'hermione'),(999888777666555, 'ron'),(999888777666554, 'harry potter'),(999888777666555, 'chamber'), (999888777666554, 'chamber of secrets'),
+(999888777666554, 'voldemort'),(999888777666553, 'harry potter'),(999888777666553, 'voldemort'), (999888777666553, 'azkaban'),(999888777666553, 'prisoner');

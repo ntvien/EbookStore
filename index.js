@@ -47,7 +47,7 @@ app.use(bodyParser.json());
 app.use(handleLayoutMDW);
 app.get('/', (req, res) => {
 
-    var sql = `select B.ISBN, Image, Cost, B.Name as BookName, \
+    var sql = `select B.ISBN, concat(B.ISBN,'.jpg') as Image, Cost, B.Name as BookName, \
     (select concat_ws(" ", A.fname, A.mname, A.lname)) as AuthName \
     from Book B join writtenby on bookisbn = B.ISBN join author A on authorssn = ssn order by isbn desc limit ${10} offset ${0}`;
     db.query(sql, function(error, value) {
