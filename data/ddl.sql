@@ -44,7 +44,6 @@ CREATE TABLE Transfer(
 drop table if exists book;
 CREATE TABLE Book(
 	ISBN decimal(15,0),
-	Image VARCHAR(100),
 	Summary VARCHAR(500),
 	Cost DECIMAL(10,2),
 	Name VARCHAR(100) NOT NULL,
@@ -72,7 +71,7 @@ CREATE TABLE Author(
 	MName VARCHAR(20) NOT NULL,
 	LName VARCHAR(20) NOT NULL,
 	Address VARCHAR(100),
-	Email VARCHAR(20),
+	Email VARCHAR(100),
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (SSN)
 );
@@ -82,7 +81,7 @@ CREATE TABLE Publisher(
 	Name VARCHAR(50),
 	Code VARCHAR(20) UNIQUE NOT NULL,
 	Address VARCHAR(100),
-	Email VARCHAR(20),
+	Email VARCHAR(100),
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (Name)
 );
@@ -103,8 +102,8 @@ CREATE TABLE BookStorage(
 	StorageID INT,
 	Address VARCHAR(100) NOT NULL,
 	Name VARCHAR(20) not null,
-	Email VARCHAR(20),
-	PhoneNumber VARCHAR(10),
+	Email VARCHAR(100),
+	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (StorageID)
 );
 
@@ -245,14 +244,13 @@ CREATE table Cart(
 
 ALTER TABLE Book ADD PubName VARCHAR(100) NOT NULL;
 ALTER TABLE Book ADD CONSTRAINT FK_PubName FOREIGN KEY (PubName) REFERENCES Publisher(Name)ON DELETE CASCADE  ON UPDATE CASCADE;
--- ALTER TABLE Book drop Year ;
--- ALTER TABLE Book drop Time;
 ALTER TABLE Book ADD Year int;
 ALTER TABLE Book ADD Time INT;
 
 ALTER TABLE Transaction ADD PaymentID INT NOT NULL;
 ALTER TABLE Transaction ADD FOREIGN KEY (PaymentID) REFERENCES Payment(ID)ON DELETE CASCADE  ON UPDATE CASCADE;
-#ALTER TABLE Transaction ADD TTime DATETIME;
+alter table transaction add model int; #=0 mua =1 thuê
+alter table transaction add sid int; #kho nhận xuất sách
 
 ALTER TABLE CreditCard ADD CPaymentID INT NOT NULL;
 ALTER TABLE CreditCard ADD FOREIGN KEY (CPaymentID) REFERENCES CardPayment(ID) ON DELETE CASCADE  ON UPDATE CASCADE;
@@ -260,50 +258,10 @@ ALTER TABLE CreditCard ADD FOREIGN KEY (CPaymentID) REFERENCES CardPayment(ID) O
 ALTER TABLE Staff ADD SID INT NOT NULL;
 ALTER TABLE Staff ADD FOREIGN KEY (SID) REFERENCES BookStorage(StorageID) ON DELETE CASCADE  ON UPDATE CASCADE;
 alter table staff add spassword varchar(500);
-ALTER TABLE Transaction ADD model VarChar(4) NOT NULL;
-use EBookStore_01;
--- ALTER TABLE Staff ADD spassword VarChar(500) NOT NULL;
-ALTER TABLE Staff ADD stype int NOT NULL;
-use EBookStore_01;
-ALTER TABLE author ADD SEX CHAR(1);
-SELECT * FROM Author;
--- alter table author add SSN int ;
-alter table author drop Email;
-alter table author add Email varchar(100);
-alter table bookstorage drop Email;
-alter table bookstorage add Email varchar(100);
-alter table bookstorage drop PhoneNumber;
-alter table bookstorage add PhoneNumber varchar(15);
-alter table staff drop stype;
 alter table staff add stype int;
-alter table publisher drop Email;
-alter table publisher add Email varchar(100);
-alter table book drop Image;
-use EBookStore_01;
-alter table transaction drop model;
-alter table transaction add model int; #=0 mua =1 thuê
-alter table transaction add sid int; #kho nhận xuất sách
-select * from Customer;
-select * from book;
-select * from Payment;
-select * from Transaction;
-# insert into transaction
-# value (3,
-#     123456789000000,
-#     CURRENT_TIMESTAMP(),
-#     0,35,
-#     1,1,null);
-# insert into transaction
-# value (3,
-#     123456789000000,
-#     CURRENT_TIMESTAMP(),
-#     0,20,
-#     1,1,null);
-# insert into transaction
-# value (3,
-#     123456789000004,
-#     CURRENT_TIMESTAMP(),
-#     0,23,
-#     1,1,null);
+
+ALTER TABLE author ADD SEX CHAR(1);
+
+
 
 
