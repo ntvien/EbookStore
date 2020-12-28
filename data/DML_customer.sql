@@ -308,7 +308,7 @@ end $$
 delimiter ;
 
 #call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
-=======
+
 -- call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
 
 insert into publisher value ('London', 159753, 'London, England', '456456456', 'londonpub@gmail.com');
@@ -338,7 +338,7 @@ DROP PROCEDURE if exists SEARCHBYISBN;
 DELIMITER //
 CREATE PROCEDURE searchbyISBN (ISB decimal(15,0))
 BEGIN
-	SELECT B.ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time,
+	SELECT B.ISBN, (select concat(B.ISBN,'.jpg')) as Image, Summary, Cost, B.Name as BookName, PubName, Year, Time,
 		P.Code as PubCode, P.Address as PubAddress, P.PhoneNumber as PubPhone, P.email as PubEmail,
         (select concat_ws(" ", A.fname, A.mname, A.lname)) as AuthName,
         SSN, A.address as AuthAdress, A.phonenumber as AuthPhone, A.sex as AuthSex, A.email as AuthEmail,
@@ -356,7 +356,7 @@ DROP PROCEDURE if exists LOADNXB;
 DELIMITER //
 CREATE PROCEDURE loadNXB (pname varchar(50), isb decimal(15,0))
 BEGIN
-	SELECT ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time  
+	SELECT ISBN, (select concat(B.ISBN,'.jpg')) as Image, Summary, Cost, B.Name as BookName, PubName, Year, Time  
     FROM BOOK B JOIN PUBLISHER P ON P.NAME = PUBNAME
 	WHERE ISBN != ISB AND PNAME = P.NAME;
 END //
@@ -366,4 +366,6 @@ DELIMITER ;
 insert into keyword values (999888777666555, 'philosopher'),(999888777666555, 'harry potter'),(999888777666555, 'voldemort'),(999888777666555, 'dumbledore'),
 (999888777666555, 'hermione'),(999888777666555, 'ron'),(999888777666554, 'harry potter'),(999888777666555, 'chamber'), (999888777666554, 'chamber of secrets'),
 (999888777666554, 'voldemort'),(999888777666553, 'harry potter'),(999888777666553, 'voldemort'), (999888777666553, 'azkaban'),(999888777666553, 'prisoner');
+
+
 

@@ -1,6 +1,7 @@
 Drop database  if exists EBookStore_01;
 CREATE DATABASE EBookStore_01;
 use EBookStore_01;
+
 drop table if exists Customer;
 CREATE TABLE Customer(
 	ID INT default 0,
@@ -16,17 +17,20 @@ CREATE TABLE Customer(
 	Mail VARCHAR(100) NOT NULL,
 	PRIMARY KEY (ID)
 );
+
 drop table if exists Payment;
 CREATE TABLE Payment(
 	ID INT,
 	PRIMARY KEY(ID)
 );
+
 drop table if exists CardPayment;
 CREATE TABLE CardPayment(
 	ID INT,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (ID) REFERENCES Payment(ID) ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists transfer;
 CREATE TABLE Transfer(
 	ID INT,
@@ -36,6 +40,7 @@ CREATE TABLE Transfer(
 	PRIMARY KEY (ID),
 	FOREIGN KEY (ID) REFERENCES Payment(ID) ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists book;
 CREATE TABLE Book(
 	ISBN decimal(15,0),
@@ -45,6 +50,7 @@ CREATE TABLE Book(
 	Name VARCHAR(100) NOT NULL,
 	PRIMARY KEY (ISBN)
 );
+
 drop table if exists ebook;
 CREATE TABLE EBook(
 	ISBN decimal(15,0),
@@ -52,11 +58,13 @@ CREATE TABLE EBook(
 	PRIMARY KEY (ISBN),
 	FOREIGN KEY (ISBN) REFERENCES Book(ISBN) ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists paperbook;
 CREATE TABLE PaperBook(
 	ISBN decimal(15,0),
 	PRIMARY KEY (ISBN)
 );
+
 drop table if exists Author;
 CREATE TABLE Author(
 	SSN VARCHAR(20),
@@ -68,6 +76,7 @@ CREATE TABLE Author(
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (SSN)
 );
+
 drop table if exists Publisher;
 CREATE TABLE Publisher(
 	Name VARCHAR(50),
@@ -77,6 +86,7 @@ CREATE TABLE Publisher(
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (Name)
 );
+
 drop table if exists Staff;
 CREATE TABLE Staff(
 	ID char(10),
@@ -87,6 +97,7 @@ CREATE TABLE Staff(
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (ID)
 );
+
 drop table if exists BookStorage;
 CREATE TABLE BookStorage(
 	StorageID INT,
@@ -96,6 +107,7 @@ CREATE TABLE BookStorage(
 	PhoneNumber VARCHAR(10),
 	PRIMARY KEY (StorageID)
 );
+
 drop table if exists CreditCard;
 CREATE TABLE CreditCard(
 	CustomerID INT NOT NULL,
@@ -109,6 +121,7 @@ CREATE TABLE CreditCard(
 	PRIMARY KEY (CustomerID, Code),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 USE EBookStore_01;
 drop table if exists Transaction;
 CREATE TABLE Transaction(
@@ -121,6 +134,7 @@ CREATE TABLE Transaction(
 	FOREIGN KEY (CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (ISBN) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists WrittenBy;
 CREATE TABLE WrittenBy(
 	AuthorSSN VARCHAR(20),
@@ -129,6 +143,7 @@ CREATE TABLE WrittenBy(
 	FOREIGN KEY (AuthorSSN) REFERENCES Author(SSN)ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (BookISBN) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Contact;
 CREATE TABLE Contact(
 	StaffID char(10),
@@ -137,6 +152,7 @@ CREATE TABLE Contact(
 	FOREIGN KEY (AuthorSSN) REFERENCES Author(SSN)ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (StaffID) REFERENCES Staff(ID)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists  OrderBook;
 CREATE TABLE OrderBook(
 	StaffID char(10),
@@ -146,6 +162,7 @@ CREATE TABLE OrderBook(
 	FOREIGN KEY (StaffID) REFERENCES Staff(ID) ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (Publisher) REFERENCES Publisher(Name)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Commented;
 CREATE TABLE Commented(
 	BookID DECIMAL(15,0),
@@ -154,6 +171,7 @@ CREATE TABLE Commented(
 	FOREIGN KEY (BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists sStored;
 CREATE TABLE sStored (
 	ISBN DECIMAL(15,0),
@@ -166,6 +184,7 @@ CREATE TABLE sStored (
 	FOREIGN KEY (StaffID) REFERENCES Staff(ID),
 	FOREIGN KEY (StorageID) REFERENCES BookStorage(StorageID) ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Inbook;
 CREATE TABLE Inbook
 (
@@ -175,7 +194,8 @@ CREATE TABLE Inbook
     amount int,
     primary key (ISBN,StorageID,import,amount),
     foreign key (ISBN,StorageID) references sStored(ISBN,StorageID) on delete cascade on update cascade
-    );
+);
+
 drop table if exists outbook;
 CREATE TABLE outbook
 (
@@ -185,7 +205,8 @@ CREATE TABLE outbook
     amount int, -- so luong môi quyen sach xuat kho
     primary key (ISBN,StorageID,Otime,amount),
     foreign key (ISBN,StorageID) references sStored(ISBN,StorageID) on delete cascade on update cascade
-    );
+);
+
 drop table if exists Field;
 CREATE TABLE Field(
 	BookID DECIMAL(15,0),
@@ -193,6 +214,7 @@ CREATE TABLE Field(
 	PRIMARY KEY(BookID, AField),
 	FOREIGN KEY (BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Keyword;
 CREATE TABLE Keyword(
 	BookID DECIMAL(15,0),
@@ -200,6 +222,7 @@ CREATE TABLE Keyword(
 	PRIMARY KEY(BookID, AKeyword),
 	FOREIGN KEY(BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists  Response;
 CREATE TABLE Response(
 	BookID DECIMAL(15,0),
@@ -209,6 +232,7 @@ CREATE TABLE Response(
 	PRIMARY KEY (BookID, CustomerID, Time, Text),
 	FOREIGN KEY(BookID, CustomerID) REFERENCES Commented(BookID, CustomerID)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Cart;
 CREATE table Cart(
     customerID INT,
@@ -218,6 +242,7 @@ CREATE table Cart(
     FOREIGN KEY(CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE,
     FOREIGN KEY(BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 ALTER TABLE Book ADD PubName VARCHAR(100) NOT NULL;
 ALTER TABLE Book ADD CONSTRAINT FK_PubName FOREIGN KEY (PubName) REFERENCES Publisher(Name)ON DELETE CASCADE  ON UPDATE CASCADE;
 -- ALTER TABLE Book drop Year ;
