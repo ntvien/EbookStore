@@ -82,6 +82,7 @@
                                             <option name="idDanhMuc" id="idDanhMuc2" value="2">Thể loại</option>
                                             <option name="idDanhMuc" id="idDanhMuc3" value="3">Tác giả</option>
                                             <option name="idDanhMuc" id="idDanhMuc4" value="4">Năm xuất bản</option>
+                                            <option name="idDanhMuc" id="idDanhMuc5" value="5">Từ khóa</option>
                                         </select>
 
                                     </div>
@@ -199,7 +200,7 @@
                                             <b>Thể loại</b>
                                         </a>
                                         {{#each layoutVM.categories}}
-                                        <a href="/tim-kiem/theo-loai/?id={{idLoai}}">{{tenLoai}}</a>
+                                        <a href="/tim-kiem/theo-loai/?tenLoai={{AField}}">{{AField}}</a>
                                         {{/each}}
                                     </li>
                                 </ul>
@@ -220,7 +221,7 @@
                                             <b>Nhà Xuất Bản</b>
                                         </a>
                                         {{#each layoutVM.nxb}}
-                                        <a href="/tim-kiem/theo-NhaSX/?id={{idNhaSX}}">{{tenNhaSX}}</a>
+                                        <a href="/tim-kiem/theo-NhaSX/?id={{Code}}">{{Name}}</a>
                                         {{/each}}
                                     </li>
                                 </ul>

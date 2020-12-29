@@ -335,7 +335,7 @@ DROP PROCEDURE if exists SEARCHBYISBN;
 DELIMITER //
 CREATE PROCEDURE searchbyISBN (ISB decimal(15,0))
 BEGIN
-	SELECT B.ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time,
+	SELECT B.ISBN, (select concat(B.ISBN,'.jpg')) as Image, Summary, Cost, B.Name as BookName, PubName, Year, Time,
 		P.Code as PubCode, P.Address as PubAddress, P.PhoneNumber as PubPhone, P.email as PubEmail,
         (select concat_ws(" ", A.fname, A.mname, A.lname)) as AuthName,
         SSN, A.address as AuthAdress, A.phonenumber as AuthPhone, A.sex as AuthSex, A.email as AuthEmail,
@@ -353,7 +353,7 @@ DROP PROCEDURE if exists LOADNXB;
 DELIMITER //
 CREATE PROCEDURE loadNXB (pname varchar(50), isb decimal(15,0))
 BEGIN
-	SELECT ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time  
+	SELECT ISBN, (select concat(B.ISBN,'.jpg')) as Image, Summary, Cost, B.Name as BookName, PubName, Year, Time  
     FROM BOOK B JOIN PUBLISHER P ON P.NAME = PUBNAME
 	WHERE ISBN != ISB AND PNAME = P.NAME;
 END //
