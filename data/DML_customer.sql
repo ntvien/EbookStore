@@ -340,4 +340,28 @@ insert into keyword values (999888777666555, 'philosopher'),(999888777666555, 'h
 (999888777666554, 'voldemort'),(999888777666553, 'harry potter'),(999888777666553, 'voldemort'), (999888777666553, 'azkaban'),(999888777666553, 'prisoner');
 
 
+drop procedure if exists bookwcate;
+delimiter //
+create procedure bookwcate (cate varchar(20))
+begin
+	select distinct * from book b join field on b.isbn = bookid where cate = afield;
+end //
+delimiter ;
 
+
+drop procedure if exists bookwcate;
+delimiter //
+create procedure bookwcate (cate varchar(20))
+begin
+	select distinct ISBN, Cost, Name, PubName, AField, concat_ws(" ", FName, MName, LName) as AuthName from book b join field on b.isbn = bookid join writtenby on bookisbn = b.isbn join author on ssn = authorssn where cate = afield;
+end //
+delimiter ;
+
+
+drop procedure if exists allbooks;
+delimiter //
+create procedure allbooks ()
+begin
+	select distinct ISBN, Cost, Name, PubName, AField, concat_ws(" ", FName, MName, LName) as AuthName from book b join field on b.isbn = bookid join writtenby on bookisbn = b.isbn join author on ssn = authorssn;
+end //
+delimiter ;
