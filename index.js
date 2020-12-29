@@ -15,6 +15,9 @@ var accountController = require('./routes/LoginRoutes');
 var cartcontroler = require('./routes/cartRouter');
 var staffcontroler = require('./routes/staffrouter')
 var productController = require('./routes/productRouter');
+var searchController = require('./routes/searchRouter');
+var timkiemController = require('./routes/categoryController');
+
 var handleLayoutMDW = require('./middle-wares/handleLayout');
 var db = require('./select');
 var app = express();
@@ -76,6 +79,8 @@ app.use('/sample_product', productController);
 app.use('/account', accountController);
 app.use('/cart', cartcontroler);
 app.use('/staff', staffcontroler);
+app.use('/tim-voi-key', searchController);
+app.use('/tim-kiem', timkiemController);
 // app.post('/auth', function(request, response) {
 // 	var username = request.body.username;
 // 	var password = request.body.password;
