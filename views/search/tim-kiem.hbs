@@ -19,7 +19,7 @@
                         <li class="clearfix">
                             <div class="item-info">
                                 <h3 class="item-title">
-                                    <a href="/tim-kiem/theo-loai/?tenLoai={{AField}}">{{AField}}</a>
+                                    <a href="tim-kiem/theo-loai/?tenLoai={{AField}}">{{AField}}</a>
                                 </h3>
 
                             </div>
@@ -93,54 +93,55 @@
             </div>
             <div class="content-block-topboard sidebar-block sidebar-block-category-lv2" >
                 <div class="topboard-inner">
-                    <div class="topboard-title">Phân loại theo tầm giá</div>
+                    <div class="topboard-title">Phân loại theo năm</div>
                     <ul class="topboard-items clearfix">
                         <li class="clearfix ">
                             <div class="item-info">
-                                <h3 class="item-title"><a href="../../tim-kiem/theo-gia/?giadau=0&giacuoi=49999" >Dưới 50.000 <u>đ</u></a></h3>
+                                <h3 class="item-title"><a href="../../tim-kiem/theo-nam/?namdau=0&namcuoi=2000" >Trước 2000 </a></h3>
                             </div>
                         </li>
                         <li class="clearfix ">
                             <div class="item-info"style="width: 110%">
-                                <h3 class="item-title"><a href="../../tim-kiem/theo-gia/?giadau=50000&giacuoi=99999">Từ 50.000 đến dưới 100.000 <u>đ</u></a></h3>
+                                <h3 class="item-title"><a href="../../tim-kiem/theo-nam/?namdau=2000&namcuoi=2005">Từ 2000 đến trước 2005 </a></h3>
                             </div>
                         </li>
                         <li class="clearfix ">
                             <div class="item-info"style="width: 110%">
-                                <h3 class="item-title"><a href="../../tim-kiem/theo-gia/?giadau=100000&giacuoi=199999">Từ 100.000 đến dưới 200.000 <u>đ</u></a></h3>
+                                <h3 class="item-title"><a href="../../tim-kiem/theo-nam/?namdau=2005&namcuoi=2010">Từ 2005 đến trước 2010 </a></h3>
                             </div>
                         </li>
                         <li class="clearfix ">
                             <div class="item-info">
-                                <h3 class="item-title"><a href="../../tim-kiem/theo-gia/?giadau=200000&giacuoi=9999999">Trên 200.000 <u>đ</u></a></h3>
+                                <h3 class="item-title"><a href="../../tim-kiem/theo-nam/?namdau=2010&namcuoi=2020">Từ 2010 đến nay</a></h3>
                             </div>
                         </li>
                         <div style="margin-top: 10px">
 
-                            <form action="/tim-kiem/theo-gia/" method="get">
-                                <div class="mod-login-col1" style="width: 230px">
-                                    <div class="mod-input mod-login-input-email mod-input-email">
-                                        <label>Tìm với sách giá từ...</label>
-                                        <input type="number" name="giadau" id="giadau" autocomplete="off" placeholder=" Giá từ...">
-                                        <b></b>
-                                        <span></span>
-                                        <label>Đến...</label>
-                                        <input type="number" name="giacuoi" id="giacuoi" autocomplete="off" placeholder=" Đến...">
-                                        <b></b>
-                                        <span></span>
-                                    </div>
+                        <form action="/tim-kiem/theo-nam/" method="get">
+                            <div class="mod-login-col1" style="width: 230px">
+                                <div class="mod-input mod-login-input-email mod-input-email">
+                                    <label>Tìm sách trong các năm...</label>
+                                    <input type="number" name="namdau" id="namdau" autocomplete="off" placeholder=" Năm từ...">
+                                    <b></b>
+                                    <span></span>
+                                    <label>Đến...</label>
+                                    <input type="number" name="namcuoi" id="namcuoi" autocomplete="off" placeholder=" Đến...">
+                                    <b></b>
+                                    <span></span>
+                                </div>
 
-                                </div>
-                                <!--<input type="text" name="giadau" id="giadau" autocomplete="off" placeholder=" Giá từ...">-->
-                                <!--<div style="margin-top: 10px;height: 3%">-->
-                                <!--<input type="text" name="giacuoi" id="giacuoi" autocomplete="off" placeholder=" Đến...">-->
-                                <!--</div>-->
-                                <div class="form-row subscribe-outer" style="width: 58%;margin-left: 130px">
-                                    <button type="submit" class="button-default ygradient1 ">Tìm kiếm</button>
-                                </div>
-                            </form>
+                            </div>
+                            <!--<input type="text" name="giadau" id="giadau" autocomplete="off" placeholder=" Giá từ...">-->
+                            <!--<div style="margin-top: 10px;height: 3%">-->
+                            <!--<input type="text" name="giacuoi" id="giacuoi" autocomplete="off" placeholder=" Đến...">-->
+                            <!--</div>-->
+                            <div class="form-row subscribe-outer" style="width: 58%;margin-left: 130px">
+                                <button type="submit" class="button-default ygradient1 ">Tìm kiếm</button>
+                            </div>
+                        </form>
                         </div>
                     </ul>
+
                 </div>
             </div>
 
@@ -281,36 +282,33 @@
                             {{/withGroup}}
                         </thead>
 
-                        {{!-- <tbody>
+                        <tbody>
                             {{#withGroup book 4}}
                             <tr>
                                 {{#each this}}
                                 <td style="width:25%">
                                     <div class="item">
                                         <li class="item-outer" style="width: 100%">
-                                            <a class="item-thumb" href="sample_product/?id={{idSach}}" rel="nofollow">
-                                                <img width="200" height="280" src="/{{hinhAnh}}" class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
-                                                <span class="item-percent-bubble">-10%</span>
+                                            <a class="item-thumb" href="sample_product/?id={{ISBN}}" rel="nofollow">
+                                                <img width="200" height="280" src="/image/{{ISBN}}.jpg" class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
+
                                             </a>
                                             <div class="item-meta-outer" style="text-align: center;">
                                                 <h3 class="item-title">
-                                                    <a href="sample_product/?id={{idSach}}">{{ten_sach}}</a>
+                                                    <a href="sample_product/?id={{ISBN}}">{{Name}}</a>
                                                 </h3>
-                                                <em class="item-author">{{tac_gia}}</em>
+                                                <em class="item-author">{{AuthName}}</em>
                                                 <p class="item-price"style="font-size: 13.5px">
-                                                    <b>{{number_format giaBan}}
+                                                    <b>{{number_format Cost}}
                                                         <u>đ</u>
                                                     </b>
-                                                    <small>{{divide giaBan 0.9}}
-                                                        <u>đ</u>
-                                                    </small>
                                                 </p>
 
                                             </div>
                                             <div>
                                                 <form method="post" action="/cart/add">
                                                     <input id="sl" class="hidden" name="sl" value="1">
-                                                    <input id="idSach" name="idSach" type="hidden" value="{{idSach}}">
+                                                    <input id="idSach" name="idSach" type="hidden" value="{{ISBN}}">
                                                     <input type="text" class="hidden" name="url" value="/tim-kiem">
 
                                                     <button class="next-btn next-btn-primary next-btn-large" style="width: 100%;">Thêm vào giỏ hàng</button>
@@ -327,7 +325,7 @@
                             </tr>
                             {{/withGroup}}
 
-                        </tbody> --}}
+                        </tbody>
                     </table>
 
                 </ul>

@@ -61,7 +61,6 @@ app.get('/', (req, res) => {
             };
             res.render('index', vm);
         } else {
-            console.log(value)
             Promise.all([value]).then(([newB]) => {
                 req.session.reUrl = "/"
                 var vm = {
