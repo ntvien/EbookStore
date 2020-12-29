@@ -18,6 +18,7 @@ exports.remove = (cart, idSach) => {
         }
     }
 };
+
 exports.updateSL = (cart, idSach, sl) => {
     for (i = cart.length - 1; i >= 0; i--) {
         if (cart[i].idSach === idSach) {

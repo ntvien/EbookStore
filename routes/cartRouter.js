@@ -38,7 +38,11 @@ router.get('/', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    console.log(req.body.idSach);
+    // console.log(req.body.idSach);
+    db.query(`insert into cart value('${req.session.account.ID}','${req.body.idSach}',1)`,function(error,value){
+if(error)console.log(error)
+else{
+    
     var sql = `call searchbyISBN('${req.body.idSach}')`;
     console.log(req.body);
     db.query(sql, function(err, value) {
@@ -57,12 +61,32 @@ router.post('/add', (req, res) => {
             res.redirect(req.session.reUrl);
         }
     });
+}
+    });
 
 });
 
 router.post('/sl', (req, res) => {
     cartRepo.updateSL(req.session.cart, req.body.idSach, req.body.sl);
     res.redirect('/cart');
+});
+
+router.get('/delete', (req, res) => {
+    var vm = {
+        idSach: req.query.id
+    };
+    res.render('cart/deleteSanPham', vm);
+});
+router.post('/delete', (req, res) => {
+
+    SPRePo.delete(req.body.idSach).then(value => {
+        res.redirect('/cart/sanpham');
+    });
+});
+
+router.post('/remove', (req, res) => {
+    cartRepo.remove(req.session.cart, req.body.ProId);
+    res.redirect(req.headers.referer);
 });
 
 router.post('/tt', (req, res) => {
