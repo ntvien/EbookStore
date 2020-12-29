@@ -235,17 +235,12 @@ CREATE TABLE Response(
 drop table if exists Cart;
 CREATE table Cart(
     customerID INT,
-	CartID INT,
     BookID DECIMAL(15,0),
     amoutBook INT,
-	total int,
-    PRIMARY KEY (CartID, customerID, BookID),
+    PRIMARY KEY (customerID, BookID),
     FOREIGN KEY(CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE,
     FOREIGN KEY(BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
-
-
-
 
 ALTER TABLE Book ADD PubName VARCHAR(100) NOT NULL;
 ALTER TABLE Book ADD CONSTRAINT FK_PubName FOREIGN KEY (PubName) REFERENCES Publisher(Name)ON DELETE CASCADE  ON UPDATE CASCADE;
@@ -270,32 +265,6 @@ ALTER TABLE author ADD SEX CHAR(1);
 
 
 
-drop table if exists Cart;
-CREATE table Cart(
-    customerID INT,
-    BookID DECIMAL(15,0),
-    amoutBook INT,
-    PRIMARY KEY (customerID, BookID),
-    FOREIGN KEY(CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE,
-    FOREIGN KEY(BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
-);
-
-create table OrderSP(
-	IDOrder int,
-	IDMaSP DECIMAL(15,0),
-	IDCart int,
-	PRIMARY KEY (IDOrder),
-    FOREIGN KEY(IDMaSP) REFERENCES BOOK(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE,
-    FOREIGN KEY(IDCart) REFERENCES CART(CartID)ON DELETE CASCADE  ON UPDATE CASCADE
-);
-
-alter table orderSP add FOREIGN KEY(IDMaSP) REFERENCES BOOK(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE;
-alter table orderSP add FOREIGN KEY(IDCart) REFERENCES CART(CartID)ON DELETE CASCADE  ON UPDATE CASCADE;
 
 
-alter table transaction add idCart int;
 
-alter table orderSP add sl int;
-alter table book add luotMua int;
-alter table book add luotXem int;
-alter table book add soluong int;
