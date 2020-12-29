@@ -57,20 +57,20 @@ insert into writtenby value (123456776,999888777666542);
 insert into writtenby value (123456775,999888777666541);
 
 insert into sstored value (999888777666555,0,1223456789,0);
-insert into sstored value (999888777666554,1,1223456789,0);
-insert into sstored value (999888777666553,1,1223456789,0);
-insert into sstored value (999888777666552,2,1223456789,0);
-insert into sstored value (999888777666551,1,1223456789,0);
-insert into sstored value (999888777666550,1,1223456789,0);
-insert into sstored value (999888777666549,0,1223456789,0);
-insert into sstored value (999888777666548,0,1223456789,0);
-insert into sstored value (999888777666547,0,1223456789,0);
-insert into sstored value (999888777666546,0,1223456789,0);
-insert into sstored value (999888777666545,0,1223456789,0);
-insert into sstored value (999888777666544,0,1223456789,0);
-insert into sstored value (999888777666543,0,1223456789,0);
-insert into sstored value (999888777666542,0,1223456789,0);
-insert into sstored value (999888777666541,0,1223456789,0);
+-- insert into sstored value (999888777666554,1,1223456789,0);
+-- insert into sstored value (999888777666553,1,1223456789,0);
+-- insert into sstored value (999888777666552,2,1223456789,0);
+-- insert into sstored value (999888777666551,1,1223456789,0);
+-- insert into sstored value (999888777666550,1,1223456789,0);
+-- insert into sstored value (999888777666549,0,1223456789,0);
+-- insert into sstored value (999888777666548,0,1223456789,0);
+-- insert into sstored value (999888777666547,0,1223456789,0);
+-- insert into sstored value (999888777666546,0,1223456789,0);
+-- insert into sstored value (999888777666545,0,1223456789,0);
+-- insert into sstored value (999888777666544,0,1223456789,0);
+-- insert into sstored value (999888777666543,0,1223456789,0);
+-- insert into sstored value (999888777666542,0,1223456789,0);
+-- insert into sstored value (999888777666541,0,1223456789,0);
 
 
 

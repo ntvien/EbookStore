@@ -11,62 +11,26 @@ var router = express.Router();
 var db = require('../select');
 
 
-
-// router.get('/', (req, res) => {
-//     var sql1 = `select * from field`;
-//     var sql2 = `select * from book`;
-//     var sql3 = `select * from publisher`;
-//     db.query(sql1, function(err, res1) {
-//         if (err) throw err;
-//         else{
-//             db.query(sql2, function(err, res2) {
-//                 if (err) throw err;
-//                 else {
-//                     db.query(sql3, function(err, res3){
-//                         if (err) throw err;
-//                         else{
-//                             Promise.all([res1, res2,res3]).then(([rowloais, rowBooks,rowNhaSXs]) => {
-//                                 req.session.reUrl = "/tim-kiem";                
-//                                 var vm = {
-//                                     url:"/tim-kiem",
-//                                     loai: rowloais,
-//                                     book:rowBooks,
-//                                     NhaSX:rowNhaSXs
-//                                 };
-//                                 // console.log(res1);
-//                                 // console.log(res2);
-//                                 // console.log(res3);
-//                                 res.render('search/tim-kiem', vm);
-//                             });
-//                         };
-//                     });
-//                 }
-//             });
-//         };
-//     });
-
-// });
-
 router.get('/', (req, res) => {
     var sql1 = `select distinct AField from field`;
     var sql2 = `select * from book join writtenby on bookisbn = isbn join author on ssn = authorssn`;
     var sql3 = `select * from publisher`;
     db.query(sql1, function(err, res1) {
         if (err) throw err;
-        else{
+        else {
             db.query(sql2, function(err, res2) {
                 if (err) throw err;
                 else {
-                    db.query(sql3, function(err, res3){
+                    db.query(sql3, function(err, res3) {
                         if (err) throw err;
-                        else{
-                            Promise.all([res1, res2,res3]).then(([rowloais, rowBooks,rowNhaSXs]) => {
-                                req.session.reUrl = "/tim-kiem";                
+                        else {
+                            Promise.all([res1, res2, res3]).then(([rowloais, rowBooks, rowNhaSXs]) => {
+                                req.session.reUrl = "/tim-kiem";
                                 var vm = {
-                                    url:"/tim-kiem",
+                                    url: "/tim-kiem",
                                     loai: rowloais,
-                                    book:rowBooks,
-                                    NhaSX:rowNhaSXs
+                                    book: rowBooks,
+                                    NhaSX: rowNhaSXs
                                 };
                                 // console.log('asasas')
                                 // console.log('loai')
@@ -83,19 +47,13 @@ router.get('/', (req, res) => {
             });
         };
     });
-    
-});
 
+});
 
 router.get('/theo-loai/', (req, res) => {
     console.log('entering')
     console.log(req.query);
-
-    var sql0 = `select * from Field where AField = '${req.query.tenLoai}'`;
-    console.log(sql0)
-
     var sql0 = `select  distinct AField from Field where AField = '${req.query.tenLoai}'`;
-
     var sql1 = `select distinct AField from field`;
     var sql2 = `select * from publisher`;
     var sql3 = `call bookwcate('${req.query.tenLoai}')`;
@@ -110,36 +68,15 @@ router.get('/theo-loai/', (req, res) => {
                         else {
                             db.query(sql0, function(err, res0) {
                                 if (err) throw err;
-
                                 else {
                                     Promise.all([res1, res2, res3, res0]).then(([menu, nxb, rowBooks, byLoai]) => {
-                                        console.log('menu')
-                                        console.log(menu)
-                                        console.log('nxb')
-                                        console.log(nxb)
-
-                                        console.log('rowbooks')
-                                        console.log(rowBooks[0]);
-                                        console.log('byLoai')
-                                        console.log(byLoai)
                                         req.session.reUrl = "/tim-kiem/theo-loai/?tenLoai=" + req.query.tenLoai;
                                         var vm = {
                                             loai: menu,
                                             book: rowBooks[0],
                                             NhaSX: nxb,
-                                            loaifull: byLoai,
+                                            loaifull: byLoai[0],
                                             url: "/tim-kiem/theo-loai/?tenLoai=" + req.query.tenLoai
-
-
-                                else{
-                                    Promise.all([res1, res2, res3, res0]).then(([menu,nxb, rowBooks, byLoai]) => {
-                                        req.session.reUrl = "/tim-kiem/theo-loai/?tenLoai="+req.query.tenLoai;
-                                        var vm = {
-                                            loai: menu,
-                                            book:rowBooks[0],
-                                            NhaSX:nxb,
-                                            loaifull:byLoai[0],
-                                            url : "/tim-kiem/theo-loai/?tenLoai="+req.query.tenLoai
 
                                         };
                                         // console.log('menu')
@@ -160,15 +97,8 @@ router.get('/theo-loai/', (req, res) => {
 
                 }
             });
-
         }
     });
-    // var p3 =categoryRepo.load_by_idLoai(req.query.id); // tenLoai
-    // var p5= categoryRepo.loadL(req.query.id);
-
-            }
-        }); 
-
 });
 
 router.get('/theo-NhaSX/', (req, res) => {
@@ -180,24 +110,24 @@ router.get('/theo-NhaSX/', (req, res) => {
      join author on ssn = authorssn join publisher p where p.code = '${req.query.id}' `;
     var sql4 = `select * from publisher where code = '${req.query.id}'`;
 
-    db.query(sql1, function(err, res1){
+    db.query(sql1, function(err, res1) {
         if (err) throw err;
-        else{
-            db.query(sql2, function(err,res2){
+        else {
+            db.query(sql2, function(err, res2) {
                 if (err) throw err;
-                else{
-                    db.query(sql3, function(err,res3){
+                else {
+                    db.query(sql3, function(err, res3) {
                         if (err) throw err;
-                        else{
-                            db.query(sql4, function(eff,res4){
-                                Promise.all([res1, res2 , res3, res4]).then(([rowloais, rowNhaSXs, rowBooks,tenNXB]) => {
-                                    req.session.reUrl = "/tim-kiem/theo-NhaSX/?id="+req.query.id;
+                        else {
+                            db.query(sql4, function(eff, res4) {
+                                Promise.all([res1, res2, res3, res4]).then(([rowloais, rowNhaSXs, rowBooks, tenNXB]) => {
+                                    req.session.reUrl = "/tim-kiem/theo-NhaSX/?id=" + req.query.id;
                                     var vm = {
                                         loai: rowloais,
-                                        book:rowBooks,
-                                        NhaSX:rowNhaSXs,
-                                        tenNXB:tenNXB[0],
-                                        url : "/tim-kiem/theo-NhaSX/?id="+req.query.id
+                                        book: rowBooks,
+                                        NhaSX: rowNhaSXs,
+                                        tenNXB: tenNXB[0],
+                                        url: "/tim-kiem/theo-NhaSX/?id=" + req.query.id
                                     };
                                     res.render('search/theo-nhasx', vm);
                                 });
@@ -215,26 +145,26 @@ router.get('/theo-NhaSX/', (req, res) => {
 
 router.get('/theo-nam/', (req, res) => {
     // var p3 = categoryRepo.search_with_price(req.query.giadau,req.query.giacuoi);
-    
+
     var sql0 = `Select * from book where year>='${req.query.namdau}' and year<'${req.query.namcuoi}'`;
     var sql1 = `select distinct AField from field`;
     var sql2 = `select * from publisher`;
     db.query(sql1, function(err, res1) {
         if (err) throw err;
-        else{
+        else {
             db.query(sql2, function(err, res2) {
                 if (err) throw err;
-                else{
-                    db.query(sql0, function(err, res0){
-                        Promise.all([res1, res2, res0]).then(([rowloais,rowNhaSXs , rowBooks]) => {
+                else {
+                    db.query(sql0, function(err, res0) {
+                        Promise.all([res1, res2, res0]).then(([rowloais, rowNhaSXs, rowBooks]) => {
                             req.session.reUrl = "/tim-kiem/theo-nam/?namdau=" + req.query.namdau + "&namcuoi=" + req.query.namcuoi;
                             var vm = {
                                 loai: rowloais,
-                                book:rowBooks,
-                                NhaSX:rowNhaSXs,
+                                book: rowBooks,
+                                NhaSX: rowNhaSXs,
                                 keyword: req.query.namdau,
                                 keyword2: req.query.namcuoi,
-                                url : "/tim-kiem/theo-nam/?namdau=" + req.query.namdau + "&namcuoi=" + req.query.namcuoi
+                                url: "/tim-kiem/theo-nam/?namdau=" + req.query.namdau + "&namcuoi=" + req.query.namcuoi
                             };
                             // console(rowloais)
 
