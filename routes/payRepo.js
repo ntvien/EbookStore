@@ -15,39 +15,39 @@ exports.getDH = (idDH) => {
 }
 exports.getDatSP = (idGH) => {
     var sql = `SELECT * 
-            FROM OrderBook INNER JOIN Book ON OderBook.idMaSP=Book.idSach
-            WHERE DatSP.idGioHang='${idGH}'`;
+            FROM OrderSP INNER JOIN Book ON OrderSP.idMaSP=Book.ISBN
+            WHERE OrderSP.idCart='${idGH}'`;
     return db.load(sql);
 }
 exports.addCart = (total) => {
-    var sql = `insert into GioHang(tongGia) values('${total}')`;
+    var sql = `insert into Cart(total) values('${total}')`;
     return db.save(sql);
 };
 exports.addPToCart = (maSP, SL, idCart) => {
-    var sql = `insert into DatSP(idMaSP, sl, idGioHang) values('${maSP}', '${SL}', '${idCart}')`;
+    var sql = `insert into OrderSP(idMaSP,total, idCart) values('${maSP}', '${SL}', '${idCart}')`;
     return db.save(sql);
 };
-exports.addPayment = (idCart, idKH, diaChi, ngay, sdt) => {
-    var sql = `insert into ThanhToan(idGioHang, idKhachHang, diaChiThanhToan,ngayDatHang,sdtNhanHang,trangThai) values('${idCart}', '${idKH}', '${diaChi}','${ngay}','${sdt}','0')`;
+exports.addPayment = (idCart, idKH, isbn, ngay) => {
+    var sql = `insert into Transaction(idcart, idcustomer,FLAG, ISBN, tDateTime) values('${idCart}', '${idKH}','${isbn}','${ngay}', '0')`;
     return db.save(sql);
 };
 exports.updateTrangThaiDH = (idDH, TT) => {
-    var sql = `UPDATE ThanhToan SET trangThai='${TT}' WHERE idThanhToan = '${idDH}'`;
+    var sql = `UPDATE Transaction SET FLAG='${TT}' WHERE PaymentID = '${idDH}'`;
     return db.save(sql);
 };
 exports.getAllPayment = () => {
 
     var sql = `SELECT * 
-            FROM ThanhToan INNER JOIN KhachHang ON ThanhToan.idKhachHang=KhachHang.idKhachHang `;
+            FROM Transaction INNER JOIN Customer ON Transaction.IDCustomer=Customer.ID `;
     return db.load(sql);
 };
 exports.getBook = (idBook) => {
-    var sql = `select* from book where idSach='${idBook}'`;
+    var sql = `select* from book where ISBN='${idBook}'`;
     return db.load(sql);
 };
 exports.updateSLBook = (idBook, luotmua, sl) => {
     var sql = `update Book set luotMua = '${luotmua}',
     soLuong = '${sl}'
-     where idSach = ${idBook}`
+    where ISBN = ${idBook}`;
     return db.save(sql);
 }

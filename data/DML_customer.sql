@@ -342,3 +342,13 @@ insert into keyword values (999888777666555, 'philosopher'),(999888777666555, 'h
 
 
 
+INSERT INTO `field` (`BookID`, `AField`) VALUES ('999888777666555', 'Truyện');
+
+
+drop procedure if exists bookwcate;
+delimiter //
+create procedure bookwcate (cate varchar(20))
+begin
+	select distinct * from book b join field on b.isbn = field.bookid where cate = afield;
+end //
+delimiter ;

@@ -1,7 +1,9 @@
 var express = require('express');
 var db = require('../select');
 var cartRepo = require('./cartRepo');
+var payRepo = require('./payRepo');
 //const { route } = require('./LoginRoutes');
+var accountRepo = require('./accountRepo');
 var router = express.Router();
 
 router.get('/', (req, res) => {
@@ -38,6 +40,7 @@ router.get('/', (req, res) => {
 router.post('/add', (req, res) => {
     console.log(req.body.idSach);
     var sql = `call searchbyISBN('${req.body.idSach}')`;
+    console.log(req.body);
     db.query(sql, function(err, value) {
         if (err) {
             throw err;
@@ -97,21 +100,21 @@ router.post('/tt', (req, res) => {
                 }
             });
         }
-        var idGioHang;
+        var idCart;
         payRepo.addCart(cartRepo.getTotal(req.session.cart)).then(value => {
-            idGioHang = value.insertId;
+            idCart = value.insertId;
             for (i = cart.length - 1; i >= 0; i--) {
 
-                payRepo.addPToCart(cart[i].idSach, cart[i].sl, idGioHang);
+                payRepo.addPToCart(cart[i].idSach, cart[i].sl, idCart);
                 var sl = parseInt(cart[i].sl);
-                payRepo.getBook(cart[i].idSach).then(row => {
+                payRepo.getBook(cart[i].idsach).then(row => {
                     var slUpdate = parseInt(row[0].soLuong) - sl;
                     var lmUpdate = parseInt(row[0].luotMua) + 1;
                     payRepo.updateSLBook(row[0].idSach, lmUpdate, slUpdate);
                 });
                 if (i == 0) {
-                    accountRepo.getCus(req.session.user.idNguoiSuDung).then(use => {
-                        payRepo.addPayment(idGioHang, use[0].idKhachHang, use[0].diaChi, yyyy + '-' + mm + '-' + dd + ' ' + h + ':' + m + ':' + s, use[0].soDT).then(value => {
+                    accountRepo.getCus(req.session.user.idCustomer).then(use => {
+                        payRepo.addPayment(idCart, use[0].idCustomer, use[0].address, yyyy + '-' + mm + '-' + dd + ' ' + h + ':' + m + ':' + s, use[0].soDT).then(value => {
                             req.session.cart = [];
                             res.redirect('/account/profile');
                         });
