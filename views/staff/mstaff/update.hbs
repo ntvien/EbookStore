@@ -1,0 +1,42 @@
+{{#if showError}}
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Error!</strong> {{errorMsg}}
+</div>
+{{/if}}
+
+<div class="container">
+<div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="example1" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tên </th>
+                            <th>Tên Lót</th>
+                            <th>Họ</th>
+                            <th>Số điện thoại</th>
+                            <th>Mã kho làm việc</th>
+                            <th>Email</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>{{FName}}</td>
+                            <td>{{MName}}</td>
+                            <td>{{LName}}  </td>
+                            <td>{{PhoneNumber}}</td>
+                            <td>{{SID}}</td>
+                            <td>{{Email}} </td>
+                        </tr>
+
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+
+    </div>
+    </div>
