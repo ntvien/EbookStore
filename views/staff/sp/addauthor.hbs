@@ -60,7 +60,7 @@ var validate4=function(){
 }
 $(document).ready(function() {
         $("#bbb").click(function(){
-            if (validate1()){
+            if (!validate1()) return;
             var a={type: 2,
             ssn:$('#ssn').val(),
             fname:$('#fname').val(),
@@ -83,7 +83,7 @@ $(document).ready(function() {
             alert(data.test);
             }
             });
-            }
+            
         });
         $("#write").click(function(){
             if (!validate2())return ;
