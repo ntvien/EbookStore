@@ -109,7 +109,8 @@ CREATE PROCEDURE capnhat_giaodich(
 	Trans_CustomerID INT,
 	Trans_ISBN decimal(15,0),
 	Trans_PaymentID INT,
-	a int,nmodel varchar(4)
+	a int,
+	nmodel varchar(4)
 )
 BEGIN
 	insert into Transaction
