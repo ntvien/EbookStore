@@ -3,7 +3,8 @@ var SHA256 = require('crypto-js/sha256');
 var moment = require('moment');
 var format = require('date-format');
 // var accountRepo = require('../repos/accountRepo');
-// var payRepo = require('../repos/payRepo');
+var payRepo = require('./payRepo');
+
 var restrict = require('../middle-wares/restrict');
 var Recaptcha = require('express-recaptcha').Recaptcha;
 //var recaptcha = new Recaptcha('6LdoIGEUAAAAADW83_JdZknEjFYPl7bLmJD_YVzo', '6LdoIGEUAAAAANFjdBJxqiedi0D8wd3FtVWxCJUN');
@@ -205,3 +206,41 @@ module.exports = router;
 //         }
 //     });
 // });
+
+
+router.get('/profile', restrict, (req, res) => {
+    var idCus = req.session.user.ID;
+
+    var p1 = payRepo.getPayment(idCus);
+    var p2 = accountRepo.getCus(idCus);
+
+    Promise.all([p1, p2]).then(([pay, account]) => {
+        var vm = {
+            donHang: pay,
+            name: account[0].hoTen,
+            diachi: account[0].diaChi,
+            sdt: account[0].soDT,
+        }
+        res.render('account/profile', vm);
+
+    });
+});
+
+router.get('/order', restrict, (req, res) => {
+    var idDonHang = req.query.id;
+    payRepo.getDH(idDonHang).then(rows => {
+        var p1 = payRepo.getDatSP(rows[0].idGioHang);
+        var p2 = accountRepo.getCus(req.session.user.idNguoiSuDung);
+
+        Promise.all([p1, p2]).then(([rows2, account]) => {
+            var vm = {
+                name: account[0].hoTen,
+                donhang: rows[0],
+                sanpham: rows2
+            }
+            res.render('account/chi-tiet-dh', vm);
+
+        });
+
+    });
+});

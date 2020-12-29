@@ -109,7 +109,8 @@ CREATE PROCEDURE capnhat_giaodich(
 	Trans_CustomerID INT,
 	Trans_ISBN decimal(15,0),
 	Trans_PaymentID INT,
-	a int,nmodel varchar(4)
+	a int,
+	nmodel varchar(4)
 )
 BEGIN
 	insert into Transaction
@@ -358,10 +359,20 @@ end //
 delimiter ;
 
 
+INSERT INTO `field` (`BookID`, `AField`) VALUES ('999888777666555', 'Truyện');
+
+
+drop procedure if exists bookwcate;
+delimiter //
+create procedure bookwcate (cate varchar(20))
+begin
+	select distinct * from book b join field on b.isbn = field.bookid where cate = afield;
+
 drop procedure if exists allbooks;
 delimiter //
 create procedure allbooks ()
 begin
 	select distinct ISBN, Cost, Name, PubName, AField, concat_ws(" ", FName, MName, LName) as AuthName from book b join field on b.isbn = bookid join writtenby on bookisbn = b.isbn join author on ssn = authorssn;
+
 end //
 delimiter ;
