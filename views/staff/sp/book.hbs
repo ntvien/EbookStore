@@ -38,13 +38,12 @@ function validate(){
                         <tr>
                             <th>Mã sách</th>
                             <th>Tên sách</th>
-                            <th>Tác giả</th>
                             <th>Nhà xuất bản</th>
-                            <th>Tên loại</th>
+                            <th>Năm xuất bản</th>
                             <th>Giá bán</th>
                             <th>Số lượng</th>
-                            <th>Sửa</th>
-                            <th>Xóa</th>
+                            {{!-- <th>Sửa</th>
+                            <th>Xóa</th> --}}
 
                         </tr>
                     </thead>
@@ -53,24 +52,24 @@ function validate(){
 
                         <tr>
                             <td>{{ISBN}} </td>
-                            <td>{{BookName}} </td>
-                            <td>{{AuthName}}</td>
-                            <td>{{tenNhaSX}}</td>
-                            <td>{{tenLoai}}</td>
-                            <td>{{cost}} </td>
-                            <td>{{amoutBook}}</td>
-                            <td>
+                            <td>{{Name}} </td>
+                            <td>{{PubName}}</td>
+                            <td>{{Year}}</td>
+                            <td>{{Cost}} </td>
+                            <td>{{amount}}</td>
+                            {{!-- {{!-- <td>
                                 <a class="btn" href="/manager/sanpham/edit?id={{idSach}}" role="button" style="background-color: gold">
                                     Sửa
                                 </a>
-                            </td>
+                            </td> --}}
                             <td>
-                                <a class="btn" href="/manager/sanpham/delete?id={{idSach}}" role="button" style="background-color: salmon">
-                                    Xóa
+                                <a class="btn" href="/staff/book/update?id={{ISBN}}" role="button" style="background-color: gold">
+                                    Cập nhật
                                 </a>
-                            </td>
-                        </tr>
-
+                                </td>
+                            </td>                       
+                               
+                            </tr>
                         {{/each}}
                     </tbody>
                    

@@ -34,11 +34,9 @@
                                 <table class="table" id="tableDH">
                                     <thead>
                                         <tr class="green">
-                                            <th><a>Tên khách hàng</a></th>
                                             <th><a>Mã sách</a></th>
                                             <th><a>Thời gian thanh toán</a></th>
-                                            <th><a>Địa chỉ</a></th>
-                                            <th><a>Số điện thoại</a></th>
+                                            <th><a>Số lượng</a></th>
                                             <th><a>Tổng tiền</a></th>
                                             <th>Chi tiết</th>
                                         </tr>
@@ -47,14 +45,12 @@
 
                                         {{#each donHang}}
                                         <tr>
-                                            <td>{{FName}} {{MName}} {{LName}} </td>
                                             <td>{{ISBN}} </td>
                                             <td>{{tDateTime}}</td>
-                                            <td>{{Address}} </td>
-                                            <td>{{PhoneNumber}} </td>
+                                            <td>{{amount}}</td>
                                             <td>{{number_format total}}đ </td>
                                             <td>
-                                                <a href="order?id={{idThanhToan}}">Xem </a>
+                                                {{trangthai}}
                                             </td>
                                         </tr>
                                         {{/each}}

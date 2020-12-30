@@ -1,3 +1,9 @@
+{{#if showError}}
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Error!</strong> {{errorMsg}}
+</div>
+{{/if}}
 <div class="container sp">
     <div class="form-row subscribe-outer" style="width: 18%;margin-left: 100px,">
                     <button type="submit" class="button-default ygradient1 " data-toggle="modal" data-target="#nhap">Nhập kho</button>
@@ -126,7 +132,6 @@
                             <th><a>Địa chỉ</a></th>
                             <th><a>Số điện thoại</a></th>
                             <th><a>Loại giao dịch</a></th>
-                            <th>Tình trạng</th>
                         </tr>
                     </thead>
                     <tbody>
