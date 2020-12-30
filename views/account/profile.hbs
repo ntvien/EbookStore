@@ -12,11 +12,11 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>Thông tin cá nhân</h5>
+                    <h5>Thông tin cá nhân:</h5>
                     <h5>{{name}}</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5>Sổ địa chỉ</h5>
+                    <h5>Sổ địa chỉ:</h5>
                     <h5>{{name}}</h5>
                     <span>{{diachi}}</span>
                     <h5>{{sdt}} </h5>
@@ -34,19 +34,25 @@
                                 <table class="table" id="tableDH">
                                     <thead>
                                         <tr class="green">
-                                            <td>Mã đơn hàng</td>
-                                            <td>Ngày đặt hàng</td>
-                                            <td>Tổng tiền</td>
-                                            <td>Chi tiết</td>
+                                            <th><a>Tên khách hàng</a></th>
+                                            <th><a>Mã sách</a></th>
+                                            <th><a>Thời gian thanh toán</a></th>
+                                            <th><a>Địa chỉ</a></th>
+                                            <th><a>Số điện thoại</a></th>
+                                            <th><a>Tổng tiền</a></th>
+                                            <th>Chi tiết</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         {{#each donHang}}
                                         <tr>
-                                            <td>{{idThanhToan}}</td>
-                                            <td>{{dateFormat ngayDatHang "DD/MM/YYYY, h:mm:ss a"}}</td>
-                                            <td>{{number_format tongGia}}đ </td>
+                                            <td>{{FName}} {{MName}} {{LName}} </td>
+                                            <td>{{ISBN}} </td>
+                                            <td>{{tDateTime}}</td>
+                                            <td>{{Address}} </td>
+                                            <td>{{PhoneNumber}} </td>
+                                            <td>{{number_format total}}đ </td>
                                             <td>
                                                 <a href="order?id={{idThanhToan}}">Xem </a>
                                             </td>

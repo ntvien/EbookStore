@@ -12,18 +12,19 @@
 <div class="container sp">
     <div class="col-md-8">
         <div class="col-md-12">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <span>Sản phẩm</span>
                 <a href="#"> </a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <span>Giá </span>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <span>Số lượng</span>
             </div>
-
-
+            <div class="col-md-1">
+                <span></span>
+            </div>
         </div>
         {{#each items}}
 
@@ -32,34 +33,32 @@
 
                 <hr />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
 
-                <img src="{{hinh}}" style="width:20%;margin-top: -10px;float:left" />
+                <img src="/image/{{Image}}" style="width:20%;margin-top: -10px;float:left" />
                 <!--<a href="#" ></a>-->
-                <h4 class="text-left"> &emsp; Tên Sách: {{ten_sach}}</h4>
+                <h4 class="text-left"> &emsp; Tên Sách: {{Name}}</h4>
 
             </div>
-            <div class="col-md-3">
-                {{number_format giaBan}} đ
+            <div class="col-md-2">
+                {{number_format cost}} đ
             </div>
-            <div class="col-md-3">
-                <form action="/cart/sl" method="POST">
-                    <input type="number" name="sl" value="{{sl}}" class="ip" style="padding-left:30px;margin-top: 0px;width:50%" />
-                    <input type="text" name="idSach" value="{{idSach}}" class="hidden">
+            <div class="col-md-2">
+                <form action="/cart/sl?id={{ISBN}}" method="POST">
+                    <input type="number" min='1'  onkeyup="if(this.value<0){this.value= 1}" name="sl" value="{{amoutBook}}" class="ip" style="padding-left:20px;margin-top: 0px;width:50%" />
+                    <input type="text" name="idSach" value="{{ISBN}}" class="hidden">
                     <button style="border:none" type="submit" class="btn btn-default btn-custom1 btn-item-delete " data-item-id="12467471">
                         <img src="/img/update.png" alt="" style="width:20px">
                     </button>
+                        
+                    
                 </form>
             </div>
-
             <div class="col-md-1">
-                <form action="" method="POST">
+                <form action="/cart/delete?id={{ISBN}}" method="POST">
                     <input type="text" name="idSach" value="{{idSach}}" class="hidden">
-                    <button type="submit">
-                        <img src="http://tala.tikicdn.com/assets/img/trash.png" alt="">
-                    </button>
-
-
+                    <button id = "btn" style="border:none" type="submit" class="btn btn-default btn-custom1 btn-item-delete " data-item-id="12467471">xóa</button>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
                 </form>
 
             </div>
@@ -79,16 +78,19 @@
                     <h4 class="text-left">Thông tin đơn hàng</h4>
                     <span>Tạm tính ({{items.length}} sản phẩm)</span>
                     <span class="right">{{number_format total}} đ </span>
-                    <div>
-                        <span>Phí giao hàng</span>
-                        <span class="right">free</span>
-                    </div>
+                    <select name="thanhtoan" class="form-control" style="border: 1px solid #5bb7c3;border-radius: 16px;font-size: 10px;height: 30px;"
+                            id="thanhtoan">
+                            <option value=1>Thanh toán thẻ tín dụng</option>
+                            {{#each thanhtoan}}
+                            <option value={{ID}}>Chuyển khoản {{BankName}}-{{BranchName}}</option>
+                            {{/each}}
+                        </select>
                     <hr />
                     <span>Tổng cộng:</span>
                     <span style="color:red!important;" class="right">{{number_format total}}đ</span>
                     <hr />
                     <span>Đã bao gồm VAT(nếu có)</span>
-                    <button style="width:100%" type="submit" class="next-btn next-btn-primary next-btn-large">TIẾN HÀNH THANH TOÁN</button>
+                   <button  style="width:100%" type="submit" class="next-btn next-btn-primary next-btn-large">TIẾN HÀNH THANH TOÁN </button>
                 </div>
             </div>
         </form>

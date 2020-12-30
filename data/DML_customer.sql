@@ -21,32 +21,19 @@ INSERT INTO Transfer VALUE (7, 123632323, 'OCB', 'Quan 6');
 INSERT INTO Transfer VALUE (8, 123463666, 'TPBank', 'Quan 11');
 INSERT INTO Transfer VALUE (9, 126666666, 'DongAbank', 'Quan 12');
 INSERT INTO Transfer VALUE (10, 123613123, 'DongAbank', 'Quan 7');
-# CREATE TABLE Customer(
-# 	ID INT,
-# 	FName VARCHAR(20) NOT NULL,
-# 	MName VARCHAR(20) NOT NULL,
-# 	LName VARCHAR(20) NOT NULL,
-# 	NickName VARCHAR(20) UNIQUE NOT NULL,
-# 	Password VARCHAR(100) NOT NULL,
-# 	DOB DATE,
-# 	Sex CHAR(1),
-# 	PhoneNumber VARCHAR(15) NOT NULL,
-# 	Address VARCHAR(20) NOT NULL,
-# 	PRIMARY KEY (ID)
-# );
+
+
 -- check passworld
 drop procedure if exists check_pass;
 delimiter |
 create procedure check_pass(user_name varchar(20),pass_cus varchar(100))
 begin
     select ID,FName,MName,LName, DOB ,Sex ,PhoneNumber,Address,Mail from customer
-        where NickName=user_name and Password=pass_cus;
+    where NickName=user_name and Password=pass_cus;
 end |
 select * from customer;
--- call check_pass('linhcute','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225');
 
-
-
+--
 drop procedure if exists createaccout;
 DELIMITER $$
 create procedure createaccout(nfname varchar(20),
@@ -57,8 +44,6 @@ npass varchar(500),
 ndob date,nsex char(1),phone varchar(15),naddress varchar(20),mail varchar(100))
 begin
     declare max int default 0;
-#     declare mp varchar(100);
-#     select Password(npass) into mp;
 select max(id) into  max from customer;
 if max is null then
         insert into customer
@@ -69,31 +54,17 @@ if max is null then
     end if;
 end $$
 DELIMITER  ;
--- delete from customer;
--- call createaccout('Nhat','Nhat','Nguyen','linhcute01','ahihi','980501','M','00222222211','Tp.HCM');
-use ebookstore_01;
-select * from customer;
-# CREATE TABLE CreditCard(
-# 	CustomerID INT NOT NULL,
-# 	Code VARCHAR(20) NOT NULL,
-# 	FName VARCHAR(20) NOT NULL,
-# 	MName VARCHAR(20) NOT NULL,
-# 	LName VARCHAR(20) NOT NULL,
-# 	BankName VARCHAR(20) NOT NULL,
-# 	BranchName VARCHAR(20) NOT NULL,
-# 	EndDate DATE NOT NULL,
-# 	PRIMARY KEY (CustomerID, Code),
-# 	FOREIGN KEY (CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE
-# );
+
+--
 drop procedure if exists createaccCard;
 DELIMITER $$
 create procedure createaccCard(
-nid int,
- ncode varchar(20),
- nbankname varchar(20),
- branch varchar(20),
- nenddate date,
- idpay int)
+	nid int,
+	ncode varchar(20),
+	nbankname varchar(20),
+	branch varchar(20),
+	nenddate date,
+	idpay int)
 Begin
     insert into creditcard
     select id,ncode,fname,MName,lname,nbankName,branch,nenddate,idpay from customer where id =nid;
@@ -101,6 +72,7 @@ end $$
 DELIMITER  ;
 call createaccCard(1,'12345678900','obc','ly thuong kiet','221230',1);
 select * from creditcard;
+
 -- update information
 drop procedure if exists update_info_cus;
 DELIMITER |
@@ -124,20 +96,13 @@ BEGIN
 	WHERE ID = Customer_ID;
 	select ID,FName,MName,LName, DOB ,Sex ,PhoneNumber,Address,Mail from customer
         where ID = Customer_ID;
-END;
+END ;
 DELIMITER ;
 
 -- (ii.2). Cập nhật thông tin thanh toán.
 
  -- Cập nhật giao dịch mua hàng.
-# CustomerID int         not null,
-#     ISBN       decimal(15) not null,
-#     tDateTime  datetime    not null,
-#     FLAG       decimal(1)  not null,
-#     amount     int         not null,
-#     PaymentID  int         not null,
-#     TTime      datetime    null,
-#     model      varchar(4)  not null,
+
 drop procedure if exists capnhat_giaodich;
 DELIMITER |
 CREATE PROCEDURE capnhat_giaodich(
@@ -152,6 +117,7 @@ BEGIN
 END;
 DELIMITER ;
 select CURRENT_TIMESTAMP();
+
 -- ). Xem danh sách sách theo thể loại
 drop procedure if exists xem_ds_theloai;
 
@@ -165,6 +131,7 @@ BEGIN
 	WHERE AField = theloai;
 END;
 DELIMITER ;
+
 -- Xem danh sách sách theo tác giả
 drop procedure if exists xem_dssach_tacgia;
 use ebookstore_01;
@@ -178,6 +145,7 @@ BEGIN
 	WHERE FName LIKE ('%' + tacgia + '%');
 END |
 DELIMITER ;
+
 -- (ii.6). Xem danh sách sách theo từ khóa.
 drop procedure if exists xem_dssach_tukhoa;
 
@@ -191,6 +159,7 @@ BEGIN
 	WHERE tukhoa = AKeyword;
 END;
 DELIMITER ;
+
 -- (ii.7). Xem danh sách sách theo năm xuất bản.
 drop procedure if exists xem_dssach_namx;
 
@@ -286,10 +255,13 @@ create trigger insert_cus
             end if ;
     end $$
 delimiter ;
+
+
 select * from customer;
 use ebookstore_01;
 #delete from customer;
 ################################################
+
 # Kiểm tra mật khẩu cho khách hàng
 drop procedure if exists update_pass;
 delimiter $$
@@ -308,7 +280,7 @@ end $$
 delimiter ;
 
 #call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
-=======
+
 -- call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
 
 insert into publisher value ('London', 159753, 'London, England', '456456456', 'londonpub@gmail.com');
@@ -338,16 +310,17 @@ DROP PROCEDURE if exists SEARCHBYISBN;
 DELIMITER //
 CREATE PROCEDURE searchbyISBN (ISB decimal(15,0))
 BEGIN
-	SELECT B.ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time,
+	SELECT B.ISBN, (select concat(B.ISBN,'.jpg')) as Image, Summary, Cost, B.Name as BookName, PubName, Year, Time,
 		P.Code as PubCode, P.Address as PubAddress, P.PhoneNumber as PubPhone, P.email as PubEmail,
         (select concat_ws(" ", A.fname, A.mname, A.lname)) as AuthName,
         SSN, A.address as AuthAdress, A.phonenumber as AuthPhone, A.sex as AuthSex, A.email as AuthEmail,
-        StorageID, StaffID, amount as Amount
+        StorageID, StaffID, amount as Amount, AField
     FROM BOOK B
 						JOIN PUBLISHER P ON P.NAME = PUBNAME
                         JOIN WRITTENBY ON BOOKISBN = B.ISBN
                         JOIN AUTHOR A ON AUTHORSSN = SSN
                         JOIN SSTORED S ON S.ISBN = B.ISBN 
+                        JOIN FIELD ON BOOKID = B.ISBN
 	WHERE B.ISBN = ISB;
 END //
 DELIMITER ;
@@ -356,8 +329,9 @@ DROP PROCEDURE if exists LOADNXB;
 DELIMITER //
 CREATE PROCEDURE loadNXB (pname varchar(50), isb decimal(15,0))
 BEGIN
-	SELECT ISBN, Image, Summary, Cost, B.Name as BookName, PubName, Year, Time  
-    FROM BOOK B JOIN PUBLISHER P ON P.NAME = PUBNAME
+	SELECT ISBN, (select concat(B.ISBN,'.jpg')) as Image, Summary, Cost, B.Name as BookName, PubName, Year, Time, AField
+    FROM BOOK B JOIN PUBLISHER P ON P.NAME = PUBNAME 
+    JOIN FIELD ON BOOKID = B.ISBN
 	WHERE ISBN != ISB AND PNAME = P.NAME;
 END //
 DELIMITER ;
@@ -367,3 +341,62 @@ insert into keyword values (999888777666555, 'philosopher'),(999888777666555, 'h
 (999888777666555, 'hermione'),(999888777666555, 'ron'),(999888777666554, 'harry potter'),(999888777666555, 'chamber'), (999888777666554, 'chamber of secrets'),
 (999888777666554, 'voldemort'),(999888777666553, 'harry potter'),(999888777666553, 'voldemort'), (999888777666553, 'azkaban'),(999888777666553, 'prisoner');
 
+
+drop procedure if exists bookwcate;
+delimiter //
+create procedure bookwcate (cate varchar(20))
+begin
+	select distinct * from book b join field on b.isbn = bookid where cate = afield;
+end //
+delimiter ;
+
+
+drop procedure if exists bookwcate;
+delimiter //
+create procedure bookwcate (cate varchar(20))
+begin
+	select distinct ISBN, Cost, Name, PubName, AField, concat_ws(" ", FName, MName, LName) as AuthName from book b join field on b.isbn = bookid join writtenby on bookisbn = b.isbn join author on ssn = authorssn where cate = afield;
+end //
+delimiter ;
+
+
+drop procedure if exists allbooks;
+delimiter //
+create procedure allbooks ()
+begin
+	select distinct ISBN, Cost, Name, PubName, AField, concat_ws(" ", FName, MName, LName) as AuthName from book b join field on b.isbn = bookid join writtenby on bookisbn = b.isbn join author on ssn = authorssn;
+end //
+delimiter ;
+
+
+##############################################################################
+drop procedure if exists update_amount;
+delimiter |
+create procedure update_amount(nisbn decimal(15,0),cusID int)
+begin
+declare cid int default 0;
+select customerID into cid from cart where nisbn=BookID and cusID=customerID;
+if ((cusID,nisbn) in (select customerID,BookID from cart)) then
+update cart
+set amoutBook=amoutBook+1
+where nisbn=BookID and cusID=customerID;
+else 
+insert into cart value(cusID,nisbn,1);
+end if;
+end |
+delimiter ;
+##############################################################
+# thanh toán 
+drop procedure if exists update_tt;
+delimiter |
+create procedure update_tt(
+		TCustomerID INT,
+	TISBN decimal(15,0),
+	TPaymentID INT,
+	a int,nmodel int)
+    begin 
+    insert into Transaction
+	value (TCustomerID,TISBN,CURRENT_TIMESTAMP(),0,a,TPaymentID,nmodel,null);
+    delete from cart where customerID=TCustomerID and TISBN=BookID;
+    end |
+    delimiter ;

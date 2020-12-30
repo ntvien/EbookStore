@@ -1,0 +1,249 @@
+<div class="body-outer fluid fluid-nomargin container clearfix">
+    <div class="primary-outer">
+        <div class="sidebar-outer grid3">
+            <div class="content-block-topboard sidebar-block  category-hide">
+                <div class=""style="">
+
+                </div>
+            </div>
+
+            <a href="#">{{VanHoc}}</a><br>
+
+            <div class="content-block-topboard sidebar-block sidebar-block-category-lv2">
+                <div class="topboard-inner">
+                    <div class="topboard-title "> Loại sách </div>
+                    <ul class="topboard-items clearfix ">
+                        {{#each loai}}
+                            <li class="clearfix" >
+                                <div class="item-info">
+                                    <h3 class="item-title" >
+                                        <a href="../../tim-kiem/theo-loai/?tenLoai={{AField}}">{{AField}}</a>
+                                    </h3>
+
+                                </div>
+                            </li>
+                        {{/each}}
+
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div class="content-block-topboard sidebar-block sidebar-block-category-lv2">
+                <div class="topboard-inner">
+                    <div class="topboard-title">Nhà xuất bản nổi bật</div>
+                    <ul class="topboard-items clearfix">
+
+                        {{#each NhaSX}}
+
+                            <li class="clearfix">
+                                <div class="item-info">
+                                    <h3 class="item-title"><a href="../../tim-kiem/theo-NhaSX/?id={{Code}}">{{Name}}</a></h3>
+                                </div>
+                            </li>
+                        {{/each}}
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-block-topboard sidebar-block sidebar-block-category-lv2" >
+                <div class="topboard-inner">
+                    <div class="topboard-title">Phân loại theo năm</div>
+                    <ul class="topboard-items clearfix">
+                        <li class="clearfix ">
+                            <div class="item-info">
+                                <h3 class="item-title"><a href="../../tim-kiem/theo-nam/?namdau=0&namcuoi=2000" >Trước 2000 </a></h3>
+                            </div>
+                        </li>
+                        <li class="clearfix ">
+                            <div class="item-info"style="width: 110%">
+                                <h3 class="item-title"><a href="../../tim-kiem/theo-nam/?namdau=2000&namcuoi=2005">Từ 2000 đến trước 2005 </a></h3>
+                            </div>
+                        </li>
+                        <li class="clearfix ">
+                            <div class="item-info"style="width: 110%">
+                                <h3 class="item-title"><a href="../../tim-kiem/theo-nam/?namdau=2005&namcuoi=2010">Từ 2005 đến trước 2010 </a></h3>
+                            </div>
+                        </li>
+                        <li class="clearfix ">
+                            <div class="item-info">
+                                <h3 class="item-title"><a href="../../tim-kiem/theo-nam/?namdau=2010&namcuoi=2020">Từ 2010 đến nay</a></h3>
+                            </div>
+                        </li>
+                        <div style="margin-top: 10px">
+
+                        <form action="/tim-kiem/theo-nam/" method="get">
+                            <div class="mod-login-col1" style="width: 230px">
+                                <div class="mod-input mod-login-input-email mod-input-email">
+                                    <label>Tìm sách trong các năm...</label>
+                                    <input type="number" name="namdau" id="namdau" autocomplete="off" placeholder=" Năm từ...">
+                                    <b></b>
+                                    <span></span>
+                                    <label>Đến...</label>
+                                    <input type="number" name="namcuoi" id="namcuoi" autocomplete="off" placeholder=" Đến...">
+                                    <b></b>
+                                    <span></span>
+                                </div>
+
+                            </div>
+                            <!--<input type="text" name="giadau" id="giadau" autocomplete="off" placeholder=" Giá từ...">-->
+                            <!--<div style="margin-top: 10px;height: 3%">-->
+                            <!--<input type="text" name="giacuoi" id="giacuoi" autocomplete="off" placeholder=" Đến...">-->
+                            <!--</div>-->
+                            <div class="form-row subscribe-outer" style="width: 58%;margin-left: 130px">
+                                <button type="submit" class="button-default ygradient1 ">Tìm kiếm</button>
+                            </div>
+                        </form>
+                        </div>
+                    </ul>
+
+                </div>
+            </div>    
+            
+        </div>
+
+        <div class="primary-inner grid9"style="margin-top: -13px;"  >
+
+            <ul class="breadcrumb no-style" xmlns:v="">
+                <li typeof="v:Breadcrumb">
+                    <a rel="v:url" property="v:title" href="/">Trang chủ</a>
+                </li>
+                <li typeof="v:Breadcrumb">
+                    <a rel="v:url" property="v:title" href="/tim-kiem/theo-NhaSX/?id={{tenNXB.Code}}">{{tenNXB.Name}}</a>
+                </li>
+                <li typeof="v:Breadcrumb">
+                    <a rel="v:url" property="v:title" href="#">{{keyword}}</a>
+
+                </li>
+
+            </ul>
+                <div class="block-filters float-right" style="margin-top: -40px">
+                    <span class="block-orderby-label ml5">Sắp xếp theo</span>
+
+                    <select class="block-orderby-select" onchange="aj_set_location(this.value)">
+                        <option selected="" value="">Hàng mới nhập</option>
+                        <option value="">Tên: Z đến A</option>
+                        <option value="">Tên: A đến Z</option>
+                        <option value="">Sản phẩm nổi bật</option>
+                        <option value="">Giá: Cao đến Thấp</option>
+                        <option value="">Giá: Thấp đến Cao</option>
+                        <!--<option  value="http://cachep.vn/danh-muc/sach-quoc-van/van-hoc/?order=publish_date&dir=desc">Ngày xuất bản</option>-->
+                    </select>
+                </div>
+            <div class="block-inner-content clearfix">
+                <ul id="myList" class="block-slider-items list-item-default" style="width: 104%">
+                    <table id="example1" class="table table-striped" style="margin-top: -30px;width: 1000%;margin-left: 15px">
+                        <thead>
+                        {{#withGroup book 4}}
+                            <tr>
+                                {{#each this}}
+                                    <th style="border-top: 0px none #fff;padding: 0px;border-bottom: 0px none #fff; border-width: 0px"></th>
+                                {{/each}}
+                            </tr>
+                        {{/withGroup}}
+                        </thead>
+
+                        <tbody>
+                        {{#withGroup book 4}}
+                            <tr>
+                                {{#each this}}
+                                    <td style="width:25%">
+                                        <div class="item">
+                                            <li class="item-outer" style="width: 100%">
+                                                <a class="item-thumb" href="/../sample_product/?id={{ISBN}}" rel="nofollow">
+                                                    <img width="200" height="280" src="/image/{{ISBN}}.jpg" class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
+                                                 
+                                                </a>
+                                                <div class="item-meta-outer" style="text-align: center;">
+                                                    <h3 class="item-title">
+                                                        <a href="/../sample_product/?id={{ISBN}}">{{BookName}}</a>
+                                                    </h3>
+                                                    <em class="item-author">{{AuthName}}</em>
+                                                    <p class="item-price"style="font-size: 13.5px">
+                                                        <b>{{number_format Cost}}
+                                                            <u>đ</u>
+                                                        </b>
+                                                    </p>
+
+                                                </div>
+                                                <div>
+                                                    <form method="post" action="/cart/add">
+                                                        <input id="sl" class="hidden" name="sl" value="1">
+                                                        <input id="idSach" name="idSach" type="hidden" value="{{ISBN}}">
+                                                        <input type="text" class="hidden" name="url" value="/tim-kiem">
+
+                                                        <button class="next-btn next-btn-primary next-btn-large" style="width: 100%;">Thêm vào giỏ hàng</button>
+                                                    </form>
+
+
+
+                                                </div>
+                                            </li>
+                                        </div>
+
+                                    </td>
+                                {{/each}}
+                            </tr>
+                        {{/withGroup}}
+
+                        </tbody>
+                    </table>
+
+
+                </ul>
+            </div>
+
+
+        </div>
+
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.tree-toggle').click(function () {
+        $(this).parent().children('ul.tree').toggle(200);
+    });
+    $(function () {
+        $('.tree-toggle').parent().children('ul.tree').toggle(200);
+    })
+</script> {{#section 'js'}}
+    <script src="/phantrang/jquery.min.js"></script>
+    <script src="/phantrang/bootstrap.min.js"></script>
+    <script src="/phantrang/jquery.dataTables.min.js"></script>
+    <script src="/phantrang/dataTables.bootstrap.min.js"></script>
+    <script src="/dist/js/adminlte.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#example1').DataTable({
+                'paging': true,
+                "aLengthMenu": [[4, 8, 12, -1], [4, 8, 12, "All"]],
+                'lengthChange': true,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true,
+                'language': {
+                    "lengthMenu": "Hiển thị _MENU_ sản phẩm 1 trang",
+                    "info": "Đang hiển thị _START_->_END_ trên tổng _TOTAL_ dòng(4 kquả tối đa/dòng)",
+                    "paginate": {
+                        "first": "Trang đầu",
+                        "last": "Trang cuối",
+                        "next": "Tiếp",
+                        "previous": "Trước"
+                    }
+                }
+            });
+        });
+        $(function () {
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            });
+        });
+        //Initialize Select2 Elements
+        $('.select2').select2();
+    </script> {{/section}}

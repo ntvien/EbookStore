@@ -7,10 +7,10 @@
                         <a rel="v:url" property="v:title" href="/">Trang chủ</a>
                         
                     </li>
-                    {{!-- <li typeof="v:Breadcrumb">
-                        <a rel="v:url" property="v:title" href="/tim-kiem/theo-loai/?id={{tl.idLoai}}">{{tl.tenLoai}}</a>
+                    <li typeof="v:Breadcrumb">
+                        <a rel="v:url" property="v:title" href="/tim-kiem/theo-loai/?tenLoai=${{tl}}">{{tl}}</a>
                        
-                    </li> --}}
+                    </li>
                      {{#each products}}
                       <li typeof="v:Breadcrumb">
                         <a rel="v:url" property="v:title" href="#">{{BookName}}</a>

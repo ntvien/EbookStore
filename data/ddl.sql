@@ -1,6 +1,7 @@
 Drop database  if exists EBookStore_01;
 CREATE DATABASE EBookStore_01;
 use EBookStore_01;
+
 drop table if exists Customer;
 CREATE TABLE Customer(
 	ID INT default 0,
@@ -16,17 +17,20 @@ CREATE TABLE Customer(
 	Mail VARCHAR(100) NOT NULL,
 	PRIMARY KEY (ID)
 );
+
 drop table if exists Payment;
 CREATE TABLE Payment(
 	ID INT,
 	PRIMARY KEY(ID)
 );
+
 drop table if exists CardPayment;
 CREATE TABLE CardPayment(
 	ID INT,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (ID) REFERENCES Payment(ID) ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists transfer;
 CREATE TABLE Transfer(
 	ID INT,
@@ -36,15 +40,16 @@ CREATE TABLE Transfer(
 	PRIMARY KEY (ID),
 	FOREIGN KEY (ID) REFERENCES Payment(ID) ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists book;
 CREATE TABLE Book(
 	ISBN decimal(15,0),
-	Image VARCHAR(100),
 	Summary VARCHAR(500),
 	Cost DECIMAL(10,2),
 	Name VARCHAR(100) NOT NULL,
 	PRIMARY KEY (ISBN)
 );
+
 drop table if exists ebook;
 CREATE TABLE EBook(
 	ISBN decimal(15,0),
@@ -52,11 +57,13 @@ CREATE TABLE EBook(
 	PRIMARY KEY (ISBN),
 	FOREIGN KEY (ISBN) REFERENCES Book(ISBN) ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists paperbook;
 CREATE TABLE PaperBook(
 	ISBN decimal(15,0),
 	PRIMARY KEY (ISBN)
 );
+
 drop table if exists Author;
 CREATE TABLE Author(
 	SSN VARCHAR(20),
@@ -64,19 +71,21 @@ CREATE TABLE Author(
 	MName VARCHAR(20) NOT NULL,
 	LName VARCHAR(20) NOT NULL,
 	Address VARCHAR(100),
-	Email VARCHAR(20),
+	Email VARCHAR(100),
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (SSN)
 );
+
 drop table if exists Publisher;
 CREATE TABLE Publisher(
 	Name VARCHAR(50),
 	Code VARCHAR(20) UNIQUE NOT NULL,
 	Address VARCHAR(100),
-	Email VARCHAR(20),
+	Email VARCHAR(100),
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (Name)
 );
+
 drop table if exists Staff;
 CREATE TABLE Staff(
 	ID char(10),
@@ -87,15 +96,17 @@ CREATE TABLE Staff(
 	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (ID)
 );
+
 drop table if exists BookStorage;
 CREATE TABLE BookStorage(
 	StorageID INT,
 	Address VARCHAR(100) NOT NULL,
 	Name VARCHAR(20) not null,
-	Email VARCHAR(20),
-	PhoneNumber VARCHAR(10),
+	Email VARCHAR(100),
+	PhoneNumber VARCHAR(15),
 	PRIMARY KEY (StorageID)
 );
+
 drop table if exists CreditCard;
 CREATE TABLE CreditCard(
 	CustomerID INT NOT NULL,
@@ -109,6 +120,7 @@ CREATE TABLE CreditCard(
 	PRIMARY KEY (CustomerID, Code),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 USE EBookStore_01;
 drop table if exists Transaction;
 CREATE TABLE Transaction(
@@ -121,6 +133,7 @@ CREATE TABLE Transaction(
 	FOREIGN KEY (CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (ISBN) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists WrittenBy;
 CREATE TABLE WrittenBy(
 	AuthorSSN VARCHAR(20),
@@ -129,6 +142,7 @@ CREATE TABLE WrittenBy(
 	FOREIGN KEY (AuthorSSN) REFERENCES Author(SSN)ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (BookISBN) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Contact;
 CREATE TABLE Contact(
 	StaffID char(10),
@@ -137,6 +151,7 @@ CREATE TABLE Contact(
 	FOREIGN KEY (AuthorSSN) REFERENCES Author(SSN)ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (StaffID) REFERENCES Staff(ID)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists  OrderBook;
 CREATE TABLE OrderBook(
 	StaffID char(10),
@@ -146,6 +161,7 @@ CREATE TABLE OrderBook(
 	FOREIGN KEY (StaffID) REFERENCES Staff(ID) ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (Publisher) REFERENCES Publisher(Name)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Commented;
 CREATE TABLE Commented(
 	BookID DECIMAL(15,0),
@@ -154,6 +170,7 @@ CREATE TABLE Commented(
 	FOREIGN KEY (BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE,
 	FOREIGN KEY (CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists sStored;
 CREATE TABLE sStored (
 	ISBN DECIMAL(15,0),
@@ -166,6 +183,7 @@ CREATE TABLE sStored (
 	FOREIGN KEY (StaffID) REFERENCES Staff(ID),
 	FOREIGN KEY (StorageID) REFERENCES BookStorage(StorageID) ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Inbook;
 CREATE TABLE Inbook
 (
@@ -175,7 +193,8 @@ CREATE TABLE Inbook
     amount int,
     primary key (ISBN,StorageID,import,amount),
     foreign key (ISBN,StorageID) references sStored(ISBN,StorageID) on delete cascade on update cascade
-    );
+);
+
 drop table if exists outbook;
 CREATE TABLE outbook
 (
@@ -185,7 +204,8 @@ CREATE TABLE outbook
     amount int, -- so luong môi quyen sach xuat kho
     primary key (ISBN,StorageID,Otime,amount),
     foreign key (ISBN,StorageID) references sStored(ISBN,StorageID) on delete cascade on update cascade
-    );
+);
+
 drop table if exists Field;
 CREATE TABLE Field(
 	BookID DECIMAL(15,0),
@@ -193,6 +213,7 @@ CREATE TABLE Field(
 	PRIMARY KEY(BookID, AField),
 	FOREIGN KEY (BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Keyword;
 CREATE TABLE Keyword(
 	BookID DECIMAL(15,0),
@@ -200,6 +221,7 @@ CREATE TABLE Keyword(
 	PRIMARY KEY(BookID, AKeyword),
 	FOREIGN KEY(BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists  Response;
 CREATE TABLE Response(
 	BookID DECIMAL(15,0),
@@ -209,6 +231,7 @@ CREATE TABLE Response(
 	PRIMARY KEY (BookID, CustomerID, Time, Text),
 	FOREIGN KEY(BookID, CustomerID) REFERENCES Commented(BookID, CustomerID)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 drop table if exists Cart;
 CREATE table Cart(
     customerID INT,
@@ -218,16 +241,16 @@ CREATE table Cart(
     FOREIGN KEY(CustomerID) REFERENCES Customer(ID)ON DELETE CASCADE  ON UPDATE CASCADE,
     FOREIGN KEY(BookID) REFERENCES Book(ISBN)ON DELETE CASCADE  ON UPDATE CASCADE
 );
+
 ALTER TABLE Book ADD PubName VARCHAR(100) NOT NULL;
 ALTER TABLE Book ADD CONSTRAINT FK_PubName FOREIGN KEY (PubName) REFERENCES Publisher(Name)ON DELETE CASCADE  ON UPDATE CASCADE;
--- ALTER TABLE Book drop Year ;
--- ALTER TABLE Book drop Time;
 ALTER TABLE Book ADD Year int;
 ALTER TABLE Book ADD Time INT;
 
 ALTER TABLE Transaction ADD PaymentID INT NOT NULL;
 ALTER TABLE Transaction ADD FOREIGN KEY (PaymentID) REFERENCES Payment(ID)ON DELETE CASCADE  ON UPDATE CASCADE;
-#ALTER TABLE Transaction ADD TTime DATETIME;
+alter table transaction add model int; #=0 mua =1 thuê
+alter table transaction add sid int; #kho nhận xuất sách
 
 ALTER TABLE CreditCard ADD CPaymentID INT NOT NULL;
 ALTER TABLE CreditCard ADD FOREIGN KEY (CPaymentID) REFERENCES CardPayment(ID) ON DELETE CASCADE  ON UPDATE CASCADE;
@@ -235,50 +258,10 @@ ALTER TABLE CreditCard ADD FOREIGN KEY (CPaymentID) REFERENCES CardPayment(ID) O
 ALTER TABLE Staff ADD SID INT NOT NULL;
 ALTER TABLE Staff ADD FOREIGN KEY (SID) REFERENCES BookStorage(StorageID) ON DELETE CASCADE  ON UPDATE CASCADE;
 alter table staff add spassword varchar(500);
-ALTER TABLE Transaction ADD model VarChar(4) NOT NULL;
-use EBookStore_01;
--- ALTER TABLE Staff ADD spassword VarChar(500) NOT NULL;
-ALTER TABLE Staff ADD stype int NOT NULL;
-use EBookStore_01;
-ALTER TABLE author ADD SEX CHAR(1);
-SELECT * FROM Author;
--- alter table author add SSN int ;
-alter table author drop Email;
-alter table author add Email varchar(100);
-alter table bookstorage drop Email;
-alter table bookstorage add Email varchar(100);
-alter table bookstorage drop PhoneNumber;
-alter table bookstorage add PhoneNumber varchar(15);
-alter table staff drop stype;
 alter table staff add stype int;
-alter table publisher drop Email;
-alter table publisher add Email varchar(100);
-alter table book drop Image;
-use EBookStore_01;
-alter table transaction drop model;
-alter table transaction add model int; #=0 mua =1 thuê
-alter table transaction add sid int; #kho nhận xuất sách
-select * from Customer;
-select * from book;
-select * from Payment;
-select * from Transaction;
-# insert into transaction
-# value (3,
-#     123456789000000,
-#     CURRENT_TIMESTAMP(),
-#     0,35,
-#     1,1,null);
-# insert into transaction
-# value (3,
-#     123456789000000,
-#     CURRENT_TIMESTAMP(),
-#     0,20,
-#     1,1,null);
-# insert into transaction
-# value (3,
-#     123456789000004,
-#     CURRENT_TIMESTAMP(),
-#     0,23,
-#     1,1,null);
+
+ALTER TABLE author ADD SEX CHAR(1);
+
+
 
 

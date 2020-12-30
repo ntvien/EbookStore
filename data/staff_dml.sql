@@ -29,8 +29,6 @@ use ebookstore_01;
 # INSERT INTO Staff VALUE (8, 'Dao', 'Thi', 'H', 'stb@gmail.com', 032121111, 208);
 # INSERT INTO Staff VALUE (9, 'Nguyen', 'Van', 'I', 'sdga@gmail.com', 0956136665, 209);
 
-INSERT INTO Staff VALUE ("1223456789", 'Le', 'Thi', 'J', '0325325252', 0,2333,'sdfb@gmail.com',0);
-
 
 INSERT INTO BookStorage VALUE (0, 'Center', 'USA', 'pn@gmail.com', '0956632156');
 INSERT INTO Staff VALUE ("1223456789", 'Le', 'Thi', 'J','sdfb@gmail.com', 0325325252, 0,2333,0);
@@ -42,7 +40,6 @@ select * from staff;
 select * from book;
 select * from inbook;
 select * from sstored;
-delete from book;
 select * from author;
 -- Insert ten tac gia
 select * from staff;
@@ -83,7 +80,6 @@ select * from staff;
 # kiểm tra xem sách đã tồn tại hay chưa
 
 
-=======
 #insert into book values (2146563245, NULL, NULL, 16.47, 'Herry Potta'
 
 use ebookstore_01;
@@ -166,7 +162,7 @@ delimiter |
 create procedure writeby(nisbn decimal(15,0),nssn varchar(20))
 begin
     insert into writtenby
-    value (nssn,nisbn);
+    value (nisbn, nssn);
 end |
 delimiter ;
 select * from writtenby;
@@ -490,9 +486,10 @@ nsid int,
 pass varchar(500))
 begin
 insert into staff
-    value (nid,nfname,nmname,nlname,phone,nsid,pass,nmail,nstype);
+    value (nid,nfname,nmname,nlname,nmail,phone,nsid,pass,nstype);
 end |
 delimiter ;
+
 select * from bookstorage;
 -- call add_staff('2020251201','Hà','Thu','Nguyễn','a@gmail.com','0123445566',1,1,'123456')
 select * from staff;

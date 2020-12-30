@@ -1,0 +1,72 @@
+<div class="container sp">
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Xin chào {{name}}</h4>
+            <div>
+                <a href="update">Chỉnh sửa thông tin</a>
+            </div>
+            <div>
+                <a href="./profile">Lịch sử mua hàng</a>
+            </div>
+            <div>
+                <a href="../cart">Giỏ hàng</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <h3 class="text-left">Chi tiết đơn hàng</h3>
+            <span>Đơn hàng: {{donhang.idThanhToan}}</span>
+            <div>
+                <span>Đặt ngày: {{dateFormat donhang.tDateTime}}</span>
+                <span class="right">Tổng cộng: {{number_format donhang.total}}đ</span>
+                <hr />
+            </div>
+            <span>Tình trạng đơn hàng: {{#if donhang.trangThai}}<b>Đã giao hàng</b>{{else}}<b>Đang giao
+                    hàng</b>{{/if}}</span>
+            <div>
+                {{#each sanpham}}
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="/{{hinhAnh}}" class="img-dh" />
+                    </div>
+                    <div class="col-md-4">
+                        <h2>{{ten_sach}} (x{{sl}})</h2>
+                    </div>
+                    <div class="col-md-3">
+                        <h2>{{number_format giaBan}}đ </h2>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="#" class="right">Viết đánh giá</a>
+                    </div>
+                </div>{{/each}}
+
+
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <span>Địa chỉ giao hàng</span>
+                    <p>{{name}}
+                        <br />{{donhang.diaChiThanhToan}}
+                        <br />{{donhang.sdtNhanHang}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <span>Tạm tính</span>
+                        <span class="right">{{number_format donhang.total}}đ </span>
+                        <div>
+                            <span>Phí vận chuyển</span>
+                            <span class="right">0đ </span>
+                            <hr />
+                        </div>
+                    </div>
+                    <span>Tổng cộng(bao gồm VAT)</span>
+                    <span class="right">{{number_format donhang.total}}đ </span>
+                    <div>
+                        <span>Thanh toán khi nhận hàng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

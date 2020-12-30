@@ -28,9 +28,9 @@ router.post('/login', (req, res) =>{
                 req.session.account=value[0][0];
                 req.session.Authorized=1;
                 var url = '/staff/task';
-                if (req.query.retUrl) {
-                    url = req.query.retUrl;
-                }
+                // if (req.query.retUrl) {
+                //     url = req.query.retUrl;
+                // }
                 res.redirect(url);
             }
             
