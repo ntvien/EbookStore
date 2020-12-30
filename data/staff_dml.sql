@@ -162,7 +162,7 @@ delimiter |
 create procedure writeby(nisbn decimal(15,0),nssn varchar(20))
 begin
     insert into writtenby
-    value (nssn,nisbn);
+    value (nisbn, nssn);
 end |
 delimiter ;
 select * from writtenby;

@@ -3,7 +3,8 @@ var SHA256 = require('crypto-js/sha256');
 var moment = require('moment');
 var format = require('date-format');
 // var accountRepo = require('../repos/accountRepo');
-// var payRepo = require('../repos/payRepo');
+
+
 var restrict = require('../middle-wares/restrict');
 var Recaptcha = require('express-recaptcha').Recaptcha;
 //var recaptcha = new Recaptcha('6LdoIGEUAAAAADW83_JdZknEjFYPl7bLmJD_YVzo', '6LdoIGEUAAAAANFjdBJxqiedi0D8wd3FtVWxCJUN');
@@ -63,35 +64,20 @@ router.post('/login', (req, res) => {
             };
             res.render('./account/login', vm);
         } else {
-        db.query(`select count(*) as count from cart where customerID=${value[0][0].ID} group by (customerID)`,function(error, value1){
-            if (error) {console.log(error);
-                var vm = {
-                    showError: true,
-                    errorMsg: error.sqlMessage
-                };
-                res.render('./account/login', vm);
-            }
-            else{
-            console.log(value1)
+
+            //console.log(value[0][0].FName)
             req.session.isLogged = true;
             req.session.Authorized = 0;
             req.session.user = user.username;
             req.session.account = value[0][0];
-            if (JSON.stringify(value1) === '[]')
-            req.session.lenCart=0;//value1[0].count;
-            else req.session.lenCart=value1[0].count;
             //req.session.name=value[0][0].FName+' '+value[0][0].LName;
             //req.session.id=user.username;
             //console.log(req.session.account);
             var url = '/';
-            // if (req.query.retUrl) {
-            //     url = req.query.retUrl;
-            // }
+            if (req.query.retUrl) {
+                url = req.query.retUrl;
+            }
             res.redirect(url);
-        }
-        })
-            //console.log(value[0][0].FName)
-            
         }
         //db.end();
     });
@@ -110,10 +96,33 @@ router.get('/profile', restrict, (req, res) => {
         name: req.session.account.FName + ' ' + req.session.account.LName + ' ' + req.session.account.MName,
         diachi: req.session.account.Address,
         sdt: req.session.account.PhoneNumber,
-
     };
     res.render('./account/profile', vm);
 });
+
+
+router.post('/profile', (req, res) => {
+
+    var sql = `select * from transaction join customer c on c.ID = transaction.CustomerID Where
+    id = $ { req.session.account.ID }`;
+    console.log(sql);
+    db.query(sql, function(error, value) {
+        if (error) {
+            throw error;
+        } else {
+            var vm = {
+                FName: req.session.account.FName,
+                MName: req.session.account.MName,
+                LName: req.session.account.LName
+                    // ISBN: req.session.account.ID,
+                    // PhoneNumber: req.session.account.PhoneNumber,
+                    // Address: req.session.account.Address,
+            };
+            res.render('./account/profile', vm);
+        }
+    });
+});
+
 router.get('/update', (req, res) => {
     var vm = {
         FName: req.session.account.FName,
@@ -136,14 +145,15 @@ router.post('/update', (req, res) => {
         email: req.body.email,
         permission: 0
     };
-    var sql = `call update_info_cus('${user.id}','${user.fname}','${user.mname}','${user.lname}',\
-    '${user.phonenumber}','${user.address}','${user.email}')`;
+    var sql = `
+            call update_info_cus('${user.id}', '${user.fname}', '${user.mname}', '${user.lname}', \
+                '${user.phonenumber}', '${user.address}', '${user.email}')
+            `;
     db.query(sql, function(error, value) {
         if (error) {
-            console.log(error)
             var vm = {
                 showError: true,
-                errorMsg: error.sqlMessage,
+                errorMsg: 'Cập nhật thông tin thất bại !!!!!!',
                 FName: req.session.account.FName,
                 MName: req.session.account.MName,
                 LName: req.session.account.LName,
@@ -172,7 +182,9 @@ router.get('/update_pass', (req, res) => {
     res.render('./account/updatepass');
 });
 router.post('/update_pass', (req, res) => {
-    var sql = `call update_pass('${req.session.account.ID}','${SHA256(req.body.mkcu).toString()}','${SHA256(req.body.mkmoi1).toString()}')`;
+    var sql = `
+            call update_pass('${req.session.account.ID}', '${SHA256(req.body.mkcu).toString()}', '${SHA256(req.body.mkmoi1).toString()}')
+            `;
     db.query(sql, function(error, value) {
         if (error) {
             var vm = {
