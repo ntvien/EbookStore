@@ -314,13 +314,12 @@ BEGIN
 		P.Code as PubCode, P.Address as PubAddress, P.PhoneNumber as PubPhone, P.email as PubEmail,
         (select concat_ws(" ", A.fname, A.mname, A.lname)) as AuthName,
         SSN, A.address as AuthAdress, A.phonenumber as AuthPhone, A.sex as AuthSex, A.email as AuthEmail,
-        StorageID, StaffID, amount as Amount, AField
+        StorageID, StaffID, amount as Amount
     FROM BOOK B
 						JOIN PUBLISHER P ON P.NAME = PUBNAME
                         JOIN WRITTENBY ON BOOKISBN = B.ISBN
                         JOIN AUTHOR A ON AUTHORSSN = SSN
                         JOIN SSTORED S ON S.ISBN = B.ISBN 
-                        JOIN FIELD ON BOOKID = B.ISBN
 	WHERE B.ISBN = ISB;
 END //
 DELIMITER ;

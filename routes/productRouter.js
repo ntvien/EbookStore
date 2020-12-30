@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
         if (error) {
             throw error;
         } else {
-            var sql1 = `call loadNXB('${value[0][0].PubName}','${req.query.id}')`
+            var sql1 = `call loadNXB('${value[0][0].PubName}', '${req.query.id}')`;
             db.query(sql1, function(error, result) {
                 if (error) {
                     throw error;
@@ -23,7 +23,6 @@ router.get('/', (req, res) => {
                         var vm = {
                             products: value[0],
                             nxb: prod[0],
-                            tl: value[0][0].AField,
                             url: "/sample_product?id=" + req.query.id
                         }
 

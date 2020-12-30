@@ -5,23 +5,23 @@
                 <ul class="breadcrumb no-style" xmlns:v="">
                     <li typeof="v:Breadcrumb">
                         <a rel="v:url" property="v:title" href="/">Trang chủ</a>
-                        
+
                     </li>
-                    <li typeof="v:Breadcrumb">
+                    {{!-- <li typeof="v:Breadcrumb">
                         <a rel="v:url" property="v:title" href="/tim-kiem/theo-loai/?tenLoai=${{tl}}">{{tl}}</a>
-                       
-                    </li>
-                     {{#each products}}
-                      <li typeof="v:Breadcrumb">
+
+                    </li> --}}
+                    {{#each products}}
+                    <li typeof="v:Breadcrumb">
                         <a rel="v:url" property="v:title" href="#">{{BookName}}</a>
-                        
+
                     </li>
                 </ul>
             </div>
         </div>
-       
 
-       
+
+
         <div class="row" itemscope="" itemtype="">
             <div class="col-md-5">
                 <div class="image-box js-image-box no-left">
@@ -29,7 +29,8 @@
                     <div class="magiczoom">
 
                         {{!-- <a href="#" class="book-review-btn">
-                            <img style="margin-left: 200px" src="http://tala.tikicdn.com/assets/img/book-review-btn.png" height="21" width="100" alt="">
+                            <img style="margin-left: 200px" src="http://tala.tikicdn.com/assets/img/book-review-btn.png"
+                                height="21" width="100" alt="">
                         </a> --}}
                         <a id="product-magiczoom" class="js-book-review-show" href="#">
                             <img style="    width: 250px;margin-left: 60px" itemprop="image" src="/image/{{Image}}">
@@ -37,185 +38,211 @@
                     </div>
                 </div>
                 <div class="social-wrapper" style="/* text-align: left; */ margin-left: 110px">
-                    <div class="fb-like fb_iframe_widget" style="margin-bottom:10px; top: -5px;" data-href="#" data-width="300" data-layout="button_count"
-                        data-action="like" data-show-faces="false" data-share="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=220558114759707&amp;container_width=413&amp;href=http%3A%2F%2Ftiki.vn%2Fdu-hanh-nguoc-thoi-gian-nguoi-la-ma-o-thanh-rome-p90325.html&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;show_faces=false&amp;width=300">
+                    <div class="fb-like fb_iframe_widget" style="margin-bottom:10px; top: -5px;" data-href="#"
+                        data-width="300" data-layout="button_count" data-action="like" data-show-faces="false"
+                        data-share="true" fb-xfbml-state="rendered"
+                        fb-iframe-plugin-query="action=like&amp;app_id=220558114759707&amp;container_width=413&amp;href=http%3A%2F%2Ftiki.vn%2Fdu-hanh-nguoc-thoi-gian-nguoi-la-ma-o-thanh-rome-p90325.html&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;show_faces=false&amp;width=300">
                         <span style="vertical-align: bottom; width: 139px; height: 20px;">
-                            <iframe name="f1491c4204" width="300px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no"
-                                title="fb:like Facebook Social Plugin" src="http://www.facebook.com/v2.3/plugins/like.php?action=like&amp;app_id=220558114759707&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2F44OwK74u0Ie.js%3Fversion%3D41%23cb%3Df126ab9a18%26domain%3Dtiki.vn%26origin%3Dhttp%253A%252F%252Ftiki.vn%252Ff262bef4b%26relation%3Dparent.parent&amp;container_width=413&amp;href=http%3A%2F%2Ftiki.vn%2Fdu-hanh-nguoc-thoi-gian-nguoi-la-ma-o-thanh-rome-p90325.html&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;show_faces=false&amp;width=300"
-                                style="border: none; visibility: visible; width: 139px; height: 20px;" class=""></iframe>
+                            <iframe name="f1491c4204" width="300px" height="1000px" frameborder="0"
+                                allowtransparency="true" allowfullscreen="true" scrolling="no"
+                                title="fb:like Facebook Social Plugin"
+                                src="http://www.facebook.com/v2.3/plugins/like.php?action=like&amp;app_id=220558114759707&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2F44OwK74u0Ie.js%3Fversion%3D41%23cb%3Df126ab9a18%26domain%3Dtiki.vn%26origin%3Dhttp%253A%252F%252Ftiki.vn%252Ff262bef4b%26relation%3Dparent.parent&amp;container_width=413&amp;href=http%3A%2F%2Ftiki.vn%2Fdu-hanh-nguoc-thoi-gian-nguoi-la-ma-o-thanh-rome-p90325.html&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;show_faces=false&amp;width=300"
+                                style="border: none; visibility: visible; width: 139px; height: 20px;"
+                                class=""></iframe>
                         </span>
                     </div>
                 </div>
             </div>
-            
-            {{!-- <div class="col-md-5"style="margin-left: -80px;width: 65%"> --}}
-            <div class="col-md-5">
 
-                <div class="item-box">
-                    <h1 class="item-name" itemprop="name" style="font-size: 30px;margin-bottom: 20px">
-                        {{BookName}} </h1>
+            {{!-- <div class="col-md-5" style="margin-left: -80px;width: 65%"> --}}
+                <div class="col-md-5">
 
-                    <div class="item-row1">
+                    <div class="item-box">
+                        <h1 class="item-name" itemprop="name" style="font-size: 30px;margin-bottom: 20px">
+                            {{BookName}} </h1>
 
-                        <div class="item-price">
-                            <div class="item-promotion">
-                                <div class="item-promotion-title"style="color: #00aaf1">
-                                    <h2>Thông tin sách</h2>
+                        <div class="item-row1">
 
-                                </div>
-                            </div>
-                            <div class="item-brand">
-                                <span>
-                                    <em>Tác giả: </em>
-                                    <a href="#">{{AuthName}}</a>
-                                </span>
-                            </div>
-                            {{!-- <div class="item-brand">
-                                <span>
-                                    <em>Nhà xuất bản: </em>
-                                    <a href="/tim-kiem/theo-NhaSX?id={{idNhaSX}}">{{tenNhaSX}}</a>
-                                </span>
-                            </div> --}}
-                            <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
-                                <meta itemprop="priceCurrency" content="VND">
-                                <meta itemprop="price" content="26000">
-                            </div>
-                            {{!-- <p class="item-brand" data-value="35000" id="p-listpirce">
-                                <span>Lượt Xem: <b>{{luotXem}}</b> - Lượt Mua: <b>{{luotMua}}</b></span>
+                            <div class="item-price">
+                                <div class="item-promotion">
+                                    <div class="item-promotion-title" style="color: #00aaf1">
+                                        <h2>Thông tin sách</h2>
 
-                            </p> --}}
-                            <p class="item-brand" data-value="26000" id="p-specialprice">
-                                <span>Giá:</span>
-                                <span id="span-price"style="color: red;font-size: 18px"><b>{{number_format Cost}}&nbsp;₫</b></span>
-                                <span>(Đã có VAT)</span>
-                            </p>
-                            {{!-- <p class="item-brand"> --}}
-                                {{!-- <span>Tiết kiệm:</span> --}}
-                                {{!-- <span style="color: red;font-size: 16px"><b>10%</b></span><span> ({{Cost}} ₫)</span> --}}
-                            {{!-- </p> --}}
-                            <p class="partnership-price-item">
-                                <span class="js-product-gift-icon" data-toggle="tooltip" data-title="Thanh toán với thẻ Visa để được giảm thêm 10%, tối đa 200.000đ/đơn hàng. Áp dụng với 100 đơn hàng đầu tiên mỗi ngày. Chương trình kéo dài đến hết 30/09/2015."
-                                    data-placement="bottom" data-original-title="" title="">
-                                    <img src="http://tala.tikicdn.com/assets/media/visa-price-label.png">
-                                </span>
-                                {{!-- <span>Giảm 12.5% ({{Cost}}&nbsp;₫)</span> --}}
-                            </p>
-                            <p class="item-brand">
-                                <span>Còn <b>{{Amount}}</b> sản phẩm</span>
-                            </p>
-
-                        </div>
-                        <div class="item-other">
-
-
-                            <div class="item-promotion">
-                                <div class="item-promotion-title"style="color: orangered">
-                                    <h2 >Dịch vụ &amp; Khuyến mãi</h2>
-                                </div>
-                                <div class="item-promotion-content">
-                                    <ul class="no-left">
-                                        <li>
-                                            Với mỗi
-                                                <span style="color: #000;">
-                                            <strong>100.000đ</strong>
-                                        </span> đơn hàng, quý khách được tặng
-                                                <span style="color: #000;">
-                                            <strong>300</strong>
-                                        </span> Xu.
-                                        </li>
-                                        <li>Miễn phí đổi trả trong vòng 7 ngày.</li>
-                                        <li>Nhận hàng từ
-                                            <span id="delivery_time" style="color: black">2 - 3 ngày</span> , không kể Thứ 7 &amp; CN.</li>
-                                        <li>Đăng ký
-                                            <a target="blank" href=""style="color: #000"><strong>dịch vụ BookCare</strong></a> để được bọc plastic đến 99% sách.</li>
-
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!--<form role="form" id="add-to-cart" action="/checkout/ajaxAdd">-->
-                    <input type="hidden" name="product_type" value="simple">
-                    <div class="item-product-options">
-                        <div class="quantity-box">
-
-
-                            <form class="form-horizontal" id="frmAddItem" method="post" action="/cart/add">
-                                <!--&lt;!&ndash;&ndash;&gt;        <input type="hidden" id="txtP" name="proId" />-->
-                                <input id="idSach" name="idSach" type="hidden" value="{{ISBN}}">
-
-
-                                <div class="quantity-col2">
-                                    <p class="quantity-label"style="margin-left: -30px">Số lượng:</p>
-                                    <div class="quantity-col1">
-                                        <p class="tiki-number-input">
-                                            <div class="input-group bootstrap-touchspin">
-                                                <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
-                                                <input id="sl" type="number" name="sl" value="1" min="1" max="100" class="form-control" style="display: block; color: red;">
-                                                <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
-                                            </div>
-                                        </p>
                                     </div>
-                                    <input type="text" class="hidden" name="url" value="/sample_product/?id={{ISBN}}">
-                                    <button class="add-to-cart js-add-to-cart is-css" type="submit" data-original-title="">
-                                        <span class="text">
-                                            Thêm Vào Giỏ Hàng
-                                        </span>
-                                    </button>
-
-
                                 </div>
-                            </form>
+                                <div class="item-brand">
+                                    <span>
+                                        <em>Tác giả: </em>
+                                        <a href="#">{{AuthName}}</a>
+                                    </span>
+                                </div>
+                                {{!-- <div class="item-brand">
+                                    <span>
+                                        <em>Nhà xuất bản: </em>
+                                        <a href="/tim-kiem/theo-NhaSX?id={{idNhaSX}}">{{tenNhaSX}}</a>
+                                    </span>
+                                </div> --}}
+                                <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+                                    <meta itemprop="priceCurrency" content="VND">
+                                    <meta itemprop="price" content="26000">
+                                </div>
+                                {{!-- <p class="item-brand" data-value="35000" id="p-listpirce">
+                                    <span>Lượt Xem: <b>{{luotXem}}</b> - Lượt Mua: <b>{{luotMua}}</b></span>
+
+                                </p> --}}
+                                <p class="item-brand" data-value="26000" id="p-specialprice">
+                                    <span>Giá:</span>
+                                    <span id="span-price" style="color: red;font-size: 18px"><b>{{number_format
+                                            Cost}}&nbsp;₫</b></span>
+                                    <span>(Đã có VAT)</span>
+                                </p>
+                                {{!-- <p class="item-brand"> --}}
+                                    {{!-- <span>Tiết kiệm:</span> --}}
+                                    {{!-- <span style="color: red;font-size: 16px"><b>10%</b></span><span> ({{Cost}}
+                                        ₫)</span> --}}
+                                    {{!-- </p> --}}
+                                <p class="partnership-price-item">
+                                    <span class="js-product-gift-icon" data-toggle="tooltip"
+                                        data-title="Thanh toán với thẻ Visa để được giảm thêm 10%, tối đa 200.000đ/đơn hàng. Áp dụng với 100 đơn hàng đầu tiên mỗi ngày. Chương trình kéo dài đến hết 30/09/2015."
+                                        data-placement="bottom" data-original-title="" title="">
+                                        <img src="http://tala.tikicdn.com/assets/media/visa-price-label.png">
+                                    </span>
+                                    {{!-- <span>Giảm 12.5% ({{Cost}}&nbsp;₫)</span> --}}
+                                </p>
+                                <p class="item-brand">
+                                    <span>Còn <b>{{Amount}}</b> sản phẩm</span>
+                                </p>
+
+                            </div>
+                            <div class="item-other">
+
+
+                                <div class="item-promotion">
+                                    <div class="item-promotion-title" style="color: orangered">
+                                        <h2>Dịch vụ &amp; Khuyến mãi</h2>
+                                    </div>
+                                    <div class="item-promotion-content">
+                                        <ul class="no-left">
+                                            <li>
+                                                Với mỗi
+                                                <span style="color: #000;">
+                                                    <strong>100.000đ</strong>
+                                                </span> đơn hàng, quý khách được tặng
+                                                <span style="color: #000;">
+                                                    <strong>300</strong>
+                                                </span> Xu.
+                                            </li>
+                                            <li>Miễn phí đổi trả trong vòng 7 ngày.</li>
+                                            <li>Nhận hàng từ
+                                                <span id="delivery_time" style="color: black">2 - 3 ngày</span> , không
+                                                kể Thứ 7 &amp; CN.
+                                            </li>
+                                            <li>Đăng ký
+                                                <a target="blank" href="" style="color: #000"><strong>dịch vụ
+                                                        BookCare</strong></a> để được bọc plastic đến 99% sách.
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+                        <!--<form role="form" id="add-to-cart" action="/checkout/ajaxAdd">-->
+                        <input type="hidden" name="product_type" value="simple">
+                        <div class="item-product-options">
+                            <div class="quantity-box">
+
+
+                                <form class="form-horizontal" id="frmAddItem" method="post" action="/cart/add">
+                                    <!--&lt;!&ndash;&ndash;&gt;        <input type="hidden" id="txtP" name="proId" />-->
+                                    <input id="idSach" name="idSach" type="hidden" value="{{ISBN}}">
+
+
+                                    <div class="quantity-col2">
+                                        <p class="quantity-label" style="margin-left: -30px">Số lượng:</p>
+                                        <div class="quantity-col1">
+                                            <p class="tiki-number-input">
+                                            <div class="input-group bootstrap-touchspin">
+                                                <span class="input-group-addon bootstrap-touchspin-prefix"
+                                                    style="display: none;"></span>
+                                                <input id="sl" type="number" name="sl" value="1" min="1" max="100"
+                                                    class="form-control" style="display: block; color: red;">
+                                                <span class="input-group-addon bootstrap-touchspin-postfix"
+                                                    style="display: none;"></span>
+                                            </div>
+                                            </p>
+                                        </div>
+                                        <input type="text" class="hidden" name="url"
+                                            value="/sample_product/?id={{ISBN}}">
+                                        <button class="add-to-cart js-add-to-cart is-css" type="submit"
+                                            data-original-title="">
+                                            <span class="text">
+                                                Thêm Vào Giỏ Hàng
+                                            </span>
+                                        </button>
+
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!--</form>-->
                     </div>
-                    <!--</form>-->
-                </div>
 
-            </div>
-        </div>
-
-
-
-
-        <h1 style="color: #0d80e8;font-size: 22px;font-weight: bold;margin-bottom: 22px;margin-left: 20px;margin-top:20px">Mô tả sách</h1>
-        <p style="font-size: 15px;margin-bottom: 22px;margin-left: 25px"> {{Summary}}</p>
-        {{/each}}
-
-
-
-        {{!-- <div class="content-block-inner home-block category-content-slider">
-            <div class="block-inner-bar block-inner-tab-outer clearfix">
-                <ul class="block-inner-tab float-left home-aj-tab">
-                    <li class="current">
-                        <a rel="nofollow" href="javascript:void(0);" data-container="#home_slider_book_new_outer,#home_slider_book_new_control" style="color: #0d80e8;font-size: 22px;margin-top:20px"><b>Sách cùng thể loại</b></a>
-                    </li>
-                </ul>
-                <div id="home_slider_book_new_control" class="block-slider-control float-right mr5" style="display: block;">
-                    <a id="home_slider_book_new_control_prev" rel="nofollow" href="javascript:void(0);" class="cachep-book-lib-next prev" style="display: inline;">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a id="home_slider_book_new_control_next" rel="nofollow" href="javascript:void(0);" class="cachep-book-lib-next next" style="display: inline;">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
-                <div class="bar-more-button float-right">
                 </div>
             </div>
-            <div id="home_slider_book_new_outer" class="block-inner-content clearfix" style=" margin: auto; display: block;;margin-left: -5px">
-                <div id="owl-demo" class="owl-cachep-book-lib ">
-                    {{#each loai}}
+
+
+
+
+            <h1
+                style="color: #0d80e8;font-size: 22px;font-weight: bold;margin-bottom: 22px;margin-left: 20px;margin-top:20px">
+                Mô tả sách</h1>
+            <p style="font-size: 15px;margin-bottom: 22px;margin-left: 25px"> {{Summary}}</p>
+            {{/each}}
+
+
+
+            {{!-- <div class="content-block-inner home-block category-content-slider">
+                <div class="block-inner-bar block-inner-tab-outer clearfix">
+                    <ul class="block-inner-tab float-left home-aj-tab">
+                        <li class="current">
+                            <a rel="nofollow" href="javascript:void(0);"
+                                data-container="#home_slider_book_new_outer,#home_slider_book_new_control"
+                                style="color: #0d80e8;font-size: 22px;margin-top:20px"><b>Sách cùng thể loại</b></a>
+                        </li>
+                    </ul>
+                    <div id="home_slider_book_new_control" class="block-slider-control float-right mr5"
+                        style="display: block;">
+                        <a id="home_slider_book_new_control_prev" rel="nofollow" href="javascript:void(0);"
+                            class="cachep-book-lib-next prev" style="display: inline;">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a id="home_slider_book_new_control_next" rel="nofollow" href="javascript:void(0);"
+                            class="cachep-book-lib-next next" style="display: inline;">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                    <div class="bar-more-button float-right">
+                    </div>
+                </div>
+                <div id="home_slider_book_new_outer" class="block-inner-content clearfix"
+                    style=" margin: auto; display: block;;margin-left: -5px">
+                    <div id="owl-demo" class="owl-cachep-book-lib ">
+                        {{#each loai}}
                         <div class="item" style="width: 150px">
                             <li class="item-outer">
                                 <a class="item-thumb" href="./?id={{idSach}}" rel="nofollow">
-                                    <img width="200" height="280" src="/{{hinhAnh}}" class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
+                                    <img width="200" height="280" src="/{{hinhAnh}}"
+                                        class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
 
                                 </a>
-                                <div class="item-meta-outer;"style="margin-left: -5px;width: 115%" >
-                                    <h3 class="item-title"style="font-size: 13px;">
+                                <div class="item-meta-outer;" style="margin-left: -5px;width: 115%">
+                                    <h3 class="item-title" style="font-size: 13px;">
                                         <a href="./?id={{idSach}}">{{ten_sach}}</a>
                                     </h3>
-                                    <em class="item-author"style="font-size: 12px;">{{tac_gia}}</em>
+                                    <em class="item-author" style="font-size: 12px;">{{tac_gia}}</em>
                                     <p class="item-price">
                                         <b>{{number_format giaBan}}
                                             <u>đ</u>
@@ -225,43 +252,50 @@
                                 </div>
                             </li>
                         </div>
-                    {{/each}}
+                        {{/each}}
+                    </div>
                 </div>
-            </div>
-        </div> --}}
+            </div> --}}
 
-        <div class="content-block-inner home-block category-content-slider">
-            <div class="block-inner-bar block-inner-tab-outer clearfix">
-                <ul class="block-inner-tab float-left home-aj-tab">
-                    <li class="current">
-                        <a rel="nofollow" href="javascript:void(0);" data-container="#home_slider_book_new_outer,#home_slider_book_new_control" style="color: #0d80e8;font-size: 22px;margin-top:20px"><b>Sách cùng nhà xuất bản</b></a>
-                    </li>
-                </ul>
-                <div id="home_slider_book_new_control" class="block-slider-control float-right mr5" style="display: block;">
-                    <a id="home_slider_book_new_control_prev" rel="nofollow" href="javascript:void(0);" class="cachep-book-lib-next prev" style="display: inline;">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a id="home_slider_book_new_control_next" rel="nofollow" href="javascript:void(0);" class="cachep-book-lib-next next" style="display: inline;">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
+            <div class="content-block-inner home-block category-content-slider">
+                <div class="block-inner-bar block-inner-tab-outer clearfix">
+                    <ul class="block-inner-tab float-left home-aj-tab">
+                        <li class="current">
+                            <a rel="nofollow" href="javascript:void(0);"
+                                data-container="#home_slider_book_new_outer,#home_slider_book_new_control"
+                                style="color: #0d80e8;font-size: 22px;margin-top:20px"><b>Sách cùng nhà xuất bản</b></a>
+                        </li>
+                    </ul>
+                    <div id="home_slider_book_new_control" class="block-slider-control float-right mr5"
+                        style="display: block;">
+                        <a id="home_slider_book_new_control_prev" rel="nofollow" href="javascript:void(0);"
+                            class="cachep-book-lib-next prev" style="display: inline;">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a id="home_slider_book_new_control_next" rel="nofollow" href="javascript:void(0);"
+                            class="cachep-book-lib-next next" style="display: inline;">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                    <div class="bar-more-button float-right">
+                    </div>
                 </div>
-                <div class="bar-more-button float-right">
-                </div>
-            </div>
-            <div id="home_slider_book_new_outer" class="block-inner-content clearfix" style="margin: auto; display: block;">
-                <div id="owl-demo" class="owl-cachep-book-lib ">
-                    {{#each nxb}}
+                <div id="home_slider_book_new_outer" class="block-inner-content clearfix"
+                    style="margin: auto; display: block;">
+                    <div id="owl-demo" class="owl-cachep-book-lib ">
+                        {{#each nxb}}
                         <div class="item" style="width: 150px">
                             <li class="item-outer">
                                 <a class="item-thumb" href="./?id={{ISBN}}" rel="nofollow">
-                                    <img width="200" height="280" src="/image/{{Image}}" class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
+                                    <img width="200" height="280" src="/image/{{Image}}"
+                                        class="attachment-thumbnail-rectangle wp-post-image" alt="nhumuadongroixuong">
 
                                 </a>
-                                <div class="item-meta-outer;"style="margin-left: -5px;width: 115%" >
-                                    <h3 class="item-title"style="font-size: 13px;">
+                                <div class="item-meta-outer;" style="margin-left: -5px;width: 115%">
+                                    <h3 class="item-title" style="font-size: 13px;">
                                         <a href="./?id={{ISBN}}">{{BookName}}</a>
                                     </h3>
-                                    <em class="item-author"style="font-size: 12px;">{{AuthName}}</em>
+                                    <em class="item-author" style="font-size: 12px;">{{AuthName}}</em>
                                     <p class="item-price">
                                         <b>{{number_format Cost}}
                                             <u>đ</u>
@@ -271,9 +305,9 @@
                                 </div>
                             </li>
                         </div>
-                    {{/each}}
+                        {{/each}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
