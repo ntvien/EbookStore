@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 var cn = mysql.createConnection({
     host: 'localhost',
-  // port: 3306,
-  user: 'Meme',
-  password: '13152989Ln@',
-  database: 'ebookstore_01'
+    // port: 3306,
+    user: 'root',
+    password: '',
+    database: 'ebookstore_01'
 });
 module.exports = cn;
 // exports.load = sql => {
