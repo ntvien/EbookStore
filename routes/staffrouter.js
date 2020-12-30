@@ -65,7 +65,30 @@ res.render('./staff/listtask')
 // Quản lý sách nhâp sách sửa thông tin
 
 router.get('/book',(req,res)=>{
-    res.render('./staff/sp/book')
+    if (check_sesion(req.session.Authorized)){
+    db.query(`select * from book join sstored on book.ISBN = sstored.ISBN where '${req.session.account.SID}'=StorageID`,function(error,value){
+if (error){
+    var vm={
+        showError:true,
+        errorMsg:error.sqlMessage
+    }
+    res.render('./staff/sp/book',vm)
+}
+else{
+    var vm={
+        Book:value
+    }
+    res.render('./staff/sp/book',vm)
+}
+    });}
+    else {
+        var vm={
+            showError:true,
+            errorMsg:"Bạn phải đăng nhập với tư cách nhân viên"
+        }
+        res.render('./staff/listtask',vm)
+    }
+    
     });
 router.post('/book',(req,res)=>{
     if (check_sesion(req.session.Authorized)){
@@ -560,8 +583,35 @@ router.post('/donhang',(req,res)=>{
     var date=convert(req.body.date)
     db.query(`call update_trangthai(${req.body.idcus},${req.body.isbn},'${date}',${req.session.account.SID})`,(error,value)=>{
         if (error){
-            console.log(error)
-            res.redirect('/staff/donhang')
+            // console.log(error)
+            // res.redirect('/staff/donhang')
+
+            Inbook((error1,value1)=>{
+                Outbook((error2,value2)=>{
+                    db.query(`select * from transaction join customer c on c.ID = transaction.CustomerID Where FLAG=1 and sid=${req.session.account.SID}`
+                    ,function(error3,value3){
+                        //console.log(value)
+                        waitpay((error4,value4)=>{
+                            out((error5,value5)=>{
+                                var vm={
+                                    nhap:value1,
+                                    xuat:value2,
+                                    donhang:value4,
+                                    donhang1:value3,
+                                    donhang2:value5,
+                                    showError:true,
+                                    errorMsg:error.sqlMessage
+                                }
+                                res.render('./staff/donhang/donhang',vm)
+        
+                            })
+                        })
+                        
+                    })    
+                })      
+            })
+
+
         }
         else {
         res.redirect('/staff/donhang')

@@ -91,13 +91,24 @@ router.post('/logout', (req, res) => {
     res.redirect('/');
 });
 router.get('/profile', restrict, (req, res) => {
-    var vm = {
-        donHang: '',
-        name: req.session.account.FName + ' ' + req.session.account.LName + ' ' + req.session.account.MName,
-        diachi: req.session.account.Address,
-        sdt: req.session.account.PhoneNumber,
-    };
-    res.render('./account/profile', vm);
+    db.query(`select b.ISBN,tDateTime,amount,(amount*Cost) as total,FLAG\
+     from Transaction join book b on transaction.ISBN = b.ISBN where CustomerID=${req.session.account.ID}`,function(err,value){
+         //console.log(value)
+         for (var i in value ){
+            if (value[i].FLAG===0)value[i].trangthai="đang chờ xác nhận";
+            else if (value[i].FLAG===1)value[i].trangthai="Đã xác nhận, chờ xuất kho";
+            else value[i].trangthai="Đã xuất kho";
+         }
+         console.log(value)
+        var vm = {
+            donHang: value,
+            name: req.session.account.FName + ' ' + req.session.account.LName + ' ' + req.session.account.MName,
+            diachi: req.session.account.Address,
+            sdt: req.session.account.PhoneNumber,
+        };
+        res.render('./account/profile', vm);
+    })
+    
 });
 
 

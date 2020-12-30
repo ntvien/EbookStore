@@ -54,6 +54,7 @@ router.get('/', (req, res) => {
 
 router.post('/add', (req, res) => {
     // console.log(req.body.idSach);
+    if (req.session.isLogged){
     db.query(`call update_amount('${req.body.idSach}','${req.session.account.ID}')`, function(error, value) {
         if (error) {
             console.log(error)
@@ -81,6 +82,10 @@ router.post('/add', (req, res) => {
             });
         }
     });
+}
+else {
+    res.redirect(req.session.reUrl);
+}
 });
 
 router.post('/sl', (req, res) => {
