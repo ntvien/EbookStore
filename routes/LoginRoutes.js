@@ -105,6 +105,9 @@ router.get('/profile', restrict, (req, res) => {
             name: req.session.account.FName + ' ' + req.session.account.LName + ' ' + req.session.account.MName,
             diachi: req.session.account.Address,
             sdt: req.session.account.PhoneNumber,
+            FName :req.session.account.FName,
+            MName  :req.session.account.MName     ,
+            LName   :req.session.account.LName    
         };
         res.render('./account/profile', vm);
     })
@@ -133,7 +136,22 @@ router.post('/profile', (req, res) => {
         }
     });
 });
-
+router.post('/profile/addthe',(req,res)=>{
+   if (!req.session.Authorized){
+       db.query(`insert into creditcard value(${req.session.account.ID},\
+        ${req.body.num},'${req.body.fname}','${req.body.mname}',\
+        '${req.body.lname}','${req.body.BankName}','$${req.body.bbn}','${req.body.date}',1)`,function(error,value){
+            if (error){
+                console.log(error)
+                res.send({test:error.sqlMessage})
+            }
+            else res.send({test:'Thêm thẻ tín dụng thành công bây giờ bạn có thể thanh toán bằng thẻ tín dụng'})
+        })
+   }
+   else {
+    res.send({test:'Bạn chưa đăng nhập'})
+   }
+});
 router.get('/update', (req, res) => {
     var vm = {
         FName: req.session.account.FName,
