@@ -8,6 +8,10 @@
             <div>
                 <a href="../cart">Giỏ hàng</a>
             </div>
+            <div class="form-row subscribe-outer" style="forn-size: width: 10%;margin-left: 0px;margin-top: 40px">
+               
+                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Thêm thẻ tín dụng</button>
+            </div>
         </div>
         <div class="col-md-10">
             <div class="row">
@@ -68,6 +72,75 @@
             </div>
         </div>
     </div>
+
+    <div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm thẻ tín dụng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mod-login"style="width: 350px;">
+                <div style="width: 350px;">
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Number</label>
+                        <input id="num"  type="Number" placeholder="Mã số thẻ tín dụng" data-meta="Field" name="num">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>First name</label>
+                        <input id="fname" type="text" placeholder="{{FName}}" value='{{FName}}' data-meta="Field" name="fname">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Midle name</label>
+                        <input id="mname" type="text" placeholder="{{MName}}" value='{{MName}}' data-meta="Field" name="mname">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Last name</label>
+                        <input id="lname" type="text" placeholder="{{LName}}" value='{{LName}}' data-meta="Field" name="lname">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>BankName</label>
+                        <input id="BankName" type="text" placeholder="Tên ngân hàng cung cấp thẻ" data-meta="Field" name="BankName">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Branch Bank Name</label>
+                        <input id="bbn" type="text" placeholder="Chi nhánh" name="bbn">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    <div class="mod-input mod-login-input-name mod-input-name">
+                        <label>Ngày hết hạn</label>
+                        <input id="date" type="date" placeholder="Ngày hết hạn của thẻ" name="date" data-meta="Field">
+                        <b></b>
+                        <span></span>
+                    </div>
+                    
+                </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" id="send">Send message</button>
+      </div>
+    </div>
+  </div>
+ </div> {{!--Kết thúc modal --}}
+ </div>
 </div>
 
 
@@ -79,9 +152,64 @@
 <script src="/phantrang/jquery.dataTables.min.js"></script>
 <script src="/phantrang/dataTables.bootstrap.min.js"></script>
 <script src="/dist/js/adminlte.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
-    $(function () {
+   
+    //Initialize Select2 Elements
+    var validate1 = function () {
+        if ($('#num').val().length === 0){
+            alert('Vui lòng nhập mã số thẻ');
+            return false;
+        }
+        if ($('#lname').val().length === 0){
+            alert('Vui lòng nhập đầy đủ họ và tên');
+            return false;
+        }
+        if ($('#mname').val().length === 0) {
+            alert('Vui lòng nhập đầy đủ họ và tên');
+            return false;
+        }
+        if ($('#fname').val().length === 0) {
+            alert('Vui lòng nhập đầy đủ họ và tên');
+            return false;
+        }
+        if ($('#BankName').val().length ===0){
+            alert('Vui lòng nhập tên ngân hàng cung cấp thẻ')
+        }
+        if ($('#bbn').val().length ===0){
+            alert('Vui lòng nhập chi nhánh ngân hàng');
+            return false;
+        }
+        return true;
+    }
+   
+    $(document).ready(function(){
+$("#send").click(function(){
+           if (!validate1()) return;
+            //console.log("validate1()");
+            var a={type: 1,
+            num:$('#num').val(),
+           fname:$('#fname').val(),
+           mname :$('#mname').val(),
+            lname :$('#lname').val(),
+          BankName :$('#BankName').val(),
+          bbn :$('#bbn').val(),
+           date :$('#date').val()
+           }
+          $.ajax({
+           method: "POST",
+           url:'/account/profile/addthe',
+           data: JSON.stringify(a),
+            dataType: 'json',
+            processData: false,
+          contentType: "application/json; charset=utf-8",
+           success: function(data){
+          alert(data.test);
+           }
+           });
+    });
+    });
+     $(function () {
         $('#tableDH').DataTable({
             'paging': true,
             'lengthChange': true,
@@ -107,6 +235,5 @@
             autoclose: true
         });
     });
-    //Initialize Select2 Elements
-    $('.select2').select2();
+     $('.select2').select2();
 </script> {{/section}}
