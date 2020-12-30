@@ -137,8 +137,8 @@ $(document).ready(function() {
     <div class=mod-login>
         <div class="mod-input">
             <div class="mod-input mod-login-input-email mod-input-email">
-                        <label>ISBN</label>
-                        <input id="isbn" type="number" placeholder="{{ISBN}}" value={{ISBN}}>
+                        <td>ISBN {{ISBN}}</td>
+                        <input id="isbn" type="hidden" placeholder="{{ISBN}}" value={{ISBN}}>
                         <b></b>
                         <span></span>
                     </div>
@@ -154,9 +154,11 @@ $(document).ready(function() {
                         <span></span>
 
                     </div>
-            <div class="form-row subscribe-outer" style="width: 18%;margin-left: 50px;margin-top: 10px">
-                <button type="button" class="button-default ygradient1 " id="write">Xác Nhận</button>
-                 <button type="button" class="button-default ygradient1 " data-toggle="modal" data-target="#exampleModal">Thêm tác giả</button>
+            <div class="form-row subscribe-outer" >
+                <div style="width: 18%;margin-left: 50px;margin-top: 10px">
+                <button type="button" class="button-default ygradient1 " id="write">Xác Nhận</button></div>
+                <div style="width: 18%;margin-left: 50px;margin-top: 10px">
+                 <button type="button" class="button-default ygradient1 " data-toggle="modal" data-target="#exampleModal">Thêm tác giả</button></div>
             </div>
     </div>
    
@@ -262,10 +264,12 @@ $(document).ready(function() {
                 <span></span>
             </div>
         </div>
-            <div class="form-row subscribe-outer" style="width: 18%;margin-left: 50px;margin-top: 10px">
-                <button type="button" class="button-default ygradient1 " id="bkey">Xác Nhận Từ Khóa</button>
+            <div class="form-row subscribe-outer" >
+                <div style="width: 18%;margin-left: 50px;margin-top: 10px">
+                <button type="button" class="button-default ygradient1 " id="bkey">Xác Nhận Từ Khóa</button></div>
+                <div style="width: 18%;margin-left: 50px;margin-top: 10px">
                 <a href="./add">
-                    <button type="button" class="button-default ygradient1 ">Quay lại</button>
+                    <button type="button" class="button-default ygradient1 ">Quay lại</button></div>
                 </a>
             </div>
     </div>

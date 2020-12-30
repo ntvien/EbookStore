@@ -101,7 +101,7 @@ router.post('/book',(req,res)=>{
                 };
                 res.render('./staff/sp/book',vm)
             }
-            else if (JSON.stringify(value[0])==='[]')res.redirect('/staff/book/add');
+            else if (JSON.stringify(value[0])==='[]')res.redirect(`/staff/book/add?id=${req.body.ma}`);
             else {
                 res.redirect(`/staff/book/update?id=${req.body.ma}`);
             }
@@ -195,7 +195,8 @@ const kho=(callback)=>{
 router.get('/book/add',(req,res)=>{
     publisher((error, value) => {
         var vm={
-            nxb: value
+            nxb: value,
+            isbn:req.query.id
         };
         console.log(vm.nxb)
         res.render('./staff/sp/add',vm)

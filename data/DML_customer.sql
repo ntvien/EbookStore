@@ -399,3 +399,23 @@ create procedure update_tt(
     delete from cart where customerID=TCustomerID and TISBN=BookID;
     end |
     delimiter ;
+	##################################################################
+	# kiểm tra điều kiện khi tạo thẻ tín dụng
+	drop trigger if exists insert_the;
+	delimiter $$
+	create trigger insert_the
+		before insert on creditcard
+		for each row
+		begin
+				if (new.FName,new.MName,NEW.LName) not in (select FName,MName,LName from customer where ID=new.CustomerID)
+					then
+					SIGNAL SQLSTATE '45000'
+				SET MESSAGE_TEXT = 'Tên sở hữu thẻ vào khách hàng không trùng kớp';
+					else
+					if (new.EndDate<CURDATE()) then
+						SIGNAL SQLSTATE '45000'
+						SET MESSAGE_TEXT = 'Thẻ đã quá hạn';
+					end if ;
+				end if ;
+		end $$
+	delimiter ;
