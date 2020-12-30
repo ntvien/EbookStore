@@ -23,6 +23,7 @@ router.get('/', (req, res) => {
                         var vm = {
                             products: value[0],
                             nxb: prod[0],
+                            tl: value[0][0].AField,
                             url: "/sample_product?id=" + req.query.id
                         }
 

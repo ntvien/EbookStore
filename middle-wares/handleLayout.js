@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
         isLogged: req.session.isLogged,
         curUser: req.session.account,
         usename: req.session.user,
-        totalCart: req.session.cart.length,
+        totalCart: req.session.lenCart,
         categories: '',
         nxb: '',
         Authorized: req.session.Authorized,

@@ -1,87 +1,133 @@
 var express = require('express');
 var db = require('../select');
 var cartRepo = require('./cartRepo');
-var payRepo = require('./payRepo');
 //const { route } = require('./LoginRoutes');
-var accountRepo = require('./accountRepo');
 var router = express.Router();
 
 router.get('/', (req, res) => {
     if (req.session.account) {
-        var sql = `select * from customer where id = '${req.session.account.ID}'`;
+        var sql = `select ISBN,Name,cost,amoutBook,concat(ISBN,'.jpg') as Image from cart join book on BookID=ISBN where customerID='${req.session.account.ID}';`;
         db.query(sql, function(err, value) {
             if (err) {
                 throw err;
             } else {
-                console.log(value[0])
-                var vm = {
-                    items: req.session.cart,
-                    total: cartRepo.getTotal(req.session.cart),
-                    isEmpty: req.session.cart.length === 0,
-                    diaChi: value[0].Address,
-                    SDT: value[0].PhoneNumber,
-                    url: "/cart"
-                };
-                res.render('cart/cart', vm);
-            }
+                console.log(value)
+                db.query(`select sum((cost*amoutBook))as total from cart join book on BookID=ISBN where customerID='${req.session.account.ID}';`, 
+                function(err, value1) {
+                    
+                    db.query(`select * from Transfer;`,function(error,value2){
+                        db.query(`select count(*) as count from cart where customerID=${req.session.account.ID} group by (customerID)`,function(error, value3){
+                            var total=0;
+                            if (value1[0].total != null)
+                            rtotal=value1[0].total;
+                            else rtotal = 0;
+                            console.log(value1)
+                            var vm = {
+                            items: value,
+                            total:rtotal,//value1[0].total,
+                            thanhtoan:value2,
+                            isEmpty: req.session.cart.length === 0,
+                            diaChi: req.session.account.Address,
+                            SDT: req.session.account.PhoneNumber,
+                            url: "/cart"
+                        };
+                        if (JSON.stringify(value3) === '[]')
+                            req.session.lenCart=0;//value1[0].count;
+                            else req.session.lenCart=value3[0].count;
+                        res.render('cart/cart', vm);
+                    });
+
+                    })
+                
+            });
+        }
         });
     } else {
-        var vm = {
-            items: req.session.cart,
-            total: cartRepo.getTotal(req.session.cart),
-            isEmpty: req.session.cart.length === 0,
-            url: "/cart"
+        var vm={
+            showError: true,
+            errorMsg: "Bạn phải đăng nhập với tư cách nhân viên"
         };
-        res.render('cart/cart', vm);
+        res.redirect('/')
     }
     // res.render('./cart/cart');
 });
 
 router.post('/add', (req, res) => {
     // console.log(req.body.idSach);
-    db.query(`insert into cart value('${req.session.account.ID}','${req.body.idSach}',1)`,function(error,value){
-if(error)console.log(error)
+    db.query(`call update_amount('${req.body.idSach}','${req.session.account.ID}')`,function(error,value){
+if(error){
+    console.log(error)
+    res.redirect(req.session.reUrl);
+}
 else{
-    
-    var sql = `call searchbyISBN('${req.body.idSach}')`;
-    console.log(req.body);
-    db.query(sql, function(err, value) {
-        if (err) {
-            throw err;
-        } else {
-            var item = {
-                idSach: req.body.idSach,
-                ten_sach: value[0][0].BookName,
-                giaBan: value[0][0].Cost,
-                hinh: value[0][0].Image,
-                sl: +req.body.sl,
-                amount: value[0][0].Cost * +req.body.sl
-            };
-            cartRepo.add(req.session.cart, item);
+    db.query(`select count(*) as count from cart where customerID=${req.session.account.ID} group by (customerID)`,function(error, value3){
+    // var sql = `call searchbyISBN('${req.body.idSach}')`;
+    // db.query(sql, function(err, value) {
+    //     if (err) {
+    //         throw err;
+    //     } else {
+            // var item = {
+            //     idSach: req.body.idSach,
+            //     ten_sach: value[0][0].BookName,
+            //     giaBan: value[0][0].Cost,
+            //     hinh: value[0][0].Image,
+            //     sl: +req.body.sl,
+            //     amount: value[0][0].Cost * +req.body.sl
+            // };
+            // cartRepo.add(req.session.cart, item);
+            if (JSON.stringify(value3) === '[]')
+                            req.session.lenCart=0;//value1[0].count;
+                            else req.session.lenCart=value3[0].count;
             res.redirect(req.session.reUrl);
+    });
         }
     });
-}
-    });
-
 });
 
 router.post('/sl', (req, res) => {
-    cartRepo.updateSL(req.session.cart, req.body.idSach, req.body.sl);
+   // cartRepo.updateSL(req.session.cart, req.body.idSach, req.body.sl);
+   db.query(`update cart set amoutBook=${req.body.sl} where ${req.query.id}=BookID and ${req.session.account.ID}=customerID;`,function(error,value){
+       if (error){
+           console.log(error)
+        var vm = {
+            showError: true,
+            errorMsg: error.sqlMessage
+        };
+        res.redirect('/cart');
+       }
+       else{
+        // db.query(`select count(*) as count from cart where customerID=${req.session.account.ID} group by (customerID)`,function(error, value1){
+        //     req.session.lenCart=value1[0].count;
     res.redirect('/cart');
+    //     });
+        }
+   })
+   
 });
 
-router.get('/delete', (req, res) => {
-    var vm = {
-        idSach: req.query.id
-    };
-    res.render('cart/deleteSanPham', vm);
-});
+// router.get('/delete', (req, res) => {
+//     var vm = {
+//         idSach: req.query.id
+//     };
+//     res.render('cart/deleteSanPham', vm);
+// });
 router.post('/delete', (req, res) => {
-
-    SPRePo.delete(req.body.idSach).then(value => {
-        res.redirect('/cart/sanpham');
-    });
+db.query(`delete from cart where ${req.query.id}=BookID and ${req.session.account.ID}=customerID;`,function(err,value){
+    if (err){
+        console.log(err)
+        res.redirect('/cart');
+    }
+    else{
+        // db.query(`select count(*) as count from cart where customerID=${req.session.account.ID} group by (customerID)`,function(error, value1){
+        //     req.session.lenCart=value1[0].count;
+    res.redirect('/cart');
+       // })
+    }
+    
+})
+    // SPRePo.delete(req.body.idSach).then(value => {
+    //     res.redirect('/cart/sanpham');
+    // });
 });
 
 router.post('/remove', (req, res) => {
@@ -92,63 +138,24 @@ router.post('/remove', (req, res) => {
 router.post('/tt', (req, res) => {
     if (req.session.isLogged) {
         // var date = new Date().toLocaleString().slice(0, 19).replace('T', ' ');
-        var d = new Date();
-        // var date = new Date().getTime();
+       db.query(`select BookID,amoutBook from cart where customerID='${req.session.account.ID}'`,function(err,val){
+           if (err){
+               console.log(err)
+               res.redirect('/cart');
+           }
+           else {
+               for (var i in val){
+                   db.query(`call update_tt(${req.session.account.ID},${val[i].BookID},${req.body.thanhtoan},${val[i].amoutBook},1)`,function(error,value){
+                       if (error){
+                           console.log(error)
+                       }
+                   })
 
-        var dd = d.getDate();
-        var yyyy = d.getFullYear();
-        var h = d.getHours();
-        var m = d.getMinutes();
-        var mm = d.getMonth();
-        var s = d.getSeconds();
-        var cart = req.session.cart;
-        if (cart.length === 0) {
-            vm = {
-                items: req.session.cart,
-                total: cartRepo.getTotal(req.session.cart),
-                isEmpty: req.session.cart.length === 0,
-                url: "/cart",
-                ErrMsg: true,
-                Msg: "Không có sản phẩm trong giỏ hàng"
-            }
-            res.render('cart/cart', vm);
-            return;
-        }
+               }
+               res.redirect('/cart');
+           }
 
-        for (i = cart.length - 1; i >= 0; i--) {
-            var soluong = parseInt(cart[i].sl);
-            payRepo.getBook(cart[i].idSach).then(rows => {
-                if (parseInt(rows[0].soLuong) < soluong) {
-                    res.redirect('/cart')
-                    return;
-                }
-            });
-        }
-        var idCart;
-        payRepo.addCart(cartRepo.getTotal(req.session.cart)).then(value => {
-            idCart = value.insertId;
-            for (i = cart.length - 1; i >= 0; i--) {
-
-                payRepo.addPToCart(cart[i].idSach, cart[i].sl, idCart);
-                var sl = parseInt(cart[i].sl);
-                payRepo.getBook(cart[i].idsach).then(row => {
-                    var slUpdate = parseInt(row[0].soLuong) - sl;
-                    var lmUpdate = parseInt(row[0].luotMua) + 1;
-                    payRepo.updateSLBook(row[0].idSach, lmUpdate, slUpdate);
-                });
-                if (i == 0) {
-                    accountRepo.getCus(req.session.user.idCustomer).then(use => {
-                        payRepo.addPayment(idCart, use[0].idCustomer, use[0].address, yyyy + '-' + mm + '-' + dd + ' ' + h + ':' + m + ':' + s, use[0].soDT).then(value => {
-                            req.session.cart = [];
-                            res.redirect('/account/profile');
-                        });
-                    });
-
-                }
-            }
-        });
-    } else {
-        res.redirect('/account/login?retUrl=/cart');
+       });
     }
 });
 

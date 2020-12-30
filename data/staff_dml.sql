@@ -115,14 +115,14 @@ drop procedure if exists import_book;
 
 DELIMITER //
 CREATE PROCEDURE import_book(isb decimal(15,0),sum varchar(500),
-    ccost decimal(10,2),
-    cname varchar(100),
-    pub varchar(50),
-    yr int,
-    tme int(11),
-    caddress varchar(100),
-    snid char(10),
-    countb int
+ccost decimal(10,2),
+cname varchar(100),
+pub varchar(50),
+yr int,
+tme int(11),
+caddress varchar(100),
+snid char(10),
+countb int
 )
 BEGIN
 declare ids int default 0;
@@ -132,9 +132,17 @@ select  sid into ids from staff where ID=snid;
         THEN insert into paperbook values (isb);
         ELSE insert into ebook values (isb, caddress);
         END IF;
+# 	ISBN      decimal(15) not null,
+#     StorageID int         not null,
+#     StaffID   char(10)    not null,
+#     amount    int         not null,
         insert into sstored
         value(isb,ids,snid,countb);
 	insert into Inbook
+# 	ISBN      decimal(15) not null,
+#     StorageID int         not null,
+#     import    datetime    not null,
+#     amount    int         not null,
         value(isb,ids,CURRENT_TIMESTAMP(),countb);
 END //
 DELIMITER ;
@@ -167,15 +175,16 @@ delimiter |
 create procedure update_in(nsid int,namount int,nisbn decimal(15))
 begin
      insert into Inbook
+# 	ISBN      decimal(15) not null,
+#     StorageID int         not null,
+#     import    datetime    not null,
+#     amount    int         not null,
         value(nisbn,nsid,CURRENT_TIMESTAMP(),namount);
     update sstored
         set amount=amount+namount
     where ISBN=nisbn and StorageID=nsid;
 end |
 delimiter ;
-
-
-
 select * from sstored;
 select * from inbook;
 select * from book;
@@ -193,13 +202,13 @@ select * from staff;
 drop procedure if exists update_info;
 delimiter |
 create procedure update_info(
-    oisbn decimal(15,0),
-    sum varchar(500),
-    ncost decimal(10,2),
-    nname varchar (100),
-    pub varchar(100),
-    yr int,
-    ntime int)
+oisbn decimal(15,0),
+sum varchar(500),
+ncost decimal(10,2),
+nname varchar (100),
+pub varchar(100),
+yr int,
+ntime int)
 begin
 update book
     set Summary=sum,
@@ -467,21 +476,19 @@ delimiter ;
 drop procedure if exists add_staff;
 delimiter |
 create procedure add_staff(nid varchar(10),
-    nfname varchar(20),
-    nmname varchar(20),
-    nlname varchar(20),
-    nmail varchar(100),
-    phone varchar(15),
-    nstype int ,
-    nsid int,
-    pass varchar(500))
+nfname varchar(20),
+nmname varchar(20),
+nlname varchar(20),
+nmail varchar(100),
+phone varchar(15),
+nstype int ,
+nsid int,
+pass varchar(500))
 begin
 insert into staff
-    value (nid,nfname,nmname,nlname,phone,nsid,pass,nmail,nstype);
+    value (nid,nfname,nmname,nlname,nmail,phone,nsid,pass,nstype);
 end |
 delimiter ;
-
-
 
 select * from bookstorage;
 -- call add_staff('2020251201','Hà','Thu','Nguyễn','a@gmail.com','0123445566',1,1,'123456')
@@ -518,8 +525,6 @@ begin
     value (nname,ncode,naddr,phone,nmail);
 end |
 delimiter ;
-
-
 use ebookstore_01;
 select * from bookstorage;
 select * from publisher;
@@ -566,49 +571,3 @@ end |
 delimiter ;
 select * from sstored;
 select * from transaction;
-
-
-
-##############################################################################################
-# xem danh sách tác giả có sách được mua nhiều nhất trong một tháng
-use ebookstore_01;
-drop procedure if exists author_max;
-delimiter |
-create procedure author_max(
-    ntime date
-)
-begin
-    declare bmax int default 0;
-    select max(nsum)into bmax  from(select sum(amount) as nsum, ISBN
-    from transaction
-    where YEAR(tDateTime)=YEAR(ntime) and MONTH(tDateTime)=MONTH(ntime)
-    group by (ISBN)) as nI ;
-
-    select * from author join writtenby w on author.SSN = w.AuthorSSN
-    where BookISBN in (select ISBN from transaction where YEAR(tDateTime)=YEAR(ntime) and MONTH(tDateTime)=MONTH(ntime)
-    group by ISBN
-    having sum(amount)=bmax);
-end |
-delimiter ;
-
-#call author_max_date('2020-12-28');
-#####################################################################
-# xem tác giả có nhiều sách được bán nhất trong một ngày
-drop procedure if exists author_max_date;
-delimiter |
-create procedure author_max_date(
-ntime date
-)
-begin
-    declare bmax int default 0;
-    select max(nsum)into bmax  from(select sum(amount) as nsum, ISBN
-    from transaction
-    where DATE(tDateTime)=ntime
-    group by (ISBN)) as nI ;
-
-    select * from author join writtenby w on author.SSN = w.AuthorSSN
-    where BookISBN in (select ISBN from transaction where DATE(tDateTime)=ntime
-    group by ISBN
-    having sum(amount)=bmax);
-end |
-delimiter ;

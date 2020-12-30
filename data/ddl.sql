@@ -265,6 +265,3 @@ ALTER TABLE author ADD SEX CHAR(1);
 
 
 
-
-
-
