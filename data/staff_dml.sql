@@ -162,7 +162,7 @@ delimiter |
 create procedure writeby(nisbn decimal(15,0),nssn varchar(20))
 begin
     insert into writtenby
-    value (nisbn, nssn);
+    value (nssn, nisbn );
 end |
 delimiter ;
 select * from writtenby;
@@ -170,19 +170,25 @@ select * from field;
 
 #########################################
 # cập nhật thông tin bảng nhập xuất kho
+use ebookstore_01;
 drop procedure if exists update_in;
 delimiter |
-create procedure update_in(nsid int,namount int,nisbn decimal(15))
+create procedure update_in(nsid int,namount int,nisbn decimal(15),nstaffID char(10))
 begin
+    if (nsid in (select StorageID from sstored)) then
+    update sstored
+        set amount=amount+namount
+    where ISBN=nisbn and StorageID=nsid;
+    else
+        insert into sstored value(nisbn,nsid,nstaffID,namount);
+        end if;
      insert into Inbook
-# 	ISBN      decimal(15) not null,
+#     ISBN      decimal(15) not null,
 #     StorageID int         not null,
 #     import    datetime    not null,
 #     amount    int         not null,
         value(nisbn,nsid,CURRENT_TIMESTAMP(),namount);
-    update sstored
-        set amount=amount+namount
-    where ISBN=nisbn and StorageID=nsid;
+
 end |
 delimiter ;
 select * from sstored;
@@ -415,7 +421,7 @@ phone varchar(15),
 nsex char(1))
 begin
         insert into author
-        value (Assn,nfname,nName,nlname,naddress,phone,nsex,mail);
+        value (Assn,nfname,nName,nlname,naddress,mail, phone,nsex);
 end |
 DELIMITER  ;
 select * from staff;
@@ -522,7 +528,7 @@ nname varchar(50),ncode varchar (20),naddr varchar(100),nmail varchar(100),phone
 )
 begin
     insert into publisher
-    value (nname,ncode,naddr,phone,nmail);
+    value (nname,ncode,naddr,nmail,phone);
 end |
 delimiter ;
 use ebookstore_01;

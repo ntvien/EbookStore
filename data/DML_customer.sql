@@ -16,8 +16,8 @@ INSERT INTO CardPayment VALUE (3);
 INSERT INTO CardPayment VALUE (4);
 INSERT INTO CardPayment VALUE (5);
 
-INSERT INTO Transfer VALUE (6, 123969340, 'DongAbank', 'Quan 3');
-INSERT INTO Transfer VALUE (7, 123632323, 'OCB', 'Quan 6');
+INSERT INTO Transfer VALUE (5, 123969340, 'DongAbank', 'Quan 3');
+INSERT INTO Transfer VALUE (6, 123632323, 'OCB', 'Quan 6');
 INSERT INTO Transfer VALUE (8, 123463666, 'TPBank', 'Quan 11');
 INSERT INTO Transfer VALUE (9, 126666666, 'DongAbank', 'Quan 12');
 INSERT INTO Transfer VALUE (10, 123613123, 'DongAbank', 'Quan 7');
@@ -283,11 +283,11 @@ delimiter ;
 
 -- call update_pass(1,"1234567890","15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");,"15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225");
 
-insert into publisher value ('London', 159753, 'London, England', '456456456', 'londonpub@gmail.com');
+insert into publisher value ('London', 159753, 'London, England', 'londonpub@gmail.com', '456456456');
 insert into book value (999888777666555, null, 200000, 'Harry Potter and the Philosophers stone', 'London', 2000,2);
 insert into book value (999888777666554, null, 200000, 'Harry Potter and the Chamber of Secrets', 'London', 2001,1);
 insert into book value (999888777666553, null, 200000, 'Harry Potter and the Prisoner of Azkaban', 'London', 2002,1);
-insert into author value (123456789, 'J', 'K', 'Rowling', 'London, England', '123123123', 'F', 'jkrowling@gmail.com');
+insert into author value (123456789, 'J', 'K', 'Rowling', 'London, England', 'jkrowling@gmail.com','123123123', 'F');
 insert into writtenby value (123456789,999888777666555);
 insert into writtenby value (123456789,999888777666554);
 insert into writtenby value (123456789,999888777666553);
